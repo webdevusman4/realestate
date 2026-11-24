@@ -407,6 +407,8 @@ export const TOWER_OFFICE = {
   phoneHref: "tel:+923209281567",
   whatsappHref: "https://wa.me/923209281567", // CONFIRM: same number on WhatsApp?
   mapsHref: "https://www.google.com/maps/search/?api=1&query=Plot+25B+Scheme+33+Deh+Songhal+Karachi",
+  /** Embeddable map (no API key). CONFIRM the pin lands on the site; send a Google Maps link or coordinates if not. */
+  mapEmbed: "https://www.google.com/maps?q=Plot+25B+Scheme+33+Deh+Songhal+Karachi&z=14&output=embed",
   email: "info@alizeeshan.pk", // CONFIRM
   hours: "Mon–Sat, 10am–7pm", // CONFIRM
 };

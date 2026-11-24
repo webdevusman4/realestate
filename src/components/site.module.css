@@ -3126,3 +3126,19 @@
     transition: none;
   }
 }
+
+/* ---------- Location map ---------- */
+.mapFrame {
+  margin-bottom: 24px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--ivory-2);
+  box-shadow: 0 24px 60px rgba(12, 26, 58, 0.14);
+}
+.mapFrame iframe {
+  display: block;
+  width: 100%;
+  height: clamp(320px, 48vw, 520px);
+  border: 0;
+}

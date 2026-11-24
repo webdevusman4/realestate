@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { LocationCard, PageHero } from "@/components/PageParts";
 import { TowerCta } from "@/components/TowerParts";
-import { TT } from "@/lib/site";
+import { TOWER_OFFICE, TT } from "@/lib/site";
 import s from "@/components/site.module.css";
 
 export const metadata: Metadata = {
@@ -23,6 +23,15 @@ export default function LocationPage() {
       />
       <section className={s.sec}>
         <div className={s.wrap} data-r>
+          <div className={s.mapFrame}>
+            <iframe
+              title="Map showing the Ali's Twin Tower site office in Scheme-33, Karachi"
+              src={TOWER_OFFICE.mapEmbed}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
           <LocationCard />
         </div>
       </section>
