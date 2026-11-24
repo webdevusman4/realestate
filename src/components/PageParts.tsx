@@ -313,11 +313,11 @@ export function Lifestyle() {
           <li key={l.id} className={s.life} data-r>
             <div className={s.lifePic}>
               {img ? (
-                <Image src={`/renders/${l.id}.jpg`} alt={`${l.title}, artist impression`} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: "cover" }} />
+                <Image src={`/renders/${l.id}.jpg`} alt={`${l.title}: representative image`} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: "cover" }} />
               ) : (
                 <Icon size={44} strokeWidth={1.3} aria-hidden="true" />
               )}
-              {img && <span className={s.lifeNote}>Artist impression</span>}
+              {img && <span className={s.lifeNote}>Representative image</span>}
             </div>
             <div className={s.lifeText}>
               <h3>{l.title}</h3>
