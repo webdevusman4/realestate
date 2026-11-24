@@ -359,22 +359,34 @@ export function LocationCard() {
   );
 }
 
-/** "The project" story text. */
+/** "The project" story: text on the left, the building render on the right (if public/hero has one). */
 export function ProjectStory() {
+  const image = fs.existsSync(path.join(process.cwd(), "public", "hero", "twin-tower-hero-mobile.jpg"));
+  const [lead, ...rest] = TWIN_TOWER.story;
   return (
     <section className={s.sec}>
-      <div className={`${s.wrap} ${s.storyGrid}`}>
-        <div data-r>
+      <div className={`${s.wrap} ${image ? s.storySplit : s.storyGrid}`}>
+        <div className={s.storyCopy} data-r>
           <p className={s.eyebrow}>The project</p>
           <h2 className={s.h2}>A landmark in Scheme-33.</h2>
-        </div>
-        <div className={s.storyText} data-r>
-          {TWIN_TOWER.story.map((p) => (
+          <p className={s.storyLead}>{lead}</p>
+          {rest.map((p) => (
             <p key={p} className={s.body}>
               {p}
             </p>
           ))}
+          <ul className={s.uniq}>
+            {["Scheme-33, Karachi", "3, 4 & 5 room apartments", "8 speedy lifts", "Showroom"].map((f) => (
+              <li key={f}>{f}</li>
+            ))}
+          </ul>
         </div>
+        {image && (
+          <figure className={s.storyFig} data-r>
+            <Image src="/hero/twin-tower-hero-mobile.jpg" alt="Ali's Twin Tower at dusk, artist impression" fill sizes="(max-width: 900px) 100vw, 40vw" style={{ objectFit: "cover", objectPosition: "60% 40%" }} />
+            <figcaption>Artist impression</figcaption>
+          </figure>
+        )}
       </div>
     </section>
   );

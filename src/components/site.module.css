@@ -2885,7 +2885,7 @@
   display: flex;
   align-items: flex-end;
   min-height: clamp(560px, 62vw, 800px);
-  padding: calc(var(--header-h) + 40px) 0 clamp(36px, 4vw, 56px);
+  padding: calc(var(--header-h) + 40px) 0 clamp(100px, 9vw, 128px);
 }
 .tHeroImg .tStage > .tHeroGrid {
   padding-bottom: 0;
@@ -2925,7 +2925,7 @@
   .tHeroImg .tStage {
     display: block;
     min-height: 0;
-    padding: 0 0 8px;
+    padding: 0 0 48px;
   }
   .tHeroBg {
     position: relative;
@@ -2941,5 +2941,108 @@
   .tHeroImg .tHeroGrid {
     position: relative;
     margin-top: -22vw;
+  }
+}
+
+/* ---------- Below the hero: floating stats card, navy marquee, story with render ---------- */
+.tStatsWrap {
+  position: relative;
+  z-index: 2;
+  margin-top: -64px;
+  padding-bottom: clamp(40px, 5vw, 64px);
+}
+.tStatsCard {
+  padding: 0 12px;
+  border: 1px solid rgba(235, 203, 126, 0.3);
+  border-radius: var(--r-lg);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.4);
+}
+.tStatsCard .stats {
+  margin: 0;
+  border-top: 0;
+}
+.tStatsCard .stats > div,
+.tStatsCard .stats > div:first-child {
+  padding: 28px 24px 30px 28px;
+  border-left: 1px solid rgba(235, 203, 126, 0.18);
+}
+.tStatsCard .stats > div:first-child {
+  border-left: 0;
+}
+.tHero:not(.tHeroImg) .tStatsWrap {
+  margin-top: 0;
+}
+
+.marqueeNavy {
+  padding: 18px 0;
+  background: var(--navy-800);
+  border-block-color: rgba(235, 203, 126, 0.25);
+}
+.marqueeNavy .marqueeTrack li {
+  font-size: clamp(14px, 1.4vw, 17px);
+  letter-spacing: 0.16em;
+  font-weight: 560;
+  color: var(--gold-200);
+}
+
+.storySplit {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+.storyCopy {
+  display: grid;
+  gap: 18px;
+  justify-items: start;
+}
+.storyCopy .uniq {
+  margin-top: 6px;
+}
+.storyLead {
+  font-size: clamp(18px, 1.5vw, 21px);
+  line-height: 1.65;
+  color: var(--ink-800);
+}
+.storyFig {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(201, 154, 63, 0.55);
+  box-shadow: 0 0 0 8px var(--ivory), 0 0 0 9px rgba(201, 154, 63, 0.4), 0 40px 80px rgba(12, 26, 58, 0.3);
+}
+.storyFig figcaption {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(12, 26, 58, 0.75);
+  color: var(--ivory);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+@media (max-width: 900px) {
+  .storySplit {
+    grid-template-columns: 1fr;
+  }
+  .storyFig {
+    max-width: 520px;
+    box-shadow: 0 0 0 6px var(--ivory), 0 0 0 7px rgba(201, 154, 63, 0.4), 0 30px 60px rgba(12, 26, 58, 0.25);
+  }
+  .tStatsWrap {
+    margin-top: -24px;
+  }
+  .tStatsCard .stats > div,
+  .tStatsCard .stats > div:first-child {
+    padding: 22px 18px;
+  }
+  .tStatsCard .stats > div:nth-child(odd) {
+    border-left: 0;
   }
 }

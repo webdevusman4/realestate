@@ -19,7 +19,7 @@ export default function TowerHome() {
   return (
     <>
       <TowerHero />
-      <Marquee items={TOWER_KEYWORDS} />
+      <Marquee items={TOWER_KEYWORDS} navy />
       <ProjectStory />
 
       <section className={`${s.sec} ${s.secTint}`}>

@@ -5,10 +5,10 @@ import { KEYWORDS, NAV, PROMISES, SERVICES, SITE, TT } from "@/lib/site";
 import { WhatsAppLogo } from "./icons";
 import s from "./site.module.css";
 
-export function Marquee({ items = KEYWORDS }: { items?: readonly string[] }) {
+export function Marquee({ items = KEYWORDS, navy }: { items?: readonly string[]; navy?: boolean }) {
   const row = [...items, ...items];
   return (
-    <div className={s.marquee} aria-label="What we build">
+    <div className={`${s.marquee} ${navy ? s.marqueeNavy : ""}`} aria-label="What we build">
       <ul className={s.marqueeTrack}>
         {row.map((k, i) => (
           <li key={i} aria-hidden={i >= items.length ? "true" : undefined}>

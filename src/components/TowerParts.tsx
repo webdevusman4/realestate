@@ -140,8 +140,10 @@ export function TowerHero() {
           </div>
         </div>
       </div>
-      <div className={s.wrap}>
-        <Stats stats={TOWER_STATS} />
+      <div className={`${s.wrap} ${s.tStatsWrap}`}>
+        <div className={s.tStatsCard}>
+          <Stats stats={TOWER_STATS} />
+        </div>
       </div>
     </section>
   );
