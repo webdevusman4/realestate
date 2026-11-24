@@ -400,7 +400,7 @@ export function Faq() {
   return (
     <section className={`${s.sec} ${s.secTint}`} aria-labelledby="faq-title">
       <div className={`${s.wrap} ${s.faqGrid}`}>
-        <div data-r>
+        <div className={s.faqSide} data-r>
           <p className={s.eyebrow}>Questions</p>
           <h2 id="faq-title" className={s.h2}>
             Good to know before you visit.

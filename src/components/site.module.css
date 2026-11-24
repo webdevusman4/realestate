@@ -3045,3 +3045,14 @@
 .faqGrid .body {
   margin-top: 18px;
 }
+
+/* Heading side stays in view while the questions scroll past (wide screens). */
+.faqSide {
+  position: sticky;
+  top: calc(var(--header-h) + 32px);
+}
+@media (max-width: 900px) {
+  .faqSide {
+    position: static;
+  }
+}
