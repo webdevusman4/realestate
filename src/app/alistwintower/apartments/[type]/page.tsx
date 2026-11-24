@@ -86,14 +86,24 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
                 <b>{rs(apt.total)}</b>
               </div>
             </div>
-            <dl className={s.specs}>
-              {apt.rooms_list.map((r) => (
-                <div key={r.name}>
-                  <dt>{r.name}</dt>
-                  <dd>{r.size}</dd>
-                </div>
-              ))}
-            </dl>
+            <ul className={s.glance}>
+              <li>
+                <b>{apt.rooms}</b>
+                <span>rooms</span>
+              </li>
+              <li>
+                <b>{apt.beds}</b>
+                <span>bedroom{apt.beds > 1 ? "s" : ""}</span>
+              </li>
+              <li>
+                <b>{apt.baths}</b>
+                <span>bathrooms</span>
+              </li>
+              <li>
+                <b>{PLANS[apt.slug].rooms.filter((r) => ["terrace", "balcony"].includes(r.id)).length}</b>
+                <span>terrace / balcony</span>
+              </li>
+            </ul>
           </div>
         </div>
       </section>
@@ -105,7 +115,7 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
               <p className={s.eyebrow}>Room by room</p>
               <h2 className={s.h2}>Every room, up close.</h2>
             </div>
-            <p className={s.body}>Each space from the {apt.type} plan, with its size.</p>
+            <p className={s.body}>Every space in {apt.type} with its size from the plan. Photos are representative.</p>
           </div>
           <RoomGallery apt={apt} />
         </div>

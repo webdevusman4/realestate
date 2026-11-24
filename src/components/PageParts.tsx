@@ -22,7 +22,7 @@ import {
   Zap,
 } from "lucide-react";
 import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, TOWER_FAQ, TOWER_OFFICE, TT, TWIN_TOWER, rs, waLink, type Apartment } from "@/lib/site";
-import { PLANS } from "@/lib/plans";
+import { PLANS, ROOM_PHOTOS, roomKind, type RoomKind } from "@/lib/plans";
 import { WhatsAppLogo } from "./icons";
 import s from "./site.module.css";
 
@@ -230,28 +230,36 @@ export function BookBand({ title, message = "Hello, I would like to visit Ali's 
 }
 
 
-/** Room-by-room section: each room cut out of the plan, with its size. */
+/** Room-by-room section: a photo for each room with its name and size, and the room as cut from the plan. */
 export function RoomGallery({ apt }: { apt: Apartment }) {
   const plan = PLANS[apt.slug];
+  const used: Partial<Record<RoomKind, number>> = {};
   return (
     <ul className={s.roomGrid}>
-      {plan.rooms.map((r) => (
-        <li key={r.id} className={s.roomCard} data-r>
-          <div className={s.roomPic}>
-            <Image
-              src={`/plans/${apt.slug}/${r.id}.jpg`}
-              alt={`${r.name}${r.size ? `, ${r.size}` : ""}: close-up of the ${apt.type} floor plan`}
-              fill
-              sizes="(max-width: 560px) 100vw, (max-width: 1080px) 50vw, 33vw"
-              style={{ objectFit: "contain" }}
-            />
-          </div>
-          <div className={s.roomText}>
-            <h3>{r.name}</h3>
-            {r.size && <p>{r.size}</p>}
-          </div>
-        </li>
-      ))}
+      {plan.rooms.map((r) => {
+        const kind = roomKind(r.id);
+        const n = used[kind] ?? 0;
+        used[kind] = n + 1;
+        const list = ROOM_PHOTOS[kind];
+        const photo = list[n % list.length];
+        return (
+          <li key={r.id} className={s.roomCard} data-r>
+            <div className={s.roomPhoto}>
+              <Image src={photo} alt={`${r.name}: representative photo`} fill sizes="(max-width: 560px) 100vw, (max-width: 1080px) 50vw, 33vw" style={{ objectFit: "cover" }} />
+              <span className={s.lifeNote}>Representative image</span>
+            </div>
+            <div className={s.roomText}>
+              <div>
+                <h3>{r.name}</h3>
+                {(r.size || kind === "living") && <p>{r.size ?? "Open plan"}</p>}
+              </div>
+              <div className={s.roomPlanThumb} title="This room on the plan">
+                <Image src={`/plans/${apt.slug}/${r.id}.jpg`} alt={`${r.name} on the ${apt.type} floor plan`} fill sizes="96px" style={{ objectFit: "contain" }} />
+              </div>
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }

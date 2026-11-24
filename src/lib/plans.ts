@@ -64,3 +64,22 @@ export const PLANS: Record<"type-a" | "type-b" | "type-c", PlanSet> = {
     ],
   },
 };
+
+export type RoomKind = "bed" | "bath" | "drawing" | "living" | "lounge" | "terrace" | "balcony";
+
+export const roomKind = (id: string): RoomKind =>
+  id.startsWith("bed") ? "bed" : id.startsWith("bath") ? "bath" : (id as RoomKind);
+
+/**
+ * Stock photos shown for each kind of room (representative only, see public/renders and public/rooms CREDITS.md).
+ * When several rooms of one kind exist (3 bedrooms, 4 baths) the photos are used in turn.
+ */
+export const ROOM_PHOTOS: Record<RoomKind, string[]> = {
+  bed: ["/renders/bedroom.jpg", "/rooms/bedroom-2.jpg", "/rooms/bedroom-3.jpg"],
+  bath: ["/renders/washroom.jpg", "/rooms/bath-2.jpg", "/rooms/bath-3.jpg", "/rooms/bath-4.jpg"],
+  drawing: ["/renders/drawing.jpg"],
+  living: ["/renders/kitchen.jpg", "/rooms/kitchen-2.jpg"],
+  lounge: ["/renders/living.jpg", "/rooms/lounge-2.jpg"],
+  terrace: ["/rooms/terrace.jpg"],
+  balcony: ["/rooms/balcony.jpg"],
+};
