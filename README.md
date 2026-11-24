@@ -35,7 +35,7 @@ npm run build      # production build (fully static)
 
 **Ali Zeeshan Enterprises** is the company portfolio. **Ali's Twin Tower** is a separate project site with its own
 logo, navy theme, header, footer and mobile bar. Clients are expected to spend most of their time on the project site.
-Each project gets its own section like this (the next project can copy `src/app/alis-twin-tower/`).
+Each project gets its own section like this (the next project can copy `src/app/alistwintower/`).
 
 | Company site | Content |
 | --- | --- |
@@ -45,16 +45,19 @@ Each project gets its own section like this (the next project can copy `src/app/
 
 | Project site | Content |
 | --- | --- |
-| `/alis-twin-tower` | Hero with logo, story, highlights, apartment cards, payment snapshot, lifestyle, amenities, location |
-| `/alis-twin-tower/apartments` | Type A/B/C cards and comparison table |
-| `/alis-twin-tower/apartments/type-a` (`-b`, `-c`) | Floor plan, room-by-room close-ups, full payment schedule |
-| `/alis-twin-tower/payment-plans` | All three payment schedules, extra charges and notes |
-| `/alis-twin-tower/lifestyle` | Room cards and salient features |
-| `/alis-twin-tower/location` | Site office, Google Maps link |
-| `/alis-twin-tower/contact` | Book a visit form (tagged "Ali's Twin Tower site") |
+| `/alistwintower` | Hero with logo, story, highlights, apartment cards, payment snapshot, lifestyle, amenities, location |
+| `/alistwintower/apartments` | Type A/B/C cards and comparison table |
+| `/alistwintower/apartments/type-a` (`-b`, `-c`) | Floor plan, room-by-room close-ups, full payment schedule |
+| `/alistwintower/payment-plans` | All three payment schedules, extra charges and notes |
+| `/alistwintower/lifestyle` | Room cards and salient features |
+| `/alistwintower/location` | Site office, Google Maps link |
+| `/alistwintower/contact` | Book a visit form (tagged "Ali's Twin Tower site") |
 
-Old `/projects/alis-twin-tower/...` links redirect to the new paths. The project could later move to its own domain
-or subdomain. Project data lives in `src/lib/site.ts` (`TWIN_TOWER`, `APARTMENTS`, `TOWER_OFFICE`, `TOWER_NAV`);
+Old `/projects/alis-twin-tower/...` and `/alis-twin-tower/...` links redirect to the new paths.
+
+**Subdomain later** (`alistwintower.<company domain>`): the project's base path is the single constant `TT` in
+`src/lib/site.ts`. Moving it to a subdomain means adding the domain in Netlify and a host-based rewrite to
+`/alistwintower`, then setting `TT` to `""` for that deployment. Project data lives in `src/lib/site.ts` (`TWIN_TOWER`, `APARTMENTS`, `TOWER_OFFICE`, `TOWER_NAV`);
 the logo files are in `public/brand/twin-tower/`.
 
 ## Placeholders to replace before going live

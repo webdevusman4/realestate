@@ -135,7 +135,7 @@ export const PROJECTS: {
     image: "/photos/apartments.jpg",
     alt: "Apartment building with balconies",
     pos: "50% 40%",
-    href: "/projects/alis-twin-tower", // CONFIRM: swap in the real render or site photo
+    href: "/alistwintower", // CONFIRM: swap in the real render or site photo
   },
   { name: "Gold Crest Villa", type: "Residential", meta: "1 Kanal · 6 bedrooms · Turnkey", image: "/photos/villa-pool.jpg", alt: "Modern villa with a pool and lawn" },
   { name: "Skyline Business Centre", type: "Commercial", meta: "9 floors · Offices & retail", image: "/photos/office-glass.jpg", alt: "Mid-rise office building with a glass facade" },
@@ -178,7 +178,7 @@ export const PROJECT_TYPES = [
  * ---------------------------------------------------------------------------------------------- */
 
 export const TWIN_TOWER = {
-  slug: "alis-twin-tower",
+  slug: "alistwintower",
   name: "Ali's Twin Tower",
   short: "Twin Tower",
   tagline: "Where Prestige Lives, Future Belongs.",
@@ -381,7 +381,7 @@ export const PROMISES = [
 ] as const;
 
 /** Base path of the Ali's Twin Tower project site. */
-export const TT = "/alis-twin-tower";
+export const TT = "/alistwintower";
 
 export const TOWER_NAV = [
   { label: "Overview", href: TT },

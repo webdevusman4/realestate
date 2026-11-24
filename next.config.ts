@@ -10,9 +10,12 @@ const securityHeaders = [
 const nextConfig: NextConfig = {
   poweredByHeader: false,
   async redirects() {
+    // Earlier paths of the project site (kept so old links keep working).
     return [
-      { source: "/projects/alis-twin-tower", destination: "/alis-twin-tower", permanent: true },
-      { source: "/projects/alis-twin-tower/:type", destination: "/alis-twin-tower/apartments/:type", permanent: true },
+      { source: "/projects/alis-twin-tower", destination: "/alistwintower", permanent: true },
+      { source: "/projects/alis-twin-tower/:type", destination: "/alistwintower/apartments/:type", permanent: true },
+      { source: "/alis-twin-tower", destination: "/alistwintower", permanent: true },
+      { source: "/alis-twin-tower/:path*", destination: "/alistwintower/:path*", permanent: true },
     ];
   },
   async headers() {
