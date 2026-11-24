@@ -3,6 +3,18 @@
 import { useState } from "react";
 import { ArrowRight, CircleCheck, LoaderCircle } from "lucide-react";
 import { PROJECT_TYPES, SITE } from "@/lib/site";
+
+type FormProps = {
+  title?: string;
+  /** Options for the "interested in" list. */
+  types?: readonly string[];
+  /** Where the enquiry came from; sent with the form. */
+  source?: string;
+  /** Show the plot size and city fields (for building enquiries). */
+  plot?: boolean;
+  phone?: { label: string; href: string };
+  whatsappHref?: string;
+};
 import s from "./site.module.css";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -11,7 +23,14 @@ type Status = "idle" | "sending" | "sent" | "error";
  * Free-estimate form. Posts to Netlify Forms (registered in public/__forms.html). On any other host the post
  * fails and the visitor is offered the phone number and WhatsApp instead.
  */
-export default function EstimateForm() {
+export default function EstimateForm({
+  title = "Book a visit or ask for prices",
+  types = PROJECT_TYPES,
+  source = "Company site",
+  plot = true,
+  phone = { label: SITE.phone, href: SITE.phoneHref },
+  whatsappHref = SITE.whatsappHref,
+}: FormProps) {
   const [status, setStatus] = useState<Status>("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -49,8 +68,9 @@ export default function EstimateForm() {
 
   return (
     <form className={s.form} onSubmit={onSubmit} name="estimate">
-      <h3>Book a visit or ask for prices</h3>
+      <h3>{title}</h3>
       <p className={s.formNote}>Fields marked * are required.</p>
+      <input type="hidden" name="source" value={source} />
       <p hidden>
         <label>
           Leave this empty: <input name="company" tabIndex={-1} autoComplete="off" />
@@ -71,16 +91,18 @@ export default function EstimateForm() {
             <option value="" disabled>
               Choose one
             </option>
-            {PROJECT_TYPES.map((t) => (
+            {types.map((t) => (
               <option key={t}>{t}</option>
             ))}
           </select>
         </label>
-        <label>
-          <span>Plot size (if building)</span>
-          <input name="plot" placeholder="e.g. 10 Marla, 1 Kanal" />
-        </label>
-        <label className={s.fieldWide}>
+        {plot && (
+          <label>
+            <span>Plot size (if building)</span>
+            <input name="plot" placeholder="e.g. 10 Marla, 1 Kanal" />
+          </label>
+        )}
+        <label className={plot ? s.fieldWide : undefined}>
           <span>City / area</span>
           <input name="city" autoComplete="address-level2" placeholder="Where do you live?" />
         </label>
@@ -91,8 +113,8 @@ export default function EstimateForm() {
       </div>
       {status === "error" && (
         <p className={s.formError} role="alert">
-          We could not send the form right now. Please call <a href={SITE.phoneHref}>{SITE.phone}</a> or{" "}
-          <a href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
+          We could not send the form right now. Please call <a href={phone.href}>{phone.label}</a> or{" "}
+          <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
             message us on WhatsApp
           </a>
           .

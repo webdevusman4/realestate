@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
-import Shell from "@/components/Shell";
 import FloorPlan from "@/components/FloorPlan";
 import { BookBand, PageHero, PaymentSchedule, RoomGallery } from "@/components/PageParts";
 import { planFor } from "@/lib/plans";
-import { APARTMENTS, TWIN_TOWER, rs } from "@/lib/site";
+import { APARTMENTS, TT, rs } from "@/lib/site";
 import s from "@/components/site.module.css";
 
 type Params = { type: string };
@@ -22,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const apt = APARTMENTS.find((a) => a.slug === type);
   if (!apt) return {};
   return {
-    title: `${apt.type}: ${apt.rooms}-room apartment | ${TWIN_TOWER.name}`,
+    title: `${apt.type}: ${apt.rooms}-room apartment`,
     description: `${apt.headline} Total cost ${rs(apt.total)}. Floor plan and full payment schedule.`,
   };
 }
@@ -34,16 +33,15 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
   const others = APARTMENTS.filter((a) => a.slug !== apt.slug);
 
   return (
-    <Shell>
+    <>
       <PageHero
         variant="tower"
-        eyebrow={`${TWIN_TOWER.name} · ${apt.rooms} rooms`}
+        eyebrow={`${apt.rooms} rooms · ${apt.beds} bedroom${apt.beds > 1 ? "s" : ""}`}
         title={apt.type}
         text={apt.headline}
         crumbs={[
-          { label: "Home", href: "/" },
-          { label: "Projects", href: "/projects" },
-          { label: TWIN_TOWER.name, href: `/projects/${TWIN_TOWER.slug}` },
+          { label: "Overview", href: TT },
+          { label: "Apartments", href: `${TT}/apartments` },
           { label: apt.type },
         ]}
       />
@@ -121,15 +119,15 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
               <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Other types</p>
               <h2 className={s.h2}>See the other layouts.</h2>
             </div>
-            <Link className={s.textLink} href={`/projects/${TWIN_TOWER.slug}`}>
+            <Link className={s.textLink} href={`${TT}/apartments`}>
               <ArrowLeft size={18} aria-hidden="true" />
-              All {TWIN_TOWER.short} apartments
+              All apartments
             </Link>
           </div>
           <ul className={s.otherTypes}>
             {others.map((o) => (
               <li key={o.slug} data-r>
-                <Link href={`/projects/${TWIN_TOWER.slug}/${o.slug}`}>
+                <Link href={`${TT}/apartments/${o.slug}`}>
                   <span>
                     <b>{o.type}</b>
                     {o.beds} bed · {o.rooms} rooms
@@ -142,6 +140,6 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
           </ul>
         </div>
       </section>
-    </Shell>
+    </>
   );
 }

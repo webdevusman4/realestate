@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import Shell from "@/components/Shell";
-import Stats from "@/components/Stats";
 import Process from "@/components/Process";
 import { PageHero } from "@/components/PageParts";
 import { About, CtaBand, Why } from "@/components/Sections";
-import s from "@/components/site.module.css";
 
 export const metadata: Metadata = {
   title: "About us",
@@ -21,11 +19,6 @@ export default function AboutPage() {
         crumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
       />
       <About />
-      <section className={s.statsBand} aria-label="Our numbers">
-        <div className={s.wrap}>
-          <Stats />
-        </div>
-      </section>
       <Why />
       <Process />
       <CtaBand />

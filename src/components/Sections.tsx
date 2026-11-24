@@ -1,17 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, CalendarCheck, Camera, Check, Clock, Mail, MapPin, Phone, ReceiptText, ShieldCheck } from "lucide-react";
-import { KEYWORDS, NAV, PROMISES, SERVICES, SITE } from "@/lib/site";
+import { KEYWORDS, NAV, PROMISES, SERVICES, SITE, TT } from "@/lib/site";
 import { WhatsAppLogo } from "./icons";
 import s from "./site.module.css";
 
-export function Marquee() {
-  const row = [...KEYWORDS, ...KEYWORDS];
+export function Marquee({ items = KEYWORDS }: { items?: readonly string[] }) {
+  const row = [...items, ...items];
   return (
     <div className={s.marquee} aria-label="What we build">
       <ul className={s.marqueeTrack}>
         {row.map((k, i) => (
-          <li key={i} aria-hidden={i >= KEYWORDS.length ? "true" : undefined}>
+          <li key={i} aria-hidden={i >= items.length ? "true" : undefined}>
             {k}
             <i aria-hidden="true" />
           </li>
@@ -47,9 +47,9 @@ export function About() {
           <div className={s.badge}>
             <b>Karachi</b>
             <span>
-              Scheme-33
+              Builders &amp;
               <br />
-              Twin Tower
+              Developers
             </span>
           </div>
         </div>
@@ -199,7 +199,7 @@ export function ContactDetails() {
     { icon: Phone, label: "Call", value: SITE.phone, href: SITE.phoneHref },
     { icon: Mail, label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
     { icon: Clock, label: "Office hours", value: SITE.hours },
-    { icon: MapPin, label: "Site office", value: SITE.address, href: SITE.mapsHref },
+    { icon: MapPin, label: "Based in", value: SITE.area },
   ];
   return (
     <div className={s.contactCard}>
@@ -255,7 +255,7 @@ export function Footer() {
               </li>
             ))}
             <li>
-              <Link href="/projects/alis-twin-tower">Ali&apos;s Twin Tower</Link>
+              <Link href={TT}>Ali&apos;s Twin Tower</Link>
             </li>
           </ul>
         </div>
@@ -274,7 +274,6 @@ export function Footer() {
               </a>
             </li>
             <li>{SITE.hours}</li>
-            <li>{SITE.address}</li>
           </ul>
         </div>
       </div>
@@ -288,23 +287,31 @@ export function Footer() {
   );
 }
 
-export function MobileBar() {
+export function MobileBar({
+  phoneHref = SITE.phoneHref,
+  whatsappHref = SITE.whatsappHref,
+  cta = { label: "Book a visit", href: "/contact" },
+}: {
+  phoneHref?: string;
+  whatsappHref?: string;
+  cta?: { label: string; href: string };
+}) {
   return (
     <>
-      <a className={s.fab} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+      <a className={s.fab} href={whatsappHref} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
         <WhatsAppLogo size={28} />
       </a>
       <nav className={s.mobileBar} aria-label="Quick contact">
-        <a href={SITE.phoneHref}>
+        <a href={phoneHref}>
           <Phone size={18} aria-hidden="true" />
           Call
         </a>
-        <a href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
+        <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
           <WhatsAppLogo size={18} />
           WhatsApp
         </a>
-        <Link href="/contact" className={s.mobileBarCta}>
-          Book a visit
+        <Link href={cta.href} className={s.mobileBarCta}>
+          {cta.label}
         </Link>
       </nav>
     </>

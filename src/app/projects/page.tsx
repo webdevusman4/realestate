@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Shell from "@/components/Shell";
-import { PageHero, TwinTowerFeature } from "@/components/PageParts";
+import { PageHero, ProjectTeaser } from "@/components/PageParts";
 import { CtaBand } from "@/components/Sections";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function ProjectsPage() {
         text="Our current project, Ali's Twin Tower, in Scheme-33, Karachi."
         crumbs={[{ label: "Home", href: "/" }, { label: "Projects" }]}
       />
-      <TwinTowerFeature />
+      <ProjectTeaser />
       <CtaBand />
     </Shell>
   );

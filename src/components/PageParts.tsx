@@ -21,7 +21,7 @@ import {
   ArrowUpDown,
   Zap,
 } from "lucide-react";
-import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, SITE, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
+import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, TOWER_OFFICE, TT, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
 import { planFor } from "@/lib/plans";
 import FloorPlan from "./FloorPlan";
 import { WhatsAppLogo } from "./icons";
@@ -72,48 +72,32 @@ export function TowerWordmark({ size = "md" }: { size?: "md" | "lg" }) {
   );
 }
 
-/** Home page feature block for the new project. */
-export function TwinTowerFeature() {
+/** Company-site teaser for the Twin Tower project. Details live on the project site (TT). */
+export function ProjectTeaser() {
   return (
     <section className={`${s.sec} ${s.secTower}`} aria-labelledby="tt-title">
       <div className={`${s.wrap} ${s.ttGrid}`}>
         <div className={s.ttCopy} data-r>
-          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>New project</p>
-          <TowerWordmark size="lg" />
+          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Our current project</p>
           <h2 id="tt-title" className={s.ttTitle}>
-            {TWIN_TOWER.tagline}
+            {TWIN_TOWER.name}
           </h2>
+          <p className={s.ttTag}>{TWIN_TOWER.tagline}</p>
           <p className={s.lead}>{TWIN_TOWER.summary}</p>
-          <ul className={s.ttFacts}>
-            {APARTMENTS.map((a) => (
-              <li key={a.slug}>
-                <b>{a.type}</b>
-                <span>
-                  {a.beds} bed · {a.rooms} rooms
-                </span>
-                <em>{rs(a.total)}</em>
-              </li>
-            ))}
-          </ul>
           <div className={s.ctaRow}>
-            <Link className={`${s.btn} ${s.btnGold}`} href={`/projects/${TWIN_TOWER.slug}`}>
-              See floor plans &amp; prices
+            <Link className={`${s.btn} ${s.btnGold}`} href={TT}>
+              Visit the project site
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
-            <a className={`${s.btn} ${s.btnGhost}`} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
-              <WhatsAppLogo size={18} />
-              Ask on WhatsApp
+            <a className={`${s.btn} ${s.btnGhost}`} href={TOWER_OFFICE.phoneHref}>
+              <Phone size={18} aria-hidden="true" />
+              {TOWER_OFFICE.phone}
             </a>
           </div>
         </div>
-        <div className={s.ttPlans} data-r>
-          {APARTMENTS.map((a, i) => (
-            <Link key={a.slug} href={`/projects/${TWIN_TOWER.slug}/${a.slug}`} className={s.ttPlan} style={{ ["--i" as string]: i }}>
-              <FloorPlan plan={planFor(a.slug)} label={a.planAlt} fit />
-              <span>{a.type}</span>
-            </Link>
-          ))}
-        </div>
+        <Link href={TT} className={s.teaserLogo} data-r aria-label="Open the Ali's Twin Tower project site">
+          <Image src="/brand/twin-tower/logo-dark.png" alt="Ali's Twin Tower" width={1513} height={1178} sizes="(max-width: 900px) 70vw, 34vw" />
+        </Link>
       </div>
     </section>
   );
@@ -125,7 +109,7 @@ export function ApartmentCards() {
     <div className={s.aptGrid}>
       {APARTMENTS.map((a, i) => (
         <article key={a.slug} className={s.apt} data-r>
-          <Link href={`/projects/${TWIN_TOWER.slug}/${a.slug}`} className={s.aptPlan} aria-label={`${a.type} floor plan`}>
+          <Link href={`${TT}/apartments/${a.slug}`} className={s.aptPlan} aria-label={`${a.type} floor plan`}>
             <FloorPlan plan={planFor(a.slug)} label={a.planAlt} fit />
             <span className={s.aptNo}>{String(i + 1).padStart(2, "0")}</span>
           </Link>
@@ -145,7 +129,7 @@ export function ApartmentCards() {
               <small>Total cost</small>
               <b>{rs(a.total)}</b>
             </div>
-            <Link className={s.textLink} href={`/projects/${TWIN_TOWER.slug}/${a.slug}`}>
+            <Link className={s.textLink} href={`${TT}/apartments/${a.slug}`}>
               Floor plan &amp; payment plan
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
@@ -157,9 +141,9 @@ export function ApartmentCards() {
 }
 
 /** Payment schedule table plus extra charges and the important notes. */
-export function PaymentSchedule({ apt }: { apt: Apartment }) {
+export function PaymentSchedule({ apt, aside = true }: { apt: Apartment; aside?: boolean }) {
   return (
-    <div className={s.pay}>
+    <div className={aside ? s.pay : s.payOne}>
       <table className={s.payTable}>
         <caption className={s.srOnly}>{apt.type} payment schedule</caption>
         <thead>
@@ -192,7 +176,15 @@ export function PaymentSchedule({ apt }: { apt: Apartment }) {
         </tfoot>
       </table>
 
-      <div className={s.payAside}>
+      {aside && <PaymentNotes />}
+    </div>
+  );
+}
+
+/** Extra charges and the important notes (same for every type). */
+export function PaymentNotes() {
+  return (
+    <div className={s.payAside}>
         <div className={s.payBox}>
           <h3>Extra charges</h3>
           <ul>
@@ -212,7 +204,6 @@ export function PaymentSchedule({ apt }: { apt: Apartment }) {
             ))}
           </ol>
         </div>
-      </div>
     </div>
   );
 }
@@ -226,11 +217,11 @@ export function BookBand({ title }: { title: string }) {
         <p>Our team will explain the plan and the payment schedule and arrange a visit.</p>
       </div>
       <div className={s.ctaRow}>
-        <a className={`${s.btn} ${s.btnGold}`} href={SITE.phoneHref}>
+        <a className={`${s.btn} ${s.btnGold}`} href={TOWER_OFFICE.phoneHref}>
           <Phone size={18} aria-hidden="true" />
-          Call {SITE.phone}
+          Call {TOWER_OFFICE.phone}
         </a>
-        <a className={`${s.btn} ${s.btnGhost}`} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
+        <a className={`${s.btn} ${s.btnGhost}`} href={TOWER_OFFICE.whatsappHref} target="_blank" rel="noopener noreferrer">
           <WhatsAppLogo size={18} />
           WhatsApp
         </a>
@@ -345,17 +336,17 @@ export function LocationCard() {
       <div className={s.locText}>
         <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Site office</p>
         <h3>{TWIN_TOWER.name}</h3>
-        <p>{SITE.address}</p>
+        <p>{TOWER_OFFICE.address}</p>
         <p>
-          Mobile: <a href={SITE.phoneHref}>{SITE.phone}</a>
+          Mobile: <a href={TOWER_OFFICE.phoneHref}>{TOWER_OFFICE.phone}</a>
         </p>
       </div>
       <div className={s.ctaRow}>
-        <a className={`${s.btn} ${s.btnGold}`} href={SITE.mapsHref} target="_blank" rel="noopener noreferrer">
+        <a className={`${s.btn} ${s.btnGold}`} href={TOWER_OFFICE.mapsHref} target="_blank" rel="noopener noreferrer">
           <MapPin size={18} aria-hidden="true" />
           Open in Google Maps
         </a>
-        <a className={`${s.btn} ${s.btnGhost}`} href={SITE.phoneHref}>
+        <a className={`${s.btn} ${s.btnGhost}`} href={TOWER_OFFICE.phoneHref}>
           <Phone size={18} aria-hidden="true" />
           Call
         </a>

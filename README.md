@@ -31,19 +31,31 @@ npm run build      # production build (fully static)
   `prefers-reduced-motion`.
 - **Phones**: full-screen menu and a fixed Call / WhatsApp / Free estimate bar.
 
-## Pages
+## Two sites in one app
 
-| Route | Content |
+**Ali Zeeshan Enterprises** is the company portfolio. **Ali's Twin Tower** is a separate project site with its own
+logo, navy theme, header, footer and mobile bar. Clients are expected to spend most of their time on the project site.
+Each project gets its own section like this (the next project can copy `src/app/alis-twin-tower/`).
+
+| Company site | Content |
 | --- | --- |
-| `/` | Hero, marquee, Twin Tower feature, salient features, About, Services, Why us, CTA |
-| `/about` | About, stats, Why us, Process |
-| `/services` | 6 services, Process |
-| `/projects` | Twin Tower feature + filterable project gallery |
-| `/projects/alis-twin-tower` | The project story, highlights, Type A/B/C cards, comparison, "Unmatched lifestyle" room cards, salient features, site office + map |
-| `/projects/alis-twin-tower/type-a` (`-b`, `-c`) | Floor plan, room sizes, full payment schedule, extra charges, notes |
-| `/contact` | Details + free-estimate form |
+| `/` | Hero, marquee, current-project teaser, About, Services, Why us |
+| `/about`, `/services`, `/contact` | Company pages |
+| `/projects` | Project list (links to the project site) |
 
-Twin Tower prices, plans and payment schedules live in `src/lib/site.ts` (`APARTMENTS`, `EXTRA_CHARGES`, `PAYMENT_NOTES`).
+| Project site | Content |
+| --- | --- |
+| `/alis-twin-tower` | Hero with logo, story, highlights, apartment cards, payment snapshot, lifestyle, amenities, location |
+| `/alis-twin-tower/apartments` | Type A/B/C cards and comparison table |
+| `/alis-twin-tower/apartments/type-a` (`-b`, `-c`) | Floor plan, room-by-room close-ups, full payment schedule |
+| `/alis-twin-tower/payment-plans` | All three payment schedules, extra charges and notes |
+| `/alis-twin-tower/lifestyle` | Room cards and salient features |
+| `/alis-twin-tower/location` | Site office, Google Maps link |
+| `/alis-twin-tower/contact` | Book a visit form (tagged "Ali's Twin Tower site") |
+
+Old `/projects/alis-twin-tower/...` links redirect to the new paths. The project could later move to its own domain
+or subdomain. Project data lives in `src/lib/site.ts` (`TWIN_TOWER`, `APARTMENTS`, `TOWER_OFFICE`, `TOWER_NAV`);
+the logo files are in `public/brand/twin-tower/`.
 
 ## Placeholders to replace before going live
 

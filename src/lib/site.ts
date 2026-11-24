@@ -9,15 +9,13 @@ export const SITE = {
   tagline: "Builders & Developers",
   url: "https://alizeeshan.example", // CONFIRM: real domain
   description:
-    "Ali Zeeshan Enterprises is a professionally managed firm behind Ali's Twin Tower, ultra luxury 3, 4 and 5 room apartments in Scheme-33, Karachi.",
-  phone: "+92 320 9281567", // from the brochure (site office mobile)
+    "Ali Zeeshan Enterprises is a professionally managed business firm in Karachi, committed to quality products, reliable services and timely delivery.",
+  phone: "+92 320 9281567", // CONFIRM: this is the Twin Tower site office mobile from the brochure
   phoneHref: "tel:+923209281567",
   whatsappHref: "https://wa.me/923209281567", // CONFIRM: same number on WhatsApp?
   email: "info@alizeeshan.pk", // CONFIRM
   hours: "Mon–Sat, 10am–7pm", // CONFIRM
   area: "Karachi",
-  address: "Plot 25B, Scheme-33, Deh Songhal, Karachi", // from the brochure; CONFIRM spelling of "Songhal"
-  mapsHref: "https://www.google.com/maps/search/?api=1&query=Plot+25B+Scheme+33+Deh+Songhal+Karachi",
 };
 
 export const NAV = [
@@ -29,14 +27,14 @@ export const NAV = [
 ] as const;
 
 /** Real facts from the Twin Tower brochure and payment schedules. */
-export const STATS = [
+export const TOWER_STATS = [
   { value: 8, suffix: "", label: "Speedy lifts" },
   { value: 3, suffix: "", label: "Apartment types" },
   { value: 60, suffix: "", label: "Monthly instalments" },
   { value: 10, suffix: "%", label: "Off on full cash payment" },
 ];
 
-export const KEYWORDS = [
+export const TOWER_KEYWORDS = [
   "3, 4 & 5 Room Apartments",
   "American Kitchen",
   "Wooden Flooring",
@@ -147,7 +145,7 @@ export const PROJECTS: {
   { name: "Lakeside Farmhouse", type: "Residential", meta: "4 Kanal · Farmhouse · Landscaping", image: "/photos/villa-dusk.jpg", alt: "Farmhouse with a pool and lawn" },
 ];
 
-export const PROMISES = [
+export const TOWER_PROMISES = [
   { icon: "quote", title: "Clear, written prices", text: "Every payment is in the schedule: booking, instalments, finishing and possession." },
   { icon: "materials", title: "Premium finishes", text: "Wooden flooring, elegant false ceilings, sleek cabinetry and tiled washrooms." },
   { icon: "updates", title: "Easy instalments", text: "60 monthly and 10 half-yearly instalments, with a bank loan option." },
@@ -236,6 +234,8 @@ export type Apartment = {
   /** Sizes read from the floor plan. */
   rooms_list: { name: string; size: string }[];
   schedule: PayRow[];
+  /** Monthly instalment (paid 60 times). */
+  monthly: number;
   cashPayable: number;
   loan: number;
   total: number;
@@ -285,6 +285,7 @@ export const APARTMENTS: Apartment[] = [
       { label: "On finishing", amount: 850000 },
       { label: "On possession", amount: 850000 },
     ],
+    monthly: 150000,
     cashPayable: 17500000,
     loan: 7500000,
     total: 25000000,
@@ -315,6 +316,7 @@ export const APARTMENTS: Apartment[] = [
       { label: "On finishing", amount: 650000 },
       { label: "On possession", amount: 681000 },
     ],
+    monthly: 100000,
     cashPayable: 12631000,
     loan: 5000000,
     total: 17631000,
@@ -345,6 +347,7 @@ export const APARTMENTS: Apartment[] = [
       { label: "On finishing", amount: 600000 }, // CONFIRM: photo is blurry; 600,000 makes the cash total add up
       { label: "On possession", amount: 414000 },
     ],
+    monthly: 75000,
     cashPayable: 9114000,
     loan: 3900000,
     total: 13014000,
@@ -352,3 +355,51 @@ export const APARTMENTS: Apartment[] = [
 ];
 
 export const rs = (n: number) => `Rs ${n.toLocaleString("en-PK")}`;
+
+/* ------------------------------------------------------------------------------------------------
+ * Company-level content for the Ali Zeeshan Enterprises portfolio site (the project site has its own, above).
+ * ---------------------------------------------------------------------------------------------- */
+
+/** CONFIRM: what the company actually offers. */
+export const KEYWORDS = [
+  "Residential Construction",
+  "Commercial Buildings",
+  "Apartments & Showrooms",
+  "Turnkey Projects",
+  "Renovation",
+  "Interior Finishing",
+  "Architecture & Design",
+  "Project Management",
+];
+
+/** Company values, from the brochure's About text. */
+export const PROMISES = [
+  { icon: "quote", title: "Integrity", text: "Clear prices and honest dealing, written down for every client." },
+  { icon: "materials", title: "Quality products", text: "Quality products and reliable services for our valued customers." },
+  { icon: "updates", title: "Customer satisfaction", text: "A dedicated team and a customer-centric approach." },
+  { icon: "schedule", title: "Timely delivery", text: "Long-term relationships built on trust and on-time delivery." },
+] as const;
+
+/** Base path of the Ali's Twin Tower project site. */
+export const TT = "/alis-twin-tower";
+
+export const TOWER_NAV = [
+  { label: "Overview", href: TT },
+  { label: "Apartments", href: `${TT}/apartments` },
+  { label: "Payment plans", href: `${TT}/payment-plans` },
+  { label: "Lifestyle", href: `${TT}/lifestyle` },
+  { label: "Location", href: `${TT}/location` },
+  { label: "Contact", href: `${TT}/contact` },
+] as const;
+
+/** Site office, from the brochure. */
+export const TOWER_OFFICE = {
+  name: "Ali's Twin Towers site office",
+  address: "Plot 25B, Scheme-33, Deh Songhal, Karachi", // CONFIRM spelling of "Songhal"
+  phone: "+92 320 9281567",
+  phoneHref: "tel:+923209281567",
+  whatsappHref: "https://wa.me/923209281567", // CONFIRM: same number on WhatsApp?
+  mapsHref: "https://www.google.com/maps/search/?api=1&query=Plot+25B+Scheme+33+Deh+Songhal+Karachi",
+  email: "info@alizeeshan.pk", // CONFIRM
+  hours: "Mon–Sat, 10am–7pm", // CONFIRM
+};

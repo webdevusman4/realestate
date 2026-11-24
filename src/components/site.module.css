@@ -2615,3 +2615,222 @@
 .secDark .body {
   color: rgba(246, 242, 234, 0.72);
 }
+
+/* =====================================================================================================
+   Ali's Twin Tower project site: navy theme, own header / footer / hero
+   ===================================================================================================== */
+.headerTower.headerOn {
+  background: rgba(12, 26, 58, 0.88);
+}
+.sheetTower {
+  background: var(--navy-900);
+}
+.headerTower .brandMark {
+  height: 46px;
+}
+.footerTower {
+  background: var(--navy-900);
+}
+.footLogoTower {
+  width: 210px;
+  height: auto;
+  margin-bottom: 18px;
+}
+.footBar a {
+  color: var(--gold-300);
+}
+
+.tHero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: calc(var(--header-h) + clamp(40px, 6vw, 72px)) 0 0;
+  background:
+    radial-gradient(900px 600px at 78% 12%, rgba(201, 154, 63, 0.24), transparent 62%),
+    linear-gradient(165deg, var(--navy-800), var(--navy-900) 70%);
+  color: rgba(246, 242, 234, 0.76);
+}
+.tHero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(235, 203, 126, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(235, 203, 126, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, #000, transparent 80%);
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 80%);
+}
+.tHeroGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  padding-bottom: clamp(32px, 5vw, 56px);
+}
+.tHeroLogo {
+  display: grid;
+  place-items: center;
+}
+.tHeroLogo img {
+  width: min(100%, 520px);
+  height: auto;
+  filter: drop-shadow(0 20px 50px rgba(0, 0, 0, 0.35));
+  animation: floaty 7s ease-in-out infinite;
+}
+@keyframes floaty {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+.tFrom {
+  margin-top: 26px;
+  font-size: 16px;
+}
+.tFrom b {
+  color: var(--gold-300);
+  font-size: 1.15em;
+}
+.tHero .stats {
+  border-color: rgba(235, 203, 126, 0.18);
+}
+
+.ttTag {
+  margin-top: 10px;
+  font: 600 clamp(18px, 2vw, 24px) / 1.3 var(--font-head);
+  color: var(--gold-300);
+}
+.teaserLogo {
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 3vw, 36px);
+  border: 1px solid rgba(235, 203, 126, 0.25);
+  border-radius: var(--r-lg);
+  background: rgba(255, 255, 255, 0.03);
+  transition: transform 0.5s var(--ease), border-color 0.3s;
+}
+.teaserLogo:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-400);
+}
+.teaserLogo img {
+  width: min(100%, 380px);
+  height: auto;
+}
+
+.snapGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.snap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--paper);
+}
+.snapTotal {
+  font: 700 clamp(26px, 3vw, 34px) / 1.1 var(--font-head);
+  color: var(--ink-900);
+}
+.snap dl {
+  display: grid;
+  gap: 0;
+  margin: 12px 0 14px;
+  border-top: 1px solid var(--line);
+}
+.snap dl > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 15px;
+}
+.snap dt {
+  color: var(--stone-600);
+}
+.snap dd {
+  margin: 0;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+.snap .textLink {
+  margin-top: auto;
+}
+
+.payOne {
+  display: block;
+}
+.payBlock {
+  margin-bottom: clamp(48px, 6vw, 80px);
+  scroll-margin-top: calc(var(--header-h) + 80px);
+}
+.jump {
+  position: sticky;
+  top: calc(var(--header-h) + 8px);
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: clamp(32px, 4vw, 48px);
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(251, 249, 244, 0.92);
+  backdrop-filter: blur(10px);
+}
+.jump a {
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 14.5px;
+  color: var(--ink-900);
+  transition: background 0.25s, color 0.25s;
+}
+.jump a:hover {
+  background: var(--ink-900);
+  color: var(--gold-200);
+}
+.tCta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px 48px;
+}
+.tCta .ctaRow {
+  margin: 0;
+}
+
+@media (max-width: 1080px) {
+  .snapGrid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 900px) {
+  .tHeroGrid {
+    grid-template-columns: 1fr;
+  }
+  .tHeroLogo {
+    order: -1;
+  }
+  .tHeroLogo img {
+    width: min(70%, 340px);
+  }
+  .jump {
+    border-radius: var(--r-md);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tHeroLogo img {
+    animation: none;
+  }
+}

@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { APARTMENTS, HERO_TOWERS, TWIN_TOWER, rs } from "@/lib/site";
-import Stats from "./Stats";
+import { HERO_TOWERS, TT, TWIN_TOWER } from "@/lib/site";
 import s from "./site.module.css";
 
 /*
@@ -27,15 +26,6 @@ const TOWER_PATHS = [
 
 export default function Hero() {
   const towersRef = useRef<HTMLDivElement>(null);
-  const [live, setLive] = useState(0);
-
-  // Cycle the "live on site" card.
-  useEffect(() => {
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setLive((i) => (i + 1) % APARTMENTS.length), 3800);
-    return () => clearInterval(id);
-  }, []);
-
   // Gentle pointer parallax on the towers (desktop pointers only).
   useEffect(() => {
     const el = towersRef.current;
@@ -63,8 +53,6 @@ export default function Hero() {
     };
   }, []);
 
-  const apt = APARTMENTS[live];
-
   return (
     <section id="top" className={s.hero}>
       <div className={s.heroBg} aria-hidden="true">
@@ -74,25 +62,25 @@ export default function Hero() {
 
       <div className={`${s.wrap} ${s.heroGrid}`}>
         <div className={s.heroCopy}>
-          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Ali&apos;s Twin Tower · Karachi</p>
+          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Builders &amp; Developers · Karachi</p>
           <h1 className={s.h1}>
-            Where prestige lives, <span className={s.goldText}>future belongs.</span>
+            We build homes and <span className={s.goldText}>landmarks</span> that last.
           </h1>
           <p className={s.lead}>
-            Ultra luxury 3, 4 &amp; 5 room apartments in Scheme-33, by Ali Zeeshan Enterprises. Spacious layouts,
-            premium finishes and easy instalments.
+            Ali Zeeshan Enterprises is a professionally managed business firm committed to quality, reliable service
+            and timely delivery.
           </p>
           <div className={s.ctaRow}>
-            <Link className={`${s.btn} ${s.btnGold}`} href={`/projects/${TWIN_TOWER.slug}`}>
-              See apartments &amp; prices
+            <Link className={`${s.btn} ${s.btnGold}`} href={TT}>
+              See Ali&apos;s Twin Tower
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
             <Link className={`${s.btn} ${s.btnGhost}`} href="/contact">
-              Book a visit
+              Contact us
             </Link>
           </div>
           <ul className={s.heroChecks}>
-            {["Floor plans & payment plans", "Bank loan option", "10% off on full cash"].map((t) => (
+            {["Integrity", "Customer satisfaction", "Timely delivery"].map((t) => (
               <li key={t}>
                 <Check size={16} strokeWidth={2.6} aria-hidden="true" />
                 {t}
@@ -133,29 +121,18 @@ export default function Hero() {
           ))}
           <span className={s.baseLine} aria-hidden="true" />
 
-          <div className={s.live} aria-live="polite">
+          <Link className={s.live} href={TT}>
             <span className={s.liveTag}>
               <i aria-hidden="true" />
-              Now booking
+              Current project
             </span>
-            <div key={apt.slug} className={s.liveBody}>
-              <b>
-                Twin Tower · {apt.type}
-              </b>
-              <small>
-                {apt.beds} bedroom{apt.beds > 1 ? "s" : ""} · {apt.rooms} rooms
-              </small>
-              <div className={s.liveBar} aria-hidden="true">
-                <span style={{ width: "100%" }} />
-              </div>
-              <em>{rs(apt.total)}</em>
+            <div className={s.liveBody}>
+              <b>{TWIN_TOWER.name}</b>
+              <small>{TWIN_TOWER.kind}</small>
+              <em>Scheme-33, Karachi · Now booking</em>
             </div>
-          </div>
+          </Link>
         </div>
-      </div>
-
-      <div className={s.wrap}>
-        <Stats />
       </div>
     </section>
   );

@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { STATS } from "@/lib/site";
+import type { TOWER_STATS } from "@/lib/site";
 import s from "./site.module.css";
 
 /** Stat strip whose numbers count up the first time it comes into view. */
-export default function Stats() {
+export default function Stats({ stats }: { stats: typeof TOWER_STATS }) {
   const ref = useRef<HTMLDListElement>(null);
   const [t, setT] = useState(0);
 
@@ -40,7 +40,7 @@ export default function Stats() {
 
   return (
     <dl className={s.stats} ref={ref}>
-      {STATS.map((st) => (
+      {stats.map((st) => (
         <div key={st.label}>
           <dt>{st.label}</dt>
           <dd>
