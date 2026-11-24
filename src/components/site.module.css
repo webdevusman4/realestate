@@ -2871,17 +2871,36 @@
   }
 }
 
-/* ---------- Hero with a photo / render behind it (public/hero/twin-tower-hero.jpg) ---------- */
+/* ---------- Hero with a render behind it (public/hero/twin-tower-hero.jpg, optional -mobile.jpg) ---------- */
+.tHeroImg {
+  padding-top: 0;
+  background: var(--navy-900);
+}
+.tHeroImg::before {
+  opacity: 0.35;
+}
+.tHeroImg .tStage {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(560px, 62vw, 800px);
+  padding: calc(var(--header-h) + 40px) 0 clamp(36px, 4vw, 56px);
+}
+.tHeroImg .tStage > .tHeroGrid {
+  padding-bottom: 0;
+}
 .tHeroBg {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  z-index: -1;
 }
 .tHeroBg img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 70% 50%;
+  object-position: 70% 40%;
 }
 /* Navy veil: strong behind the text on the left, light on the right so the building shows. */
 .tHeroBg::after {
@@ -2889,14 +2908,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(10, 22, 52, 0.92) 0%, rgba(10, 22, 52, 0.72) 38%, rgba(10, 22, 52, 0.18) 72%, rgba(10, 22, 52, 0.1) 100%),
-    linear-gradient(180deg, rgba(10, 22, 52, 0.55) 0%, transparent 22%, transparent 70%, rgba(10, 22, 52, 0.9) 100%);
-}
-.tHeroImg {
-  background: var(--navy-900);
-}
-.tHeroImg::before {
-  opacity: 0.5;
+    linear-gradient(90deg, rgba(10, 22, 52, 0.9) 0%, rgba(10, 22, 52, 0.6) 34%, rgba(10, 22, 52, 0.08) 60%, transparent 100%),
+    linear-gradient(180deg, rgba(10, 22, 52, 0.5) 0%, transparent 18%, transparent 72%, var(--navy-900) 100%);
 }
 /* With a hero image the building is the picture, so the big logo steps aside (it stays in the header). */
 .tHeroImg .tHeroLogo {
@@ -2904,14 +2917,29 @@
 }
 .tHeroImg .tHeroGrid {
   grid-template-columns: 1fr;
-  min-height: min(78vh, 720px);
-  align-items: end;
 }
 .tHeroImg .tHeroCopy {
-  max-width: 640px;
+  max-width: 600px;
 }
 @media (max-width: 900px) {
+  .tHeroImg .tStage {
+    display: block;
+    min-height: 0;
+    padding: 0 0 8px;
+  }
+  .tHeroBg {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    max-height: 120vw;
+  }
+  .tHeroBg img {
+    object-position: 72% 30%;
+  }
   .tHeroBg::after {
-    background: linear-gradient(180deg, rgba(10, 22, 52, 0.6) 0%, rgba(10, 22, 52, 0.55) 40%, rgba(10, 22, 52, 0.92) 100%);
+    background: linear-gradient(180deg, rgba(10, 22, 52, 0.55) 0%, transparent 18%, transparent 52%, var(--navy-900) 100%);
+  }
+  .tHeroImg .tHeroGrid {
+    position: relative;
+    margin-top: -22vw;
   }
 }

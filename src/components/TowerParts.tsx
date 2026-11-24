@@ -106,36 +106,38 @@ export function TowerHero() {
   const mobile = has("twin-tower-hero-mobile.jpg");
   return (
     <section className={`${s.tHero} ${desktop ? s.tHeroImg : ""}`}>
-      {desktop && (
-        <div className={s.tHeroBg} aria-hidden="true">
-          <picture>
-            {mobile && <source media="(max-width: 700px)" srcSet="/hero/twin-tower-hero-mobile.jpg" />}
-            <img src="/hero/twin-tower-hero.jpg" alt="" fetchPriority="high" />
-          </picture>
-        </div>
-      )}
-      <div className={`${s.wrap} ${s.tHeroGrid}`}>
-        <div className={s.tHeroCopy}>
-          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>{TWIN_TOWER.kind} · Scheme-33, Karachi</p>
-          <h1 className={s.h1}>
-            Where prestige lives, <span className={s.goldText}>future belongs.</span>
-          </h1>
-          <p className={s.lead}>{TWIN_TOWER.summary}</p>
-          <div className={s.ctaRow}>
-            <Link className={`${s.btn} ${s.btnGold}`} href={`${TT}/apartments`}>
-              See apartments
-              <ArrowRight size={18} aria-hidden="true" />
-            </Link>
-            <Link className={`${s.btn} ${s.btnGhost}`} href={`${TT}/contact`}>
-              Book a visit
-            </Link>
+      <div className={s.tStage}>
+        {desktop && (
+          <div className={s.tHeroBg} aria-hidden="true">
+            <picture>
+              {mobile && <source media="(max-width: 700px)" srcSet="/hero/twin-tower-hero-mobile.jpg" />}
+              <img src="/hero/twin-tower-hero.jpg" alt="" fetchPriority="high" />
+            </picture>
           </div>
-          <p className={s.tFrom}>
-            Apartments from <b>{rs(from)}</b>
-          </p>
-        </div>
-        <div className={s.tHeroLogo}>
-          <Image src="/brand/twin-tower/logo-dark.png" alt="Ali's Twin Tower" width={1513} height={1178} priority sizes="(max-width: 900px) 70vw, 36vw" />
+        )}
+        <div className={`${s.wrap} ${s.tHeroGrid}`}>
+          <div className={s.tHeroCopy}>
+            <p className={`${s.eyebrow} ${s.eyebrowDark}`}>{TWIN_TOWER.kind} · Scheme-33, Karachi</p>
+            <h1 className={s.h1}>
+              Where prestige lives, <span className={s.goldText}>future belongs.</span>
+            </h1>
+            <p className={s.lead}>{TWIN_TOWER.summary}</p>
+            <div className={s.ctaRow}>
+              <Link className={`${s.btn} ${s.btnGold}`} href={`${TT}/apartments`}>
+                See apartments
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+              <Link className={`${s.btn} ${s.btnGhost}`} href={`${TT}/contact`}>
+                Book a visit
+              </Link>
+            </div>
+            <p className={s.tFrom}>
+              Apartments from <b>{rs(from)}</b>
+            </p>
+          </div>
+          <div className={s.tHeroLogo}>
+            <Image src="/brand/twin-tower/logo-dark.png" alt="Ali's Twin Tower" width={1513} height={1178} priority sizes="(max-width: 900px) 70vw, 36vw" />
+          </div>
         </div>
       </div>
       <div className={s.wrap}>
