@@ -2400,3 +2400,64 @@
     transition: none;
   }
 }
+
+/* ---------- Vector floor plans and room-by-room gallery ---------- */
+.aptPlan,
+.ttPlan {
+  padding: 10px;
+  background: var(--paper);
+}
+.aptPlan svg,
+.ttPlan svg {
+  width: 100%;
+  height: 100%;
+}
+.planFig {
+  padding: clamp(10px, 2vw, 22px);
+}
+.roomGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.roomCard {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--paper);
+}
+.roomPic {
+  aspect-ratio: 3 / 2.1;
+  padding: 10px;
+  border-bottom: 1px solid var(--line);
+  background: var(--paper);
+}
+.roomText {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px 18px;
+}
+.roomText h3 {
+  font-size: 19px;
+}
+.roomText p {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--gold-700);
+  text-align: right;
+}
+@media (max-width: 1080px) {
+  .roomGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .roomGrid {
+    grid-template-columns: 1fr;
+  }
+}

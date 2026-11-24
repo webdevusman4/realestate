@@ -206,7 +206,6 @@ export type Apartment = {
   beds: number;
   baths: number;
   headline: string;
-  plan: string;
   planAlt: string;
   /** Sizes read from the floor plan. */
   rooms_list: { name: string; size: string }[];
@@ -241,7 +240,6 @@ export const APARTMENTS: Apartment[] = [
     beds: 3,
     baths: 4, // CONFIRM: counted from the plan
     headline: "Three bedrooms, drawing room and a large kitchen and dining lounge.",
-    plan: "/plans/type-a.jpg",
     planAlt: "Floor plan of Type A: three bedrooms with attached baths, terrace, drawing room and kitchen with dining lounge",
     rooms_list: [
       { name: "Bedrooms (3)", size: "11'-6\" × 17'-6\"" },
@@ -272,7 +270,6 @@ export const APARTMENTS: Apartment[] = [
     beds: 2,
     baths: 3,
     headline: "Two bedrooms with attached baths, drawing room and an open kitchen and dining lounge.",
-    plan: "/plans/type-b.jpg",
     planAlt: "Floor plan of Type B: two bedrooms with attached baths, terrace, drawing room and kitchen with dining lounge",
     rooms_list: [
       { name: "Bedrooms (2)", size: "11'-6\" × 16'" },
@@ -303,7 +300,6 @@ export const APARTMENTS: Apartment[] = [
     beds: 1,
     baths: 2,
     headline: "One bedroom with a wardrobe, drawing room and a kitchen with dining and TV lounge.",
-    plan: "/plans/type-c.jpg",
     planAlt: "Floor plan of Type C: one bedroom with bath and terrace, drawing room and kitchen with dining and TV lounge",
     rooms_list: [
       { name: "Bedroom", size: "11'-6\" × 16' with wardrobe" },

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import Shell from "@/components/Shell";
-import { BookBand, PageHero, PaymentSchedule } from "@/components/PageParts";
+import FloorPlan from "@/components/FloorPlan";
+import { BookBand, PageHero, PaymentSchedule, RoomGallery } from "@/components/PageParts";
+import { planFor } from "@/lib/plans";
 import { APARTMENTS, TWIN_TOWER, rs } from "@/lib/site";
 import s from "@/components/site.module.css";
 
@@ -50,8 +51,8 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
       <section className={`${s.sec} ${s.secTint}`}>
         <div className={`${s.wrap} ${s.planGrid}`}>
           <figure className={s.planFig} data-r>
-            <Image src={apt.plan} alt={apt.planAlt} width={1000} height={1300} sizes="(max-width: 900px) 100vw, 50vw" className={s.planImg} priority />
-            <figcaption>Floor plan, not to scale. Sizes are approximate.</figcaption>
+            <FloorPlan plan={planFor(apt.slug)} label={apt.planAlt} />
+            <figcaption>Floor plan, not to scale. Sizes are as printed on the brochure.</figcaption>
           </figure>
           <div className={s.planInfo} data-r>
             <p className={s.eyebrow}>Floor plan</p>
@@ -83,6 +84,19 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
       </section>
 
       <section className={s.sec}>
+        <div className={s.wrap}>
+          <div className={s.secHead} data-r>
+            <div>
+              <p className={s.eyebrow}>Room by room</p>
+              <h2 className={s.h2}>Every room, up close.</h2>
+            </div>
+            <p className={s.body}>Each space from the {apt.type} plan, with its size.</p>
+          </div>
+          <RoomGallery apt={apt} />
+        </div>
+      </section>
+
+      <section className={`${s.sec} ${s.secTint}`}>
         <div className={s.wrap}>
           <div className={s.secHead} data-r>
             <div>

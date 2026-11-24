@@ -49,7 +49,7 @@ Twin Tower prices, plans and payment schedules live in `src/lib/site.ts` (`APART
 
 Everything marked `SAMPLE` or `CONFIRM` in `src/lib/site.ts`:
 
-- [ ] Twin Tower: location, status/handover date, logo file (`public/brand/`), clean floor-plan scans (`public/plans/` are cropped phone photos), area in sq ft, bath counts, Type C "On finishing" (600,000 inferred)
+- [ ] Twin Tower: location, status/handover date, logo file (`public/brand/`), architect drawings to check the redrawn floor plans (`src/lib/plans.ts`), area in sq ft, bath counts, Type C "On finishing" (600,000 inferred)
 - [ ] Phone, WhatsApp number, email, office hours, city / office address
 - [ ] Stats (15+ years, 120+ projects, 2M+ sq ft, 98% on time) and the "15+ years" badge
 - [ ] Project names, sizes and photos (currently stock photos with made-up names)

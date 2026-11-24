@@ -1,7 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BedDouble, Bath, ChevronRight, Phone } from "lucide-react";
 import { APARTMENTS, EXTRA_CHARGES, PAYMENT_NOTES, SITE, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
+import { planFor } from "@/lib/plans";
+import FloorPlan from "./FloorPlan";
 import { WhatsAppLogo } from "./icons";
 import s from "./site.module.css";
 
@@ -87,7 +88,7 @@ export function TwinTowerFeature() {
         <div className={s.ttPlans} data-r>
           {APARTMENTS.map((a, i) => (
             <Link key={a.slug} href={`/projects/${TWIN_TOWER.slug}/${a.slug}`} className={s.ttPlan} style={{ ["--i" as string]: i }}>
-              <Image src={a.plan} alt={a.planAlt} fill sizes="(max-width: 900px) 33vw, 18vw" style={{ objectFit: "cover", objectPosition: "50% 40%" }} />
+              <FloorPlan plan={planFor(a.slug)} label={a.planAlt} fit />
               <span>{a.type}</span>
             </Link>
           ))}
@@ -104,7 +105,7 @@ export function ApartmentCards() {
       {APARTMENTS.map((a, i) => (
         <article key={a.slug} className={s.apt} data-r>
           <Link href={`/projects/${TWIN_TOWER.slug}/${a.slug}`} className={s.aptPlan} aria-label={`${a.type} floor plan`}>
-            <Image src={a.plan} alt={a.planAlt} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: "cover", objectPosition: "50% 40%" }} />
+            <FloorPlan plan={planFor(a.slug)} label={a.planAlt} fit />
             <span className={s.aptNo}>{String(i + 1).padStart(2, "0")}</span>
           </Link>
           <div className={s.aptBody}>
@@ -217,3 +218,24 @@ export function BookBand({ title }: { title: string }) {
   );
 }
 
+
+/** Room-by-room section: each room of the plan, zoomed in with its size. */
+export function RoomGallery({ apt }: { apt: Apartment }) {
+  const plan = planFor(apt.slug);
+  const rooms = plan.rooms.filter((r) => r.kind !== "balcony" && r.id !== "wr" && r.id !== "hall");
+  return (
+    <ul className={s.roomGrid}>
+      {rooms.map((r) => (
+        <li key={r.id} className={s.roomCard} data-r>
+          <div className={s.roomPic}>
+            <FloorPlan plan={plan} focus={r.id} fit label={`${r.name}${r.size ? `, ${r.size}` : ""}, close-up of the ${apt.type} plan`} />
+          </div>
+          <div className={s.roomText}>
+            <h3>{r.name}</h3>
+            {(r.size || r.kind === "living") && <p>{r.size ?? "Open plan"}</p>}
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
