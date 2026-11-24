@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
-    images: [{ url: "/hero/twin-tower-hero.jpg", width: 2000, height: 1116, alt: "Ali's Twin Tower at dusk (artist impression)" }],
+    images: [{ url: "/hero/twin-tower-hero.jpg", width: 2000, height: 1125, alt: "Ali's Twin Tower at dusk (artist impression)" }],
   },
   twitter: { card: "summary_large_image", images: ["/hero/twin-tower-hero.jpg"] },
 };
