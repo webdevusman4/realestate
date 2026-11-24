@@ -13,6 +13,8 @@ export default function AboutPage() {
   return (
     <Shell>
       <PageHero
+        image="/photos/engineer-site.jpg"
+        imagePos="50% 35%"
         eyebrow="About us"
         title="Builders you can visit on site any day."
         text="Honest pricing, quality materials and a team that answers its phone."

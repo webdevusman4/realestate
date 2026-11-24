@@ -12,6 +12,8 @@ export default function ProjectsPage() {
   return (
     <Shell>
       <PageHero
+        image="/hero/twin-tower-hero.jpg"
+        imagePos="75% 50%"
         eyebrow="Projects"
         title="Work we are proud to sign."
         text="Our current project, Ali's Twin Tower, in Scheme-33, Karachi."

@@ -14,6 +14,8 @@ export default function PaymentPlansPage() {
     <>
       <PageHero
         variant="tower"
+        image="/heroes/payment.jpg"
+        imagePos="50% 40%"
         eyebrow="Payment plans"
         title="Easy to plan. Easy to pay."
         text="Booking, 60 monthly instalments, half-yearly instalments and slab-casting payments, with an expected bank loan. 10% discount on full cash payment at booking."

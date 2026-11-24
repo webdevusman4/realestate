@@ -14,6 +14,8 @@ export default function LifestylePage() {
     <>
       <PageHero
         variant="tower"
+        image="/renders/drawing.jpg"
+        imagePos="50% 35%"
         eyebrow="Unmatched lifestyle"
         title="Designed for comfort, entertainment and privacy."
         crumbs={[{ label: "Overview", href: TT }, { label: "Lifestyle" }]}

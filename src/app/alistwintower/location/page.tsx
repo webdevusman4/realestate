@@ -14,6 +14,8 @@ export default function LocationPage() {
     <>
       <PageHero
         variant="tower"
+        image="/heroes/location.jpg"
+        imagePos="50% 60%"
         eyebrow="Location"
         title="Scheme-33, Karachi."
         text="Plot 25B, Scheme-33, Deh Songhal. Visit the site office to see the project and talk to our team."

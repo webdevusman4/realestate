@@ -17,6 +17,8 @@ export default function TowerContactPage() {
     <>
       <PageHero
         variant="tower"
+        image="/amenities/lobby.jpg"
+        imagePos="50% 50%"
         eyebrow="Contact"
         title="Book a visit or ask for prices."
         text="Visit the site office, call, message us on WhatsApp or send the form."

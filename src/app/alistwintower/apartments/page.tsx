@@ -14,6 +14,8 @@ export default function ApartmentsPage() {
     <>
       <PageHero
         variant="tower"
+        image="/hero/twin-tower-hero.jpg"
+        imagePos="75% 55%"
         eyebrow="Apartments"
         title="Pick the layout that fits your family."
         text="Three layouts with 3, 2 or 1 bedrooms. Open any type for its floor plan and full payment schedule."

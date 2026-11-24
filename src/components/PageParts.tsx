@@ -33,15 +33,25 @@ export function PageHero({
   text,
   crumbs,
   variant,
+  image,
+  imagePos = "50% 50%",
 }: {
   eyebrow: string;
   title: React.ReactNode;
   text?: string;
   crumbs: { label: string; href?: string }[];
   variant?: "tower";
+  /** Photo behind the banner (a navy or ink veil keeps the text readable). */
+  image?: string;
+  imagePos?: string;
 }) {
   return (
-    <section className={`${s.pageHero} ${variant === "tower" ? s.pageHeroTower : ""}`}>
+    <section className={`${s.pageHero} ${variant === "tower" ? s.pageHeroTower : ""} ${image ? s.pageHeroImg : ""}`}>
+      {image && (
+        <div className={s.pageHeroBg} aria-hidden="true">
+          <Image src={image} alt="" fill priority sizes="100vw" style={{ objectFit: "cover", objectPosition: imagePos }} />
+        </div>
+      )}
       <div className={`${s.wrap} ${s.pageHeroIn}`}>
         <nav aria-label="Breadcrumb" className={s.crumbs}>
           <ol>
@@ -267,8 +277,9 @@ const AMENITY_ICONS = {
   standby: Zap,
 } as const;
 
-/** Salient features grid. */
+/** Salient features: a photo card for each, with the icon and name on top. */
 export function Amenities({ dark }: { dark?: boolean }) {
+  const have = (n: string) => fs.existsSync(path.join(process.cwd(), "public", "amenities", `${n}.jpg`));
   return (
     <section className={`${s.sec} ${dark ? s.secDark : ""}`} aria-labelledby="amen-title">
       <div className={s.wrap}>
@@ -279,15 +290,17 @@ export function Amenities({ dark }: { dark?: boolean }) {
               Everything a modern family needs.
             </h2>
           </div>
-          <p className={s.body}>Safety, comfort and convenience, built into {TWIN_TOWER.name}.</p>
+          <p className={s.body}>Safety, comfort and convenience, built into {TWIN_TOWER.name}. Images are representative.</p>
         </div>
         <ul className={s.amenGrid}>
           {AMENITIES.map((a) => {
             const Icon = AMENITY_ICONS[a.icon];
+            const img = have(a.icon);
             return (
-              <li key={a.title} className={s.amen} data-r>
+              <li key={a.title} className={`${s.amen} ${img ? s.amenPhoto : ""}`} data-r>
+                {img && <Image src={`/amenities/${a.icon}.jpg`} alt="" fill sizes="(max-width: 560px) 100vw, (max-width: 1080px) 50vw, 25vw" style={{ objectFit: "cover" }} />}
                 <span className={s.amenIcon}>
-                  <Icon size={26} strokeWidth={1.7} aria-hidden="true" />
+                  <Icon size={24} strokeWidth={1.7} aria-hidden="true" />
                 </span>
                 <b>{a.title}</b>
               </li>

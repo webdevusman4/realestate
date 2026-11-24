@@ -14,6 +14,8 @@ export default function ContactPage() {
   return (
     <Shell>
       <PageHero
+        image="/photos/office-glass.jpg"
+        imagePos="50% 40%"
         eyebrow="Contact"
         title="Let's talk about your new home."
         text="Visit the site office, call, message us on WhatsApp or send the form."

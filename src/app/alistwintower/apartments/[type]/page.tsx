@@ -36,6 +36,8 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
     <>
       <PageHero
         variant="tower"
+        image="/renders/living.jpg"
+        imagePos="50% 55%"
         eyebrow={`${apt.rooms} rooms · ${apt.beds} bedroom${apt.beds > 1 ? "s" : ""}`}
         title={apt.type}
         text={apt.headline}

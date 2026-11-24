@@ -83,7 +83,7 @@ Site office (Plot 25B, Scheme-33, Deh Songhal, Karachi, 0320-9281567), the proje
 salient features (masjid, covered parking, CCTV, 24/7 security, 8 lifts, play area, lobby, standby), and the
 Type A/B/C plans and payment schedules are all in `src/lib/site.ts`.
 
-Room photos: `public/renders/{kitchen,washroom,bedroom,living,drawing}.jpg` are free Unsplash stock photos shown as
+Photos: amenity cards use `public/amenities/*.jpg` and page banners use `public/heroes/` plus the renders, all stock/representative (credits in `public/amenities/CREDITS.md`). Room photos: `public/renders/{kitchen,washroom,bedroom,living,drawing}.jpg` are free Unsplash stock photos shown as
 "Representative image" on the Lifestyle section (credits in `public/renders/CREDITS.md`). Replace them with the real
 renders or site photos using the same file names; change the tag text in `Lifestyle()` (`PageParts.tsx`) to
 "Artist impression" for renders.

@@ -13,6 +13,8 @@ export default function ServicesPage() {
   return (
     <Shell>
       <PageHero
+        image="/photos/structure-crane.jpg"
+        imagePos="50% 45%"
         eyebrow="Services"
         title="Everything it takes to build."
         text="One team for design, structure and finishing, so nothing falls between contractors."
