@@ -22,8 +22,7 @@ import {
   Zap,
 } from "lucide-react";
 import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, TOWER_OFFICE, TT, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
-import { planFor } from "@/lib/plans";
-import FloorPlan from "./FloorPlan";
+import { PLANS } from "@/lib/plans";
 import { WhatsAppLogo } from "./icons";
 import s from "./site.module.css";
 
@@ -110,7 +109,7 @@ export function ApartmentCards() {
       {APARTMENTS.map((a, i) => (
         <article key={a.slug} className={s.apt} data-r>
           <Link href={`${TT}/apartments/${a.slug}`} className={s.aptPlan} aria-label={`${a.type} floor plan`}>
-            <FloorPlan plan={planFor(a.slug)} label={a.planAlt} fit />
+            <Image src={PLANS[a.slug].image} alt={a.planAlt} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: "contain" }} />
             <span className={s.aptNo}>{String(i + 1).padStart(2, "0")}</span>
           </Link>
           <div className={s.aptBody}>
@@ -231,20 +230,25 @@ export function BookBand({ title }: { title: string }) {
 }
 
 
-/** Room-by-room section: each room of the plan, zoomed in with its size. */
+/** Room-by-room section: each room cut out of the plan, with its size. */
 export function RoomGallery({ apt }: { apt: Apartment }) {
-  const plan = planFor(apt.slug);
-  const rooms = plan.rooms.filter((r) => r.kind !== "balcony" && r.id !== "wr" && r.id !== "hall");
+  const plan = PLANS[apt.slug];
   return (
     <ul className={s.roomGrid}>
-      {rooms.map((r) => (
+      {plan.rooms.map((r) => (
         <li key={r.id} className={s.roomCard} data-r>
           <div className={s.roomPic}>
-            <FloorPlan plan={plan} focus={r.id} fit label={`${r.name}${r.size ? `, ${r.size}` : ""}, close-up of the ${apt.type} plan`} />
+            <Image
+              src={`/plans/${apt.slug}/${r.id}.jpg`}
+              alt={`${r.name}${r.size ? `, ${r.size}` : ""}: close-up of the ${apt.type} floor plan`}
+              fill
+              sizes="(max-width: 560px) 100vw, (max-width: 1080px) 50vw, 33vw"
+              style={{ objectFit: "contain" }}
+            />
           </div>
           <div className={s.roomText}>
             <h3>{r.name}</h3>
-            {(r.size || r.kind === "living") && <p>{r.size ?? "Open plan"}</p>}
+            {r.size && <p>{r.size}</p>}
           </div>
         </li>
       ))}

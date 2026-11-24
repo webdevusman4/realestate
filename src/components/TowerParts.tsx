@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Clock, Mail, MapPin, Phone } from "lucide-react";
@@ -99,8 +101,19 @@ export function TowerFooter() {
 /** Overview hero: tagline, call-to-action, logo and key facts. */
 export function TowerHero() {
   const from = Math.min(...APARTMENTS.map((a) => a.total));
+  const has = (f: string) => fs.existsSync(path.join(process.cwd(), "public", "hero", f));
+  const desktop = has("twin-tower-hero.jpg");
+  const mobile = has("twin-tower-hero-mobile.jpg");
   return (
-    <section className={s.tHero}>
+    <section className={`${s.tHero} ${desktop ? s.tHeroImg : ""}`}>
+      {desktop && (
+        <div className={s.tHeroBg} aria-hidden="true">
+          <picture>
+            {mobile && <source media="(max-width: 700px)" srcSet="/hero/twin-tower-hero-mobile.jpg" />}
+            <img src="/hero/twin-tower-hero.jpg" alt="" fetchPriority="high" />
+          </picture>
+        </div>
+      )}
       <div className={`${s.wrap} ${s.tHeroGrid}`}>
         <div className={s.tHeroCopy}>
           <p className={`${s.eyebrow} ${s.eyebrowDark}`}>{TWIN_TOWER.kind} · Scheme-33, Karachi</p>

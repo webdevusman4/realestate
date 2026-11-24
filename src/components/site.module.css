@@ -2834,3 +2834,84 @@
     animation: none;
   }
 }
+
+/* ---------- Floor-plan images (full width) ---------- */
+.planFig {
+  margin: 0 0 clamp(28px, 4vw, 48px);
+}
+.planLink {
+  display: block;
+  cursor: zoom-in;
+}
+.planImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+.planInfo {
+  position: static;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: start;
+}
+.planInfo .specs {
+  margin: 0;
+}
+.aptPlan {
+  aspect-ratio: 14 / 10;
+}
+.roomPic {
+  position: relative;
+}
+@media (max-width: 900px) {
+  .planInfo {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---------- Hero with a photo / render behind it (public/hero/twin-tower-hero.jpg) ---------- */
+.tHeroBg {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.tHeroBg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 70% 50%;
+}
+/* Navy veil: strong behind the text on the left, light on the right so the building shows. */
+.tHeroBg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(10, 22, 52, 0.92) 0%, rgba(10, 22, 52, 0.72) 38%, rgba(10, 22, 52, 0.18) 72%, rgba(10, 22, 52, 0.1) 100%),
+    linear-gradient(180deg, rgba(10, 22, 52, 0.55) 0%, transparent 22%, transparent 70%, rgba(10, 22, 52, 0.9) 100%);
+}
+.tHeroImg {
+  background: var(--navy-900);
+}
+.tHeroImg::before {
+  opacity: 0.5;
+}
+/* With a hero image the building is the picture, so the big logo steps aside (it stays in the header). */
+.tHeroImg .tHeroLogo {
+  display: none;
+}
+.tHeroImg .tHeroGrid {
+  grid-template-columns: 1fr;
+  min-height: min(78vh, 720px);
+  align-items: end;
+}
+.tHeroImg .tHeroCopy {
+  max-width: 640px;
+}
+@media (max-width: 900px) {
+  .tHeroBg::after {
+    background: linear-gradient(180deg, rgba(10, 22, 52, 0.6) 0%, rgba(10, 22, 52, 0.55) 40%, rgba(10, 22, 52, 0.92) 100%);
+  }
+}

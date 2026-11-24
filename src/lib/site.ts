@@ -268,11 +268,12 @@ export const APARTMENTS: Apartment[] = [
     headline: "Three bedrooms, drawing room and a large kitchen and dining lounge.",
     planAlt: "Floor plan of Type A: three bedrooms with attached baths, terrace, drawing room and kitchen with dining lounge",
     rooms_list: [
-      { name: "Bedrooms (3)", size: "11'-6\" × 17'-6\"" },
+      { name: "Bedrooms (3)", size: "11'-6\" × 13'-4\"" },
       { name: "Drawing room", size: "14' × 14'" },
-      { name: "Baths", size: "8' × 7' (6'-6\" × 7' by the drawing room)" },
+      { name: "Baths (4)", size: "8' × 5' (three), 5'-6\" × 7'" },
       { name: "Kitchen, dining & lounge", size: "Open plan" },
-      { name: "Terrace", size: "Attached to the bedroom wing" },
+      { name: "Terrace", size: "Large terrace" },
+      { name: "Balcony", size: "8' × 3'" },
     ],
     schedule: [
       { label: "Booking", amount: 750000 },
@@ -301,9 +302,9 @@ export const APARTMENTS: Apartment[] = [
     rooms_list: [
       { name: "Bedrooms (2)", size: "11'-6\" × 16'" },
       { name: "Drawing room", size: "12'-6\" × 14'" },
-      { name: "Baths (3)", size: "7' × 7'" },
-      { name: "Kitchen, dining & lounge", size: "Open plan" },
-      { name: "Terrace", size: "Between the two bedrooms" },
+      { name: "Baths (3)", size: "7' × 5'" },
+      { name: "Kitchen, dining & lounge", size: "16'-5\" × 11'-6\"" },
+      { name: "Terrace", size: "8'-7\" × 4'-1\"" },
     ],
     schedule: [
       { label: "Booking", amount: 650000 },
@@ -330,11 +331,11 @@ export const APARTMENTS: Apartment[] = [
     headline: "One bedroom with a wardrobe, drawing room and a kitchen with dining and TV lounge.",
     planAlt: "Floor plan of Type C: one bedroom with bath and terrace, drawing room and kitchen with dining and TV lounge",
     rooms_list: [
-      { name: "Bedroom", size: "11'-6\" × 16' with wardrobe" },
-      { name: "Drawing room", size: "12'-4\" × 14'" },
-      { name: "Baths (2)", size: "7' × 7'" },
+      { name: "Bedroom", size: "11'-6\" × 16', with wardrobe" },
+      { name: "Drawing room", size: "12'-4\" × 13'-6\"" },
+      { name: "Baths (2)", size: "7' × 7' and 5' × 7'" },
       { name: "Kitchen, dining & TV lounge", size: "15' × 11'-6\"" },
-      { name: "Terrace", size: "Attached to the bedroom" },
+      { name: "Terrace", size: "5' × 5'-6\"" },
     ],
     schedule: [
       { label: "Booking", amount: 350000 },

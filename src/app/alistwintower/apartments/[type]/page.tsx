@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
-import FloorPlan from "@/components/FloorPlan";
+import Image from "next/image";
 import { BookBand, PageHero, PaymentSchedule, RoomGallery } from "@/components/PageParts";
-import { planFor } from "@/lib/plans";
+import { PLANS } from "@/lib/plans";
 import { APARTMENTS, TT, rs } from "@/lib/site";
 import s from "@/components/site.module.css";
 
@@ -47,16 +47,32 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
       />
 
       <section className={`${s.sec} ${s.secTint}`}>
-        <div className={`${s.wrap} ${s.planGrid}`}>
+        <div className={s.wrap}>
           <figure className={s.planFig} data-r>
-            <FloorPlan plan={planFor(apt.slug)} label={apt.planAlt} />
-            <figcaption>Floor plan, not to scale. Sizes are as printed on the brochure.</figcaption>
+            <a href={PLANS[apt.slug].image} target="_blank" rel="noopener noreferrer" className={s.planLink} aria-label={`Open the ${apt.type} floor plan full size`}>
+              <Image src={PLANS[apt.slug].image} alt={apt.planAlt} width={PLANS[apt.slug].w} height={PLANS[apt.slug].h} sizes="(max-width: 1240px) 100vw, 1192px" className={s.planImg} priority />
+            </a>
+            <figcaption>Floor plan, not to scale. Tap the plan to open it full size.</figcaption>
           </figure>
           <div className={s.planInfo} data-r>
-            <p className={s.eyebrow}>Floor plan</p>
-            <h2 className={s.h2}>
-              {apt.rooms} rooms, {apt.beds} bedroom{apt.beds > 1 ? "s" : ""}.
-            </h2>
+            <div>
+              <p className={s.eyebrow}>Floor plan</p>
+              <h2 className={s.h2}>
+                {apt.rooms} rooms, {apt.beds} bedroom{apt.beds > 1 ? "s" : ""}.
+              </h2>
+              <ul className={s.uniq}>
+                {["American kitchen", "Wooden flooring", "Elegant false ceiling"].map((f) => (
+                  <li key={f}>
+                    <Sparkles size={16} aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className={s.aptPrice}>
+                <small>Total cost</small>
+                <b>{rs(apt.total)}</b>
+              </div>
+            </div>
             <dl className={s.specs}>
               {apt.rooms_list.map((r) => (
                 <div key={r.name}>
@@ -65,18 +81,6 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
                 </div>
               ))}
             </dl>
-            <ul className={s.uniq}>
-              {["American kitchen", "Wooden flooring", "Elegant false ceiling"].map((f) => (
-                <li key={f}>
-                  <Sparkles size={16} aria-hidden="true" />
-                  {f}
-                </li>
-              ))}
-            </ul>
-            <div className={s.aptPrice}>
-              <small>Total cost</small>
-              <b>{rs(apt.total)}</b>
-            </div>
           </div>
         </div>
       </section>
