@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import { Marquee } from "@/components/Sections";
-import { Amenities, ApartmentCards, BookBand, Lifestyle, LocationCard, ProjectStory } from "@/components/PageParts";
+import { Amenities, ApartmentCards, BookBand, Faq, Lifestyle, LocationCard, ProjectStory } from "@/components/PageParts";
 import { PlanSnapshot, TowerCta, TowerHero } from "@/components/TowerParts";
-import { TOWER_KEYWORDS, TT, TWIN_TOWER } from "@/lib/site";
+import { TOWER_FAQ, TOWER_KEYWORDS, TT, TWIN_TOWER } from "@/lib/site";
 import Link from "next/link";
 import s from "@/components/site.module.css";
 
@@ -18,6 +18,12 @@ const jsonLd = {
   description: TWIN_TOWER.summary,
   address: { "@type": "PostalAddress", streetAddress: "Plot 25B, Scheme-33, Deh Songhal", addressLocality: "Karachi", addressCountry: "PK" },
   telephone: "+92 320 9281567",
+};
+
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: TOWER_FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
 };
 
 export default function TowerHome() {
@@ -91,8 +97,10 @@ export default function TowerHome() {
         </div>
       </section>
 
+      <Faq />
       <TowerCta />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }} />
     </>
   );
 }

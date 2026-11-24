@@ -21,7 +21,7 @@ import {
   ArrowUpDown,
   Zap,
 } from "lucide-react";
-import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, TOWER_OFFICE, TT, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
+import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, TOWER_FAQ, TOWER_OFFICE, TT, TWIN_TOWER, rs, waLink, type Apartment } from "@/lib/site";
 import { PLANS } from "@/lib/plans";
 import { WhatsAppLogo } from "./icons";
 import s from "./site.module.css";
@@ -208,7 +208,7 @@ export function PaymentNotes() {
 }
 
 /** Call / WhatsApp prompt used under plans and prices. */
-export function BookBand({ title }: { title: string }) {
+export function BookBand({ title, message = "Hello, I would like to visit Ali's Twin Tower." }: { title: string; message?: string }) {
   return (
     <div className={s.bookBand}>
       <div>
@@ -220,7 +220,7 @@ export function BookBand({ title }: { title: string }) {
           <Phone size={18} aria-hidden="true" />
           Call {TOWER_OFFICE.phone}
         </a>
-        <a className={`${s.btn} ${s.btnGhost}`} href={TOWER_OFFICE.whatsappHref} target="_blank" rel="noopener noreferrer">
+        <a className={`${s.btn} ${s.btnGhost}`} href={waLink(TOWER_OFFICE.whatsappHref, message)} target="_blank" rel="noopener noreferrer">
           <WhatsAppLogo size={18} />
           WhatsApp
         </a>
@@ -390,6 +390,31 @@ export function ProjectStory() {
             <figcaption>Artist impression</figcaption>
           </figure>
         )}
+      </div>
+    </section>
+  );
+}
+
+/** Frequently asked questions (plain <details>, no JavaScript needed). */
+export function Faq() {
+  return (
+    <section className={`${s.sec} ${s.secTint}`} aria-labelledby="faq-title">
+      <div className={`${s.wrap} ${s.faqGrid}`}>
+        <div data-r>
+          <p className={s.eyebrow}>Questions</p>
+          <h2 id="faq-title" className={s.h2}>
+            Good to know before you visit.
+          </h2>
+          <p className={s.body}>Answers come from the project&apos;s official brochure and payment schedules. Still unsure? Call {TOWER_OFFICE.phone}.</p>
+        </div>
+        <div className={s.faqList} data-r>
+          {TOWER_FAQ.map((f) => (
+            <details key={f.q} className={s.faqItem}>
+              <summary>{f.q}</summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </section>
   );

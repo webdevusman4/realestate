@@ -51,7 +51,7 @@ export default function PaymentPlansPage() {
           <div data-r>
             <PaymentNotes />
           </div>
-          <BookBand title="Want a plan that fits your budget?" />
+          <BookBand title="Want a plan that fits your budget?" message="Hello, I would like to know more about the payment plans at Ali's Twin Tower." />
         </div>
       </section>
     </>

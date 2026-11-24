@@ -125,7 +125,7 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
           <div data-r>
             <PaymentSchedule apt={apt} />
           </div>
-          <BookBand title={`Interested in ${apt.type}?`} />
+          <BookBand title={`Interested in ${apt.type}?`} message={`Hello, I am interested in ${apt.type} (${apt.beds}-bedroom) at Ali's Twin Tower.`} />
         </div>
       </section>
 

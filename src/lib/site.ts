@@ -410,3 +410,50 @@ export const TOWER_OFFICE = {
   email: "info@alizeeshan.pk", // CONFIRM
   hours: "Mon–Sat, 10am–7pm", // CONFIRM
 };
+
+/** WhatsApp link that opens with a ready-typed message. */
+export const waLink = (href: string, text: string) => `${href}?text=${encodeURIComponent(text)}`;
+
+/** FAQ for the project site. Every answer uses confirmed brochure / payment-schedule facts only. */
+export const TOWER_FAQ: { q: string; a: string }[] = [
+  {
+    q: "Where is Ali's Twin Tower?",
+    a: `Ali's Twin Tower is at ${TOWER_OFFICE.address}. The site office number is ${TOWER_OFFICE.phone}.`,
+  },
+  {
+    q: "What apartment types are available, and what do they cost?",
+    a: APARTMENTS.map((a) => `${a.type} is a ${a.rooms}-room apartment with ${a.beds} bedroom${a.beds > 1 ? "s" : ""} and ${a.baths} bathrooms, total cost ${rs(a.total)}`).join("; ") + ".",
+  },
+  {
+    q: "How does the payment plan work?",
+    a: "You pay a booking amount, then on allocation, confirmation and start of work, followed by 60 monthly instalments, 10 half-yearly instalments, 12 slab-casting payments, and the final payments on finishing and possession. The full schedule for each type is on the Payment plans page.",
+  },
+  {
+    q: "Is a bank loan available?",
+    a: `Each payment schedule shows an expected bank loan: ${APARTMENTS.map((a) => `${a.type} ${rs(a.loan)}`).join(", ")}. Please ask the site office for the loan details that apply to you.`,
+  },
+  {
+    q: "Is there a discount for paying in cash?",
+    a: "Yes. A 10% discount is offered on full cash payment at the time of booking. Discounts are subject to regular payment compliance and are adjusted in the final instalments.",
+  },
+  {
+    q: "Are there any extra charges?",
+    a: `Road facing, corner and west open units each carry an extra charge of ${rs(EXTRA_CHARGES[0].amount)}, payable within 90 days of booking. The unit cost does not include ground rent, sub-lease execution, documentation, registration, or gas, electricity, water and sewerage connection and meter deposits, which are paid separately.`,
+  },
+  {
+    q: "What comes with each apartment?",
+    a: "Every apartment has a modern American kitchen, wooden flooring, elegant false ceilings, tiled washrooms, a separate drawing room and a terrace or balcony, with plenty of natural light.",
+  },
+  {
+    q: "What facilities does the building have?",
+    a: "A masjid, covered car parking, CCTV cameras, a 24/7 security system, 8 speedy lifts, a children's play area and a lobby.",
+  },
+  {
+    q: "Can I rent an apartment?",
+    a: "The project's brochure and payment schedules cover buying an apartment. For anything else, please call the site office.",
+  },
+  {
+    q: "How do I book a visit?",
+    a: `Call ${TOWER_OFFICE.phone}, message the site office on WhatsApp, or send the form on the Contact page, and the team will arrange a visit.`,
+  },
+];
