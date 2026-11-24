@@ -53,7 +53,7 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
         title={`${apt.type}: ${apt.beds}-bedroom apartment`}
         text={apt.headline}
         crumbs={[
-          { label: "Overview", href: TT },
+          { label: "Home", href: TT },
           { label: "Apartments", href: `${TT}/apartments` },
           { label: apt.type },
         ]}

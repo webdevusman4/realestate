@@ -18,7 +18,7 @@ export default function LifestylePage() {
         imagePos="50% 35%"
         eyebrow="Unmatched lifestyle"
         title="Designed for comfort, entertainment and privacy."
-        crumbs={[{ label: "Overview", href: TT }, { label: "Lifestyle" }]}
+        crumbs={[{ label: "Home", href: TT }, { label: "Lifestyle" }]}
       />
       <section className={s.sec}>
         <div className={s.wrap}>

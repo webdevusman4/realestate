@@ -19,7 +19,7 @@ export default function LocationPage() {
         eyebrow="Location"
         title="Scheme-33, Karachi."
         text="Plot 25B, Scheme-33, Deh Songhal. Visit the site office to see the project and talk to our team."
-        crumbs={[{ label: "Overview", href: TT }, { label: "Location" }]}
+        crumbs={[{ label: "Home", href: TT }, { label: "Location" }]}
       />
       <section className={s.sec}>
         <div className={s.wrap} data-r>

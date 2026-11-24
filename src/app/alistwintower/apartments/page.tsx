@@ -19,7 +19,7 @@ export default function ApartmentsPage() {
         eyebrow="Apartments"
         title="Pick the layout that fits your family."
         text="Three layouts with 3, 2 or 1 bedrooms. Open any type for its floor plan and full payment schedule."
-        crumbs={[{ label: "Overview", href: TT }, { label: "Apartments" }]}
+        crumbs={[{ label: "Home", href: TT }, { label: "Apartments" }]}
       />
       <section className={s.sec}>
         <div className={s.wrap}>

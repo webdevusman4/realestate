@@ -18,7 +18,7 @@ export function GET() {
     ...APARTMENTS.map((a) => `- [${a.type}](${o}${TT}/apartments/${a.slug}): ${a.rooms} rooms, ${a.beds} bedroom${a.beds > 1 ? "s" : ""}, ${a.baths} baths. Total cost ${rs(a.total)}.`),
     "",
     "## Pages",
-    `- [Overview](${o}${TT}): the project, highlights and features`,
+    `- [Home](${o}${TT}): the project, highlights and features`,
     `- [Payment plans](${o}${TT}/payment-plans): booking, 60 monthly instalments, loan option, 10% discount for full cash payment`,
     `- [Lifestyle and features](${o}${TT}/lifestyle)`,
     `- [Location](${o}${TT}/location)`,

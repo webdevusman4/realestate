@@ -22,7 +22,7 @@ export default function TowerContactPage() {
         eyebrow="Contact"
         title="Book a visit or ask for prices."
         text="Visit the site office, call, message us on WhatsApp or send the form."
-        crumbs={[{ label: "Overview", href: TT }, { label: "Contact" }]}
+        crumbs={[{ label: "Home", href: TT }, { label: "Contact" }]}
       />
       <section className={`${s.sec} ${s.secContact}`}>
         <div className={`${s.wrap} ${s.contactGrid}`}>

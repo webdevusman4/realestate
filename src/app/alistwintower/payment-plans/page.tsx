@@ -19,7 +19,7 @@ export default function PaymentPlansPage() {
         eyebrow="Payment plans"
         title="Easy to plan. Easy to pay."
         text="Booking, 60 monthly instalments, half-yearly instalments and slab-casting payments, with an expected bank loan. 10% discount on full cash payment at booking."
-        crumbs={[{ label: "Overview", href: TT }, { label: "Payment plans" }]}
+        crumbs={[{ label: "Home", href: TT }, { label: "Payment plans" }]}
       />
       <section className={s.sec}>
         <div className={s.wrap}>

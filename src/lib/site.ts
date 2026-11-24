@@ -391,7 +391,7 @@ export const PROMISES = [
 export const TT = "/alistwintower";
 
 export const TOWER_NAV = [
-  { label: "Overview", href: TT },
+  { label: "Home", href: TT },
   { label: "Apartments", href: `${TT}/apartments` },
   { label: "Payment plans", href: `${TT}/payment-plans` },
   { label: "Lifestyle", href: `${TT}/lifestyle` },
