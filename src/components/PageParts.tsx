@@ -71,16 +71,6 @@ export function PageHero({
   );
 }
 
-/** Text stand-in for the Ali's Twin Tower logo until the logo file is added to public/brand/. */
-export function TowerWordmark({ size = "md" }: { size?: "md" | "lg" }) {
-  return (
-    <span className={`${s.towerMark} ${size === "lg" ? s.towerMarkLg : ""}`}>
-      <b>Ali&apos;s</b>
-      <i>Twin Tower</i>
-    </span>
-  );
-}
-
 /** Company-site teaser for the Twin Tower project. Details live on the project site (TT). */
 export function ProjectTeaser() {
   return (

@@ -120,6 +120,7 @@ export default function EstimateForm({
           .
         </p>
       )}
+      <p className={s.formNote}>We use your details only to contact you about your enquiry.</p>
       <button type="submit" className={`${s.btn} ${s.btnGold} ${s.btnBlock}`} disabled={status === "sending"}>
         {status === "sending" ? (
           <>

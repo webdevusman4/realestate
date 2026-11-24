@@ -98,12 +98,12 @@
   color: var(--ivory);
 }
 .btnWa {
-  background: #128c4b;
+  background: #0f7a41;
   color: #fff;
   width: 100%;
 }
 .btnWa:hover {
-  background: #0f7a41;
+  background: #0b6a38;
 }
 .btnSm {
   height: 44px;
@@ -620,21 +620,6 @@
 .liveBody small {
   font-size: 13.5px;
   color: rgba(246, 242, 234, 0.66);
-}
-.liveBar {
-  height: 6px;
-  margin: 12px 0 8px;
-  border-radius: 6px;
-  background: rgba(246, 242, 234, 0.1);
-  overflow: hidden;
-}
-.liveBar span {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--gold-grad);
-  transform-origin: left;
-  animation: grow 1.3s var(--ease) both;
 }
 @keyframes grow {
   from {
@@ -1496,6 +1481,10 @@
 .footer li {
   margin-bottom: 10px;
 }
+.footer li a {
+  display: inline-block;
+  padding: 3px 0;
+}
 .footer a {
   transition: color 0.2s;
 }
@@ -1840,45 +1829,6 @@
   color: var(--ivory);
 }
 
-.statsBand {
-  background: var(--ink-900);
-  padding: 8px 0 0;
-}
-
-/* ---------- Twin Tower wordmark (stand-in for the logo) ---------- */
-.towerMark {
-  display: inline-flex;
-  flex-direction: column;
-  line-height: 1;
-  font-family: var(--font-head);
-  text-transform: uppercase;
-}
-.towerMark b {
-  font-size: clamp(30px, 3.4vw, 44px);
-  font-weight: 800;
-  font-variation-settings: "wdth" 118;
-  letter-spacing: 0.04em;
-  color: var(--ivory);
-}
-.towerMark i {
-  margin-top: 8px;
-  font-style: normal;
-  font-size: clamp(18px, 2vw, 26px);
-  font-weight: 700;
-  font-variation-settings: "wdth" 120;
-  letter-spacing: 0.2em;
-  background: var(--gold-grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.towerMarkLg b {
-  font-size: clamp(46px, 7vw, 92px);
-}
-.towerMarkLg i {
-  font-size: clamp(24px, 3.4vw, 44px);
-}
-
 /* ---------- Home / projects feature block ---------- */
 .secTower {
   background: linear-gradient(160deg, var(--navy-800), var(--navy-900) 70%);
@@ -1896,71 +1846,6 @@
   font-size: clamp(26px, 3vw, 40px);
   font-weight: 700;
   color: var(--ivory);
-}
-.ttFacts {
-  display: grid;
-  gap: 10px;
-  margin: 28px 0 32px;
-  padding: 0;
-  list-style: none;
-  max-width: 520px;
-}
-.ttFacts li {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
-  gap: 14px;
-  align-items: baseline;
-  padding: 12px 16px;
-  border: 1px solid rgba(235, 203, 126, 0.22);
-  border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.04);
-  font-size: 15px;
-}
-.ttFacts b {
-  color: var(--gold-300);
-  font-family: var(--font-head);
-}
-.ttFacts em {
-  font-style: normal;
-  color: var(--ivory);
-  font-weight: 600;
-}
-.ttPlans {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-.ttPlan {
-  position: relative;
-  aspect-ratio: 3 / 5;
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid rgba(235, 203, 126, 0.3);
-  background: var(--paper);
-  transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
-}
-.ttPlan:nth-child(2) {
-  margin-top: 36px;
-}
-.ttPlan:nth-child(3) {
-  margin-top: 72px;
-}
-.ttPlan:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.4);
-}
-.ttPlan span {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 26px 12px 12px;
-  text-align: center;
-  font: 700 14px/1 var(--font-head);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ivory);
-  background: linear-gradient(transparent, rgba(12, 26, 58, 0.92));
 }
 
 /* ---------- Project highlights ---------- */
@@ -2137,14 +2022,6 @@
 }
 .compareTable td b {
   color: var(--gold-300);
-}
-
-/* ---------- Apartment page: plan + specs ---------- */
-.planGrid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(28px, 5vw, 72px);
-  align-items: start;
 }
 .planFig {
   margin: 0;
@@ -2357,15 +2234,11 @@
 }
 @media (max-width: 900px) {
   .ttGrid,
-  .planGrid,
   .pay {
     grid-template-columns: 1fr;
   }
   .planInfo {
     position: static;
-  }
-  .ttPlans {
-    max-width: 520px;
   }
 }
 @media (max-width: 640px) {
@@ -2373,18 +2246,6 @@
   .otherTypes,
   .ttFeatures {
     grid-template-columns: 1fr;
-  }
-  .ttFacts li {
-    grid-template-columns: 64px 1fr;
-  }
-  .ttFacts em {
-    grid-column: 2;
-  }
-  .ttPlan:nth-child(2) {
-    margin-top: 20px;
-  }
-  .ttPlan:nth-child(3) {
-    margin-top: 40px;
   }
   .payTable th[scope="row"],
   .payTable td,
@@ -2395,20 +2256,17 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .apt,
-  .ttPlan,
   .otherTypes a {
     transition: none;
   }
 }
 
 /* ---------- Vector floor plans and room-by-room gallery ---------- */
-.aptPlan,
-.ttPlan {
+.aptPlan {
   padding: 10px;
   background: var(--paper);
 }
-.aptPlan svg,
-.ttPlan svg {
+.aptPlan svg {
   width: 100%;
   height: 100%;
 }
@@ -2582,10 +2440,6 @@
   grid-template-columns: 0.8fr 1.2fr;
   gap: clamp(28px, 5vw, 72px);
   align-items: start;
-}
-.storyText {
-  display: grid;
-  gap: 18px;
 }
 @media (max-width: 1080px) {
   .amenGrid {

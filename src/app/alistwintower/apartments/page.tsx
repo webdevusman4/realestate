@@ -23,6 +23,7 @@ export default function ApartmentsPage() {
       />
       <section className={s.sec}>
         <div className={s.wrap}>
+          <h2 className={s.srOnly}>Apartment types</h2>
           <ApartmentCards />
           <div data-r>
             <BookBand title="Not sure which type is right for you?" />

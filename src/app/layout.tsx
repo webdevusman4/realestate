@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { SITE } from "@/lib/site";
+import { SITE, SITE_ORIGIN } from "@/lib/site";
 import "./globals.css";
 
 // Self-hosted variable fonts. Archivo's width axis gives the wide, architectural headings that echo the logo.
@@ -20,7 +20,8 @@ const inter = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
+  metadataBase: new URL(SITE_ORIGIN),
+  alternates: { canonical: "./" },
   title: { default: `${SITE.name} | ${SITE.tagline}`, template: `%s | ${SITE.name}` },
   description: SITE.description,
   openGraph: {
@@ -28,8 +29,9 @@ export const metadata: Metadata = {
     siteName: SITE.name,
     title: `${SITE.name} | ${SITE.tagline}`,
     description: SITE.description,
-    images: ["/photos/villa-pool.jpg"],
+    images: [{ url: "/hero/twin-tower-hero.jpg", width: 2000, height: 1116, alt: "Ali's Twin Tower at dusk (artist impression)" }],
   },
+  twitter: { card: "summary_large_image", images: ["/hero/twin-tower-hero.jpg"] },
 };
 
 export const viewport: Viewport = {

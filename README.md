@@ -89,3 +89,9 @@ renders or site photos using the same file names; change the tag text in `Lifest
 "Artist impression" for renders.
 
 The old sample project gallery (`Projects.tsx`, `PROJECTS` in `site.ts`) is no longer shown: those names and photos were made up.
+
+## SEO and sharing
+
+`SITE_ORIGIN` (in `src/lib/site.ts`) is the public address used for canonical links, social preview images, `/sitemap.xml`,
+`/robots.txt` and `/llms.txt`. On Netlify it is taken from the build's `URL` automatically; set `NEXT_PUBLIC_SITE_URL`
+in Netlify's environment variables once the real domain (or the `alistwintower` subdomain) is live.

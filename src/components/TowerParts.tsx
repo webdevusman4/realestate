@@ -14,7 +14,7 @@ import s from "./site.module.css";
 export function TowerBrand() {
   return (
     <Link className={s.brand} href={TT} aria-label="Ali's Twin Tower, home">
-      <Image src="/brand/twin-tower/mark-dark.png" alt="" width={447} height={569} className={s.brandMark} priority />
+      <Image src="/brand/twin-tower/mark-dark.png" alt="" width={224} height={285} className={s.brandMark} priority />
       <span className={s.brandText}>
         <b>Ali&apos;s</b>
         <small>Twin Tower</small>

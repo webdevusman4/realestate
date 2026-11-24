@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, Phone, X, ArrowRight } from "lucide-react";
@@ -39,6 +39,8 @@ export default function Header({
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement>(null);
   const isActive = (href: string) => (href === exact ? pathname === href : pathname.startsWith(href));
 
   useEffect(() => {
@@ -51,9 +53,34 @@ export default function Header({
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const sheet = sheetRef.current;
+    const btn = btnRef.current;
+    // Move focus into the menu, keep Tab inside it (plus the toggle button), and hand focus back on close.
+    const first = sheet?.querySelector<HTMLElement>("a, button");
+    const raf = requestAnimationFrame(() => first?.focus());
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        btn?.focus();
+        return;
+      }
+      if (e.key !== "Tab" || !sheet) return;
+      const items = [btn, ...Array.from(sheet.querySelectorAll<HTMLElement>("a, button"))].filter((x): x is HTMLElement => !!x);
+      const firstEl = items[0];
+      const lastEl = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === firstEl) {
+        e.preventDefault();
+        lastEl.focus();
+      } else if (!e.shiftKey && document.activeElement === lastEl) {
+        e.preventDefault();
+        firstEl.focus();
+      }
+    };
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   const close = () => setOpen(false);
@@ -82,6 +109,7 @@ export default function Header({
               {cta.label}
             </Link>
             <button
+              ref={btnRef}
               className={s.menuBtn}
               type="button"
               aria-expanded={open}
@@ -94,7 +122,7 @@ export default function Header({
           </div>
         </div>
       </header>
-      <div id="mobile-menu" className={`${s.sheet} ${tower ? s.sheetTower : ""} ${open ? s.sheetOpen : ""}`} hidden={!open}>
+      <div id="mobile-menu" ref={sheetRef} className={`${s.sheet} ${tower ? s.sheetTower : ""} ${open ? s.sheetOpen : ""}`} hidden={!open}>
         <nav aria-label="Menu">
           {nav.map((n, i) => (
             <Link key={n.href} href={n.href} onClick={close} style={{ transitionDelay: `${60 + i * 40}ms` }}>

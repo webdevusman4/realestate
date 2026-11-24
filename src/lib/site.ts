@@ -18,6 +18,12 @@ export const SITE = {
   area: "Karachi",
 };
 
+/**
+ * Public origin used for canonical links, social previews, the sitemap and llms.txt.
+ * Netlify sets URL at build time; set NEXT_PUBLIC_SITE_URL once the real domain is live.
+ */
+export const SITE_ORIGIN = (process.env.NEXT_PUBLIC_SITE_URL || process.env.URL || SITE.url).replace(/\/$/, "");
+
 export const NAV = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },

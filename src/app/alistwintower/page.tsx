@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Check } from "lucide-react";
 import { Marquee } from "@/components/Sections";
 import { Amenities, ApartmentCards, BookBand, Lifestyle, LocationCard, ProjectStory } from "@/components/PageParts";
@@ -5,6 +6,10 @@ import { PlanSnapshot, TowerCta, TowerHero } from "@/components/TowerParts";
 import { TOWER_KEYWORDS, TT, TWIN_TOWER } from "@/lib/site";
 import Link from "next/link";
 import s from "@/components/site.module.css";
+
+export const metadata: Metadata = {
+  title: { absolute: "Ali's Twin Tower | Luxury Apartments in Scheme-33, Karachi" },
+};
 
 const jsonLd = {
   "@context": "https://schema.org",

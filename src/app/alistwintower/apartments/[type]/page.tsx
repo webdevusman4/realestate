@@ -5,7 +5,7 @@ import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import Image from "next/image";
 import { BookBand, PageHero, PaymentSchedule, RoomGallery } from "@/components/PageParts";
 import { PLANS } from "@/lib/plans";
-import { APARTMENTS, TT, rs } from "@/lib/site";
+import { APARTMENTS, TT, TWIN_TOWER, rs } from "@/lib/site";
 import s from "@/components/site.module.css";
 
 type Params = { type: string };
@@ -31,6 +31,17 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
   const apt = APARTMENTS.find((a) => a.slug === type);
   if (!apt) notFound();
   const others = APARTMENTS.filter((a) => a.slug !== apt.slug);
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Apartment",
+    name: `${apt.type} at ${TWIN_TOWER.name}`,
+    description: apt.headline,
+    numberOfRooms: apt.rooms,
+    numberOfBedrooms: apt.beds,
+    numberOfBathroomsTotal: apt.baths,
+    address: { "@type": "PostalAddress", streetAddress: "Plot 25B, Scheme-33, Deh Songhal", addressLocality: "Karachi", addressCountry: "PK" },
+    offers: { "@type": "Offer", price: apt.total, priceCurrency: "PKR", availability: "https://schema.org/InStock" },
+  };
 
   return (
     <>
@@ -39,7 +50,7 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
         image="/renders/living.jpg"
         imagePos="50% 55%"
         eyebrow={`${apt.rooms} rooms · ${apt.beds} bedroom${apt.beds > 1 ? "s" : ""}`}
-        title={apt.type}
+        title={`${apt.type}: ${apt.beds}-bedroom apartment`}
         text={apt.headline}
         crumbs={[
           { label: "Overview", href: TT },
@@ -146,6 +157,7 @@ export default async function ApartmentPage({ params }: { params: Promise<Params
           </ul>
         </div>
       </section>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
     </>
   );
 }
