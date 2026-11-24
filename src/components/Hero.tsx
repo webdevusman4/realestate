@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRight, Check } from "lucide-react";
-import { HERO_TOWERS, LIVE_SITES } from "@/lib/site";
+import { APARTMENTS, HERO_TOWERS, TWIN_TOWER, rs } from "@/lib/site";
 import Stats from "./Stats";
 import s from "./site.module.css";
 
@@ -31,7 +32,7 @@ export default function Hero() {
   // Cycle the "live on site" card.
   useEffect(() => {
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = setInterval(() => setLive((i) => (i + 1) % LIVE_SITES.length), 3800);
+    const id = setInterval(() => setLive((i) => (i + 1) % APARTMENTS.length), 3800);
     return () => clearInterval(id);
   }, []);
 
@@ -62,7 +63,7 @@ export default function Hero() {
     };
   }, []);
 
-  const site = LIVE_SITES[live];
+  const apt = APARTMENTS[live];
 
   return (
     <section id="top" className={s.hero}>
@@ -73,25 +74,25 @@ export default function Hero() {
 
       <div className={`${s.wrap} ${s.heroGrid}`}>
         <div className={s.heroCopy}>
-          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Builders &amp; Developers</p>
+          <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Ali&apos;s Twin Tower · Karachi</p>
           <h1 className={s.h1}>
-            We build homes and <span className={s.goldText}>landmarks</span> that last.
+            Where prestige lives, <span className={s.goldText}>future belongs.</span>
           </h1>
           <p className={s.lead}>
-            From the first drawing to the day we hand you the keys: design, construction and finishing under one
-            trusted name.
+            Ultra luxury 3, 4 &amp; 5 room apartments in Scheme-33, by Ali Zeeshan Enterprises. Spacious layouts,
+            premium finishes and easy instalments.
           </p>
           <div className={s.ctaRow}>
-            <a className={`${s.btn} ${s.btnGold}`} href="/contact">
-              Get a free estimate
+            <Link className={`${s.btn} ${s.btnGold}`} href={`/projects/${TWIN_TOWER.slug}`}>
+              See apartments &amp; prices
               <ArrowRight size={18} aria-hidden="true" />
-            </a>
-            <a className={`${s.btn} ${s.btnGhost}`} href="/projects">
-              See our projects
-            </a>
+            </Link>
+            <Link className={`${s.btn} ${s.btnGhost}`} href="/contact">
+              Book a visit
+            </Link>
           </div>
           <ul className={s.heroChecks}>
-            {["Itemised quotes", "Grade-A materials", "Weekly site updates"].map((t) => (
+            {["Floor plans & payment plans", "Bank loan option", "10% off on full cash"].map((t) => (
               <li key={t}>
                 <Check size={16} strokeWidth={2.6} aria-hidden="true" />
                 {t}
@@ -135,15 +136,19 @@ export default function Hero() {
           <div className={s.live} aria-live="polite">
             <span className={s.liveTag}>
               <i aria-hidden="true" />
-              Live on site
+              Now booking
             </span>
-            <div key={site.name} className={s.liveBody}>
-              <b>{site.name}</b>
-              <small>{site.stage}</small>
+            <div key={apt.slug} className={s.liveBody}>
+              <b>
+                Twin Tower · {apt.type}
+              </b>
+              <small>
+                {apt.beds} bedroom{apt.beds > 1 ? "s" : ""} · {apt.rooms} rooms
+              </small>
               <div className={s.liveBar} aria-hidden="true">
-                <span style={{ width: `${site.pct}%` }} />
+                <span style={{ width: "100%" }} />
               </div>
-              <em>{site.pct}% complete</em>
+              <em>{rs(apt.total)}</em>
             </div>
           </div>
         </div>

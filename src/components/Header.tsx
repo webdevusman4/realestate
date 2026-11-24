@@ -56,7 +56,7 @@ export default function Header() {
               {SITE.phone}
             </a>
             <Link className={`${s.btn} ${s.btnGold} ${s.btnSm}`} href="/contact">
-              Free estimate
+              Book a visit
             </Link>
             <button
               className={s.menuBtn}
@@ -82,7 +82,7 @@ export default function Header() {
         </nav>
         <div className={s.sheetActions}>
           <Link className={`${s.btn} ${s.btnGold}`} href="/contact" onClick={close}>
-            Get a free estimate
+            Book a visit
           </Link>
           <a className={`${s.btn} ${s.btnGhost}`} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
             <WhatsAppLogo size={18} />

@@ -39,7 +39,7 @@ export default function EstimateForm() {
       <div className={`${s.form} ${s.formDone}`} role="status">
         <CircleCheck size={44} strokeWidth={1.6} aria-hidden="true" />
         <h3>Thank you, we have your details.</h3>
-        <p>Our team will call you within one working day to arrange a site visit.</p>
+        <p>Our team will call you within one working day to arrange a visit.</p>
         <button type="button" className={`${s.btn} ${s.btnDark}`} onClick={() => setStatus("idle")}>
           Send another request
         </button>
@@ -49,7 +49,7 @@ export default function EstimateForm() {
 
   return (
     <form className={s.form} onSubmit={onSubmit} name="estimate">
-      <h3>Request a free estimate</h3>
+      <h3>Book a visit or ask for prices</h3>
       <p className={s.formNote}>Fields marked * are required.</p>
       <p hidden>
         <label>
@@ -66,7 +66,7 @@ export default function EstimateForm() {
           <input name="phone" required type="tel" autoComplete="tel" inputMode="tel" placeholder="03XX XXXXXXX" />
         </label>
         <label>
-          <span>Project type</span>
+          <span>I am interested in</span>
           <select name="type" defaultValue="">
             <option value="" disabled>
               Choose one
@@ -77,16 +77,16 @@ export default function EstimateForm() {
           </select>
         </label>
         <label>
-          <span>Plot size</span>
+          <span>Plot size (if building)</span>
           <input name="plot" placeholder="e.g. 10 Marla, 1 Kanal" />
         </label>
         <label className={s.fieldWide}>
           <span>City / area</span>
-          <input name="city" autoComplete="address-level2" placeholder="Where is the plot?" />
+          <input name="city" autoComplete="address-level2" placeholder="Where do you live?" />
         </label>
         <label className={s.fieldWide}>
-          <span>Tell us about your project</span>
-          <textarea name="message" rows={4} placeholder="Floors, rooms, budget, timeline: anything that helps." />
+          <span>Message</span>
+          <textarea name="message" rows={4} placeholder="Which type, budget, when you can visit: anything that helps." />
         </label>
       </div>
       {status === "error" && (

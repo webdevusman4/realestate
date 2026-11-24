@@ -45,11 +45,11 @@ export function About() {
             />
           </div>
           <div className={s.badge}>
-            <b>15+</b>
+            <b>Karachi</b>
             <span>
-              Years of
+              Scheme-33
               <br />
-              building
+              Twin Tower
             </span>
           </div>
         </div>
@@ -57,15 +57,15 @@ export function About() {
           <p className={s.eyebrow}>About us</p>
           <h2 className={s.h2}>Built on trust, one project at a time.</h2>
           <p className={s.body}>
-            {SITE.name} is a construction and development company delivering homes, commercial buildings and turnkey
-            projects. We keep it simple: honest pricing, quality materials, skilled teams and a site you can check on
-            any day.
+            {SITE.name} is a professionally managed business firm committed to delivering quality products and
+            reliable services to its valued customers. With a strong focus on integrity, customer satisfaction and
+            timely delivery, the company strives to build long-term relationships based on trust.
           </p>
           <ul className={s.checks}>
             {[
-              ["Engineers on every site", "Qualified supervision from foundation to finishing."],
-              ["One point of contact", "A single project manager who answers your calls."],
-              ["Built to code", "Approved drawings, tested materials, inspected work."],
+              ["Integrity", "Clear prices and honest dealing, written down."],
+              ["Customer satisfaction", "A dedicated team with a customer-centric approach."],
+              ["Timely delivery", "Long-term relationships built on trust."],
             ].map(([t, d]) => (
               <li key={t}>
                 <span className={s.checkIcon}>
@@ -141,9 +141,9 @@ export function Why() {
       <div className={`${s.wrap} ${s.whyGrid}`}>
         <div className={s.whyLeft} data-r>
           <p className={s.eyebrow}>Why {SITE.short}</p>
-          <h2 className={s.h2}>No surprises. Just solid work.</h2>
+          <h2 className={s.h2}>No surprises. Just a clear plan.</h2>
           <p className={s.body}>
-            Building is a big decision. These are the promises we put in writing on every project.
+            Buying a home is a big decision. Here is what Ali&apos;s Twin Tower puts in writing.
           </p>
           <div className={s.whyPhoto}>
             <Image src="/photos/structure-concrete.jpg" alt="" fill sizes="(max-width: 900px) 100vw, 40vw" style={{ objectFit: "cover", objectPosition: "50% 35%" }} />
@@ -176,12 +176,12 @@ export function CtaBand() {
       <div className={`${s.wrap} ${s.ctaIn}`} data-r>
         <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Ready when you are</p>
         <h2 id="cta-title" className={s.h2}>
-          Have a plot? <span className={s.goldText}>Let&apos;s build on it.</span>
+          Ready to see <span className={s.goldText}>your new home?</span>
         </h2>
-        <p className={s.lead}>Tell us what you have in mind. We will visit the site and send an itemised estimate, free.</p>
+        <p className={s.lead}>Visit the site office in Scheme-33, or call us. We will explain the plans and the payment schedule.</p>
         <div className={s.ctaRow}>
           <Link className={`${s.btn} ${s.btnGold}`} href="/contact">
-            Request a site visit
+            Book a visit
             <ArrowRight size={18} aria-hidden="true" />
           </Link>
           <a className={`${s.btn} ${s.btnGhost}`} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
@@ -199,13 +199,13 @@ export function ContactDetails() {
     { icon: Phone, label: "Call", value: SITE.phone, href: SITE.phoneHref },
     { icon: Mail, label: "Email", value: SITE.email, href: `mailto:${SITE.email}` },
     { icon: Clock, label: "Office hours", value: SITE.hours },
-    { icon: MapPin, label: "Working across", value: SITE.area },
+    { icon: MapPin, label: "Site office", value: SITE.address, href: SITE.mapsHref },
   ];
   return (
     <div className={s.contactCard}>
       <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Contact</p>
-      <h2 className={s.h2}>Let&apos;s talk about your project.</h2>
-      <p className={s.lead}>Share a few details and we will call you back within one working day.</p>
+      <h2 className={s.h2}>Let&apos;s talk about your new home.</h2>
+      <p className={s.lead}>Call or message the site office, or send the form and we will call you back.</p>
       <ul className={s.contactList}>
         {rows.map(({ icon: Icon, label, value, href }) => (
           <li key={label}>
@@ -274,6 +274,7 @@ export function Footer() {
               </a>
             </li>
             <li>{SITE.hours}</li>
+            <li>{SITE.address}</li>
           </ul>
         </div>
       </div>
@@ -303,7 +304,7 @@ export function MobileBar() {
           WhatsApp
         </a>
         <Link href="/contact" className={s.mobileBarCta}>
-          Free estimate
+          Book a visit
         </Link>
       </nav>
     </>

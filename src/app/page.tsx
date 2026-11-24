@@ -1,19 +1,19 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
-import { TwinTowerFeature } from "@/components/PageParts";
+import { Amenities, TwinTowerFeature } from "@/components/PageParts";
 import { About, CtaBand, Footer, Marquee, MobileBar, Services, Why } from "@/components/Sections";
-import { SERVICES, SITE } from "@/lib/site";
+import { SITE } from "@/lib/site";
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "GeneralContractor",
+  "@type": "Organization",
   name: SITE.name,
   description: SITE.description,
   telephone: SITE.phone,
   email: SITE.email,
+  address: { "@type": "PostalAddress", streetAddress: "Plot 25B, Scheme-33, Deh Songhal", addressLocality: "Karachi", addressCountry: "PK" },
   areaServed: SITE.area,
-  makesOffer: SERVICES.map((sv) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: sv.title } })),
 };
 
 export default function Home() {
@@ -24,6 +24,7 @@ export default function Home() {
         <Hero />
         <Marquee />
         <TwinTowerFeature />
+        <Amenities />
         <About />
         <Services />
         <Why />

@@ -35,11 +35,11 @@ npm run build      # production build (fully static)
 
 | Route | Content |
 | --- | --- |
-| `/` | Hero, marquee, Twin Tower feature, About, Services, Why us, CTA |
+| `/` | Hero, marquee, Twin Tower feature, salient features, About, Services, Why us, CTA |
 | `/about` | About, stats, Why us, Process |
 | `/services` | 6 services, Process |
 | `/projects` | Twin Tower feature + filterable project gallery |
-| `/projects/alis-twin-tower` | Highlights, Type A/B/C cards, side-by-side comparison |
+| `/projects/alis-twin-tower` | The project story, highlights, Type A/B/C cards, comparison, "Unmatched lifestyle" room cards, salient features, site office + map |
 | `/projects/alis-twin-tower/type-a` (`-b`, `-c`) | Floor plan, room sizes, full payment schedule, extra charges, notes |
 | `/contact` | Details + free-estimate form |
 
@@ -49,7 +49,7 @@ Twin Tower prices, plans and payment schedules live in `src/lib/site.ts` (`APART
 
 Everything marked `SAMPLE` or `CONFIRM` in `src/lib/site.ts`:
 
-- [ ] Twin Tower: location, status/handover date, logo file (`public/brand/`), architect drawings to check the redrawn floor plans (`src/lib/plans.ts`), area in sq ft, bath counts, Type C "On finishing" (600,000 inferred)
+- [ ] Twin Tower: status/handover date, "Standby generator" (brochure text is cut off), spelling of "Deh Songhal", WhatsApp on the same number, office hours, email, logo file (`public/brand/`), architect drawings to check the redrawn floor plans (`src/lib/plans.ts`), area in sq ft, bath counts, Type C "On finishing" (600,000 inferred)
 - [ ] Phone, WhatsApp number, email, office hours, city / office address
 - [ ] Stats (15+ years, 120+ projects, 2M+ sq ft, 98% on time) and the "15+ years" badge
 - [ ] Project names, sizes and photos (currently stock photos with made-up names)
@@ -61,3 +61,14 @@ Everything marked `SAMPLE` or `CONFIRM` in `src/lib/site.ts`:
 
 The estimate form posts to Netlify Forms (registered in `public/__forms.html`). On another host the post fails
 gracefully and visitors are shown the phone number and WhatsApp instead.
+
+## Real content from the brochure
+
+Site office (Plot 25B, Scheme-33, Deh Songhal, Karachi, 0320-9281567), the project story, "Unmatched Lifestyle" text,
+salient features (masjid, covered parking, CCTV, 24/7 security, 8 lifts, play area, lobby, standby), and the
+Type A/B/C plans and payment schedules are all in `src/lib/site.ts`.
+
+AI room images: drop `kitchen.jpg`, `washroom.jpg`, `bedroom.jpg`, `living.jpg`, `drawing.jpg` into `public/renders/`
+and rebuild. They replace the icon cards and get an "Artist impression" tag.
+
+The old sample project gallery (`Projects.tsx`, `PROJECTS` in `site.ts`) is no longer shown: those names and photos were made up.

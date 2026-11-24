@@ -9,13 +9,15 @@ export const SITE = {
   tagline: "Builders & Developers",
   url: "https://alizeeshan.example", // CONFIRM: real domain
   description:
-    "Ali Zeeshan Enterprises builds homes, commercial buildings and turnkey projects, from the first drawing to handing over the keys.",
-  phone: "+92 300 0000000", // CONFIRM
-  phoneHref: "tel:+923000000000", // CONFIRM
-  whatsappHref: "https://wa.me/923000000000", // CONFIRM
+    "Ali Zeeshan Enterprises is a professionally managed firm behind Ali's Twin Tower, ultra luxury 3, 4 and 5 room apartments in Scheme-33, Karachi.",
+  phone: "+92 320 9281567", // from the brochure (site office mobile)
+  phoneHref: "tel:+923209281567",
+  whatsappHref: "https://wa.me/923209281567", // CONFIRM: same number on WhatsApp?
   email: "info@alizeeshan.pk", // CONFIRM
   hours: "Mon–Sat, 10am–7pm", // CONFIRM
-  area: "Pakistan", // CONFIRM: city / head office address
+  area: "Karachi",
+  address: "Plot 25B, Scheme-33, Deh Songhal, Karachi", // from the brochure; CONFIRM spelling of "Songhal"
+  mapsHref: "https://www.google.com/maps/search/?api=1&query=Plot+25B+Scheme+33+Deh+Songhal+Karachi",
 };
 
 export const NAV = [
@@ -26,25 +28,25 @@ export const NAV = [
   { label: "Contact", href: "/contact" },
 ] as const;
 
-/** SAMPLE figures for the mock-up. */
+/** Real facts from the Twin Tower brochure and payment schedules. */
 export const STATS = [
-  { value: 15, suffix: "+", label: "Years building" },
-  { value: 120, suffix: "+", label: "Projects delivered" },
-  { value: 2, suffix: "M+", label: "Sq ft constructed" },
-  { value: 98, suffix: "%", label: "Handed over on time" },
+  { value: 8, suffix: "", label: "Speedy lifts" },
+  { value: 3, suffix: "", label: "Apartment types" },
+  { value: 60, suffix: "", label: "Monthly instalments" },
+  { value: 10, suffix: "%", label: "Off on full cash payment" },
 ];
 
 export const KEYWORDS = [
-  "Residential Construction",
-  "Commercial Buildings",
-  "Grey Structure",
-  "Turnkey Projects",
-  "Renovation",
-  "Interior Finishing",
-  "Architecture & Design",
-  "Project Management",
-  "Farmhouses",
-  "Plazas & Offices",
+  "3, 4 & 5 Room Apartments",
+  "American Kitchen",
+  "Wooden Flooring",
+  "Elegant False Ceiling",
+  "Tiled Washrooms",
+  "Covered Car Parking",
+  "24/7 Security",
+  "Speedy Lifts",
+  "Easy Instalments",
+  "Bank Loan Option",
 ];
 
 /** Photos for the three tower frames in the hero (left to right). */
@@ -54,12 +56,6 @@ export const HERO_TOWERS = [
   { src: "/photos/villa-white.jpg", alt: "Finished modern villa with a pool", pos: "60% 50%" },
 ];
 
-/** SAMPLE: projects the hero card cycles through. */
-export const LIVE_SITES = [
-  { name: "Gold Crest Villa", stage: "Finishing works", pct: 82 },
-  { name: "City Heights", stage: "Grey structure · floor 9 of 14", pct: 64 },
-  { name: "Cedar Court Residence", stage: "Brickwork", pct: 41 },
-];
 
 export type Service = {
   id: string;
@@ -152,10 +148,10 @@ export const PROJECTS: {
 ];
 
 export const PROMISES = [
-  { icon: "quote", title: "Itemised, fixed quotes", text: "You see the full cost before work starts. No surprise bills." },
-  { icon: "materials", title: "Grade-A materials", text: "Approved cement, steel and fittings, with receipts shared." },
-  { icon: "updates", title: "Weekly site updates", text: "Photos and progress on WhatsApp, every week." },
-  { icon: "schedule", title: "On-time handover", text: "A written schedule with milestones we are held to." },
+  { icon: "quote", title: "Clear, written prices", text: "Every payment is in the schedule: booking, instalments, finishing and possession." },
+  { icon: "materials", title: "Premium finishes", text: "Wooden flooring, elegant false ceilings, sleek cabinetry and tiled washrooms." },
+  { icon: "updates", title: "Easy instalments", text: "60 monthly and 10 half-yearly instalments, with a bank loan option." },
+  { icon: "schedule", title: "10% off for cash", text: "A 10% discount on full cash payment at the time of booking." },
 ] as const;
 
 export const PROCESS = [
@@ -167,6 +163,9 @@ export const PROCESS = [
 ];
 
 export const PROJECT_TYPES = [
+  "Apartment: Type A (3 bedrooms)",
+  "Apartment: Type B (2 bedrooms)",
+  "Apartment: Type C (1 bedroom)",
   "New house",
   "Commercial building",
   "Grey structure only",
@@ -184,10 +183,16 @@ export const TWIN_TOWER = {
   slug: "alis-twin-tower",
   name: "Ali's Twin Tower",
   short: "Twin Tower",
-  tagline: "Ultra Luxury Apartments",
+  tagline: "Where Prestige Lives, Future Belongs.",
+  kind: "Luxury Apartments & Showroom",
   summary:
-    "Ultra luxury apartments in two towers, in 3, 4 and 5 room layouts with an American kitchen, wooden flooring and elegant false ceilings.",
-  location: "Pakistan", // CONFIRM: city, area and address of the project
+    "Ultra luxury 3, 4 and 5 room apartments in Scheme-33, Karachi, with an American kitchen, wooden flooring and elegant false ceilings.",
+  /** Text from the brochure ("The Project"). */
+  story: [
+    "Ali's Twin Tower is a prestigious and landmark development by Ali Zeeshan Enterprises, crafted with a vision to redefine the standards of modern living and commercial excellence. Standing tall as a symbol of architectural brilliance and thoughtful design, the project offers a perfect blend of luxury, comfort and functionality for discerning buyers and investors.",
+    "The tower proudly presents 3, 4 & 5 Rooms Ultra Luxury Apartments, meticulously designed to cater to the refined tastes of modern families. Every apartment features spacious layouts, premium finishes, elegant interiors and abundant natural light, creating an environment where comfort meets sophistication.",
+  ],
+  location: "Scheme-33, Karachi",
   status: "Now booking", // CONFIRM: launch / construction status and handover date
   features: [
     { title: "American kitchen", text: "Open kitchen joined to the dining and lounge area." },
@@ -196,6 +201,27 @@ export const TWIN_TOWER = {
     { title: "Private terrace", text: "A terrace attached to the bedrooms in every type." },
   ],
 };
+
+/** Salient features from the brochure. */
+export const AMENITIES = [
+  { icon: "masjid", title: "Masjid" },
+  { icon: "parking", title: "Covered car parking" },
+  { icon: "cctv", title: "CCTV cameras" },
+  { icon: "security", title: "24/7 security system" },
+  { icon: "lifts", title: "8 speedy lifts" },
+  { icon: "play", title: "Children play area" },
+  { icon: "lobby", title: "Lobby" },
+  { icon: "standby", title: "Standby generator" }, // CONFIRM: brochure text is cut off after "Standby"
+] as const;
+
+/** "Unmatched Lifestyle" text from the brochure, one card per space. Images go in public/renders/<id>.jpg. */
+export const LIFESTYLE = [
+  { id: "kitchen", title: "American kitchen", text: "A modern American kitchen with premium fittings, sleek cabinetry and a smart layout." },
+  { id: "washroom", title: "Tiled washrooms", text: "Elegantly finished with high-quality tiles and contemporary fixtures: clean, stylish and refreshing." },
+  { id: "bedroom", title: "Main bedroom", text: "A private retreat with spacious dimensions, premium flooring and ample natural light." },
+  { id: "living", title: "Living room", text: "A generous layout for relaxation and entertainment, made for family gatherings and social events." },
+  { id: "drawing", title: "Drawing room", text: "A sophisticated, separate space for hosting guests with elegance and privacy." },
+] as const;
 
 export type PayRow = { label: string; amount: number };
 

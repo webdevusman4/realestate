@@ -1,6 +1,27 @@
+import fs from "node:fs";
+import path from "node:path";
+import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BedDouble, Bath, ChevronRight, Phone } from "lucide-react";
-import { APARTMENTS, EXTRA_CHARGES, PAYMENT_NOTES, SITE, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
+import {
+  ArrowRight,
+  Armchair,
+  Baby,
+  Bath,
+  BedDouble,
+  CarFront,
+  Cctv,
+  ChevronRight,
+  CookingPot,
+  Landmark,
+  MapPin,
+  Phone,
+  ShieldCheck,
+  Sofa,
+  Building2,
+  ArrowUpDown,
+  Zap,
+} from "lucide-react";
+import { AMENITIES, APARTMENTS, EXTRA_CHARGES, LIFESTYLE, PAYMENT_NOTES, SITE, TWIN_TOWER, rs, type Apartment } from "@/lib/site";
 import { planFor } from "@/lib/plans";
 import FloorPlan from "./FloorPlan";
 import { WhatsAppLogo } from "./icons";
@@ -237,5 +258,129 @@ export function RoomGallery({ apt }: { apt: Apartment }) {
         </li>
       ))}
     </ul>
+  );
+}
+
+const AMENITY_ICONS = {
+  masjid: Landmark,
+  parking: CarFront,
+  cctv: Cctv,
+  security: ShieldCheck,
+  lifts: ArrowUpDown,
+  play: Baby,
+  lobby: Building2,
+  standby: Zap,
+} as const;
+
+/** Salient features grid. */
+export function Amenities({ dark }: { dark?: boolean }) {
+  return (
+    <section className={`${s.sec} ${dark ? s.secDark : ""}`} aria-labelledby="amen-title">
+      <div className={s.wrap}>
+        <div className={s.secHead} data-r>
+          <div>
+            <p className={`${s.eyebrow} ${dark ? s.eyebrowDark : ""}`}>Salient features</p>
+            <h2 id="amen-title" className={s.h2}>
+              Everything a modern family needs.
+            </h2>
+          </div>
+          <p className={s.body}>Safety, comfort and convenience, built into {TWIN_TOWER.name}.</p>
+        </div>
+        <ul className={s.amenGrid}>
+          {AMENITIES.map((a) => {
+            const Icon = AMENITY_ICONS[a.icon];
+            return (
+              <li key={a.title} className={s.amen} data-r>
+                <span className={s.amenIcon}>
+                  <Icon size={26} strokeWidth={1.7} aria-hidden="true" />
+                </span>
+                <b>{a.title}</b>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+const LIFE_ICONS = { kitchen: CookingPot, washroom: Bath, bedroom: BedDouble, living: Sofa, drawing: Armchair } as const;
+
+/** "Unmatched lifestyle" cards. A card shows its render if public/renders/<id>.jpg exists. */
+export function Lifestyle() {
+  const have = (id: string) => fs.existsSync(path.join(process.cwd(), "public", "renders", `${id}.jpg`));
+  return (
+    <ul className={s.lifeGrid}>
+      {LIFESTYLE.map((l) => {
+        const Icon = LIFE_ICONS[l.id];
+        const img = have(l.id);
+        return (
+          <li key={l.id} className={s.life} data-r>
+            <div className={s.lifePic}>
+              {img ? (
+                <Image src={`/renders/${l.id}.jpg`} alt={`${l.title}, artist impression`} fill sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 33vw" style={{ objectFit: "cover" }} />
+              ) : (
+                <Icon size={44} strokeWidth={1.3} aria-hidden="true" />
+              )}
+              {img && <span className={s.lifeNote}>Artist impression</span>}
+            </div>
+            <div className={s.lifeText}>
+              <h3>{l.title}</h3>
+              <p>{l.text}</p>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+/** Site office address with map and call buttons. */
+export function LocationCard() {
+  return (
+    <div className={s.locCard}>
+      <span className={s.locIcon}>
+        <MapPin size={26} strokeWidth={1.8} aria-hidden="true" />
+      </span>
+      <div className={s.locText}>
+        <p className={`${s.eyebrow} ${s.eyebrowDark}`}>Site office</p>
+        <h3>{TWIN_TOWER.name}</h3>
+        <p>{SITE.address}</p>
+        <p>
+          Mobile: <a href={SITE.phoneHref}>{SITE.phone}</a>
+        </p>
+      </div>
+      <div className={s.ctaRow}>
+        <a className={`${s.btn} ${s.btnGold}`} href={SITE.mapsHref} target="_blank" rel="noopener noreferrer">
+          <MapPin size={18} aria-hidden="true" />
+          Open in Google Maps
+        </a>
+        <a className={`${s.btn} ${s.btnGhost}`} href={SITE.phoneHref}>
+          <Phone size={18} aria-hidden="true" />
+          Call
+        </a>
+      </div>
+    </div>
+  );
+}
+
+/** "The project" story text. */
+export function ProjectStory() {
+  return (
+    <section className={s.sec}>
+      <div className={`${s.wrap} ${s.storyGrid}`}>
+        <div data-r>
+          <p className={s.eyebrow}>The project</p>
+          <h2 className={s.h2}>A landmark in Scheme-33.</h2>
+        </div>
+        <div className={s.storyText} data-r>
+          {TWIN_TOWER.story.map((p) => (
+            <p key={p} className={s.body}>
+              {p}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

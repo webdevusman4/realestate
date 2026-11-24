@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Check } from "lucide-react";
 import Shell from "@/components/Shell";
-import { ApartmentCards, BookBand, PageHero, TowerWordmark } from "@/components/PageParts";
+import { Amenities, ApartmentCards, BookBand, Lifestyle, LocationCard, PageHero, ProjectStory, TowerWordmark } from "@/components/PageParts";
 import { APARTMENTS, TWIN_TOWER, rs } from "@/lib/site";
 import s from "@/components/site.module.css";
 
@@ -19,9 +19,11 @@ export default function TwinTowerPage() {
         variant="tower"
         eyebrow="New project"
         title={<TowerWordmark size="lg" />}
-        text={TWIN_TOWER.summary}
+        text={`${TWIN_TOWER.tagline} ${TWIN_TOWER.summary}`}
         crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: TWIN_TOWER.name }]}
       />
+
+      <ProjectStory />
 
       <section className={`${s.sec} ${s.secTint}`}>
         <div className={s.wrap}>
@@ -132,6 +134,27 @@ export default function TwinTowerPage() {
               </tbody>
             </table>
           </div>
+        </div>
+      </section>
+
+      <section className={s.sec}>
+        <div className={s.wrap}>
+          <div className={s.secHead} data-r>
+            <div>
+              <p className={s.eyebrow}>Unmatched lifestyle</p>
+              <h2 className={s.h2}>Inside every apartment.</h2>
+            </div>
+            <p className={s.body}>Each apartment is designed for comfort, entertainment and privacy.</p>
+          </div>
+          <Lifestyle />
+        </div>
+      </section>
+
+      <Amenities dark />
+
+      <section className={s.sec}>
+        <div className={s.wrap} data-r>
+          <LocationCard />
         </div>
       </section>
     </Shell>

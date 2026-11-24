@@ -1,0 +1,1 @@
+Drop AI-generated room images here, named after the room id in src/lib/site.ts (LIFESTYLE): kitchen.jpg, washroom.jpg, bedroom.jpg, living.jpg, drawing.jpg. They appear on the Twin Tower page automatically after a rebuild.

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Shell from "@/components/Shell";
 import EstimateForm from "@/components/EstimateForm";
-import { PageHero } from "@/components/PageParts";
+import { LocationCard, PageHero } from "@/components/PageParts";
 import { ContactDetails } from "@/components/Sections";
 import s from "@/components/site.module.css";
 
@@ -15,8 +15,8 @@ export default function ContactPage() {
     <Shell>
       <PageHero
         eyebrow="Contact"
-        title="Let's talk about your project."
-        text="Call, message us on WhatsApp or send the form. We reply within one working day."
+        title="Let's talk about your new home."
+        text="Visit the site office, call, message us on WhatsApp or send the form."
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
       />
       <section className={`${s.sec} ${s.secContact}`}>
@@ -27,6 +27,11 @@ export default function ContactPage() {
           <div data-r>
             <EstimateForm />
           </div>
+        </div>
+      </section>
+      <section className={s.sec} style={{ paddingTop: 0 }}>
+        <div className={s.wrap} data-r>
+          <LocationCard />
         </div>
       </section>
     </Shell>
