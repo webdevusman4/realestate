@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
+import TowerAssistant from "@/components/assistant/TowerAssistant";
 import { TowerFooter, TowerHeader, TowerMobileBar } from "@/components/TowerParts";
 import { TWIN_TOWER } from "@/lib/site";
 
@@ -24,6 +25,7 @@ export default function TowerLayout({ children }: { children: React.ReactNode })
       <main id="main">{children}</main>
       <TowerFooter />
       <TowerMobileBar />
+      <TowerAssistant />
       <Reveal />
     </>
   );

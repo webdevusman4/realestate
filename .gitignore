@@ -42,3 +42,4 @@ yarn-error.log*
 
 # Next.js generates this file (dev and build write different versions); see the Next.js TypeScript docs
 next-env.d.ts
+!.env.example

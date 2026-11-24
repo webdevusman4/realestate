@@ -95,3 +95,16 @@ The old sample project gallery (`Projects.tsx`, `PROJECTS` in `site.ts`) is no l
 `SITE_ORIGIN` (in `src/lib/site.ts`) is the public address used for canonical links, social preview images, `/sitemap.xml`,
 `/robots.txt` and `/llms.txt`. On Netlify it is taken from the build's `URL` automatically; set `NEXT_PUBLIC_SITE_URL`
 in Netlify's environment variables once the real domain (or the `alistwintower` subdomain) is live.
+
+## Twin Tower assistant (AI chat)
+
+A floating "Ask us" chat on the project site (`/alistwintower/...`), adapted from the Fecto Cement assistant.
+It streams answers from Google Gemini through `src/app/api/assistant/route.ts`; the key stays on the server.
+
+- **Turn it on:** add `GEMINI_API_KEY` (Google AI Studio) in Netlify, Site configuration, Environment variables, then redeploy.
+  Without a key the chat shows a friendly message with the site office number.
+- **Always matches the site:** `src/lib/assistant/prompt.ts` builds the assistant's knowledge from `src/lib/site.ts` and `src/lib/plans.ts`
+  (prices, schedules, room sizes, features, address). Change the data once and the chat follows.
+- **Safety:** it must not invent handover dates, availability, loan terms or areas, and points to the site office instead.
+- **Limits:** 25 questions per visitor per day, 6 per minute, 450 per day overall (override with `ASSISTANT_*` variables, see `.env.example`).
+- **Models:** `GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` (defaults `gemini-3.5-flash-lite`, then `gemini-3.8-flash`).
