@@ -1,4 +1,5 @@
 import { APARTMENTS, SITE, SITE_ORIGIN, TOWER_OFFICE, TT, TWIN_TOWER, rs } from "@/lib/site";
+import { PROJECTS, projectHref } from "@/lib/company";
 
 export const dynamic = "force-static";
 
@@ -25,7 +26,8 @@ export function GET() {
     `- [Contact / book a visit](${o}${TT}/contact)`,
     "",
     "## Company",
-    `- [${SITE.name}](${o}/): the developer, ${SITE.area}`,
+    `- [${SITE.name}](${o}/): ${SITE.tagline}, ${SITE.area}. Registered ${SITE.registered}; ABAD and PEC.`,
+    ...PROJECTS.map((p) => `- [${p.name}](${o}${projectHref(p)}): ${p.status}, ${p.type.toLowerCase()}${p.sample ? " (details are placeholders)" : ""}`),
     "",
   ];
   return new Response(lines.join("\n"), { headers: { "Content-Type": "text/plain; charset=utf-8" } });

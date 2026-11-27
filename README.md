@@ -108,3 +108,13 @@ It streams answers from Google Gemini through `src/app/api/assistant/route.ts`; 
 - **Safety:** it must not invent handover dates, availability, loan terms or areas, and points to the site office instead.
 - **Limits:** 25 questions per visitor per day, 6 per minute, 450 per day overall (override with `ASSISTANT_*` variables, see `.env.example`).
 - **Models:** `GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` (defaults `gemini-3.5-flash-lite`, then `gemini-3.8-flash`).
+
+## Company site (rebuilt)
+
+The company site (`/`, `/about`, `/services`, `/projects`, `/projects/<name>`, `/contact`) is built from `src/lib/company.ts`.
+- **Real, from the client's form:** name, "Builder & Real Estate Developer", hours 10 am to 8 pm, services (commercial buildings,
+  real estate development), ABAD and PEC, 2019 registration, project names, owner names.
+- **Dummy (marked "Sample details" on the page and `sample: true` / SAMPLE in the code):** Zeeshan Pride, Ali's Tower, Ali Complex,
+  Ali's Bridge View and Ali Skyline details and photos, the extra two services, the company story, how a project works,
+  the directors' roles and the email address. Replace them as the client sends the real information.
+- Ali's Twin Tower has real data and its own project site at `/alistwintower`.

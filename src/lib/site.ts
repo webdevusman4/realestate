@@ -6,16 +6,19 @@
 export const SITE = {
   name: "Ali Zeeshan Enterprises",
   short: "Ali Zeeshan",
-  tagline: "Builders & Developers",
+  tagline: "Builders & Real Estate Developers", // from the client's form: "Builder & Real Estate Developer"
   url: "https://alizeeshan.example", // CONFIRM: real domain
   description:
-    "Ali Zeeshan Enterprises is a professionally managed business firm in Karachi, committed to quality products, reliable services and timely delivery.",
+    "Ali Zeeshan Enterprises is a Karachi builder and real estate developer, delivering commercial buildings and residential projects such as Ali's Twin Tower.",
   phone: "+92 320 9281567", // CONFIRM: this is the Twin Tower site office mobile from the brochure
   phoneHref: "tel:+923209281567",
   whatsappHref: "https://wa.me/923209281567", // CONFIRM: same number on WhatsApp?
-  email: "info@alizeeshan.pk", // CONFIRM
-  hours: "Mon–Sat, 10am–7pm", // CONFIRM
+  email: "info@alizeeshan.pk", // CONFIRM: the form shows sales / info @ ali zeeshan enterprises, with no ending
+  hours: "10:00 am – 8:00 pm", // from the client's form (days not given)
   area: "Karachi",
+  /** CONFIRM: the form gives the booking office; the full head office address is still missing. */
+  address: "Booking office: Ali's Twin Tower, Plot 25-B, Scheme-33, Karachi",
+  registered: 2019, // from the form: "2019 Registered company"
 };
 
 /**
@@ -53,103 +56,6 @@ export const TOWER_KEYWORDS = [
   "Bank Loan Option",
 ];
 
-/** Photos for the three tower frames in the hero (left to right). */
-export const HERO_TOWERS = [
-  { src: "/photos/worker-helmet.jpg", alt: "Site engineer in a hard hat and safety vest", pos: "50% 30%" },
-  { src: "/photos/structure-crane.jpg", alt: "Tower crane beside a building under construction", pos: "40% 50%" },
-  { src: "/photos/villa-white.jpg", alt: "Finished modern villa with a pool", pos: "60% 50%" },
-];
-
-
-export type Service = {
-  id: string;
-  title: string;
-  text: string;
-  tags: string[];
-  image: string;
-  alt: string;
-};
-
-export const SERVICES: Service[] = [
-  {
-    id: "residential",
-    title: "Residential Construction",
-    text: "Houses, villas and farmhouses built to your plan, from 5 Marla to multi-Kanal.",
-    tags: ["Houses", "Villas", "Farmhouses"],
-    image: "/photos/house-modern.jpg",
-    alt: "Modern two-storey house with a pool",
-  },
-  {
-    id: "commercial",
-    title: "Commercial Buildings",
-    text: "Plazas, offices, showrooms and apartment blocks, engineered for a long life.",
-    tags: ["Plazas", "Offices", "Apartments"],
-    image: "/photos/commercial-facade.jpg",
-    alt: "Commercial building with a curved timber facade",
-  },
-  {
-    id: "grey-structure",
-    title: "Grey Structure",
-    text: "Foundations, RCC frame, brickwork and roofing, done right the first time.",
-    tags: ["Foundation", "RCC frame", "Masonry"],
-    image: "/photos/structure-concrete.jpg",
-    alt: "Concrete frame of a building under construction",
-  },
-  {
-    id: "turnkey",
-    title: "Turnkey & Finishing",
-    text: "Grey structure to move-in ready: flooring, woodwork, electrics, plumbing and paint.",
-    tags: ["Flooring", "Woodwork", "MEP"],
-    image: "/photos/interior-lounge.jpg",
-    alt: "Finished living room with a sofa and wall panels",
-  },
-  {
-    id: "renovation",
-    title: "Renovation & Remodeling",
-    text: "Extensions, extra floors and full makeovers for homes and offices.",
-    tags: ["Extensions", "Extra floors", "Makeovers"],
-    image: "/photos/interior-window.jpg",
-    alt: "Renovated living room with floor-to-ceiling windows",
-  },
-  {
-    id: "architecture",
-    title: "Architecture & Planning",
-    text: "Drawings, 3D views, cost estimates and approvals before a brick is laid.",
-    tags: ["Drawings", "3D views", "Approvals"],
-    image: "/photos/architect-drafting.jpg",
-    alt: "Architect drafting a building plan",
-  },
-];
-
-export const PROJECT_FILTERS = ["All", "Residential", "Commercial", "Ongoing"] as const;
-export type ProjectType = Exclude<(typeof PROJECT_FILTERS)[number], "All">;
-
-/** SAMPLE projects for the mock-up (stock photos). */
-export const PROJECTS: {
-  name: string;
-  type: ProjectType;
-  meta: string;
-  image: string;
-  alt: string;
-  pos?: string;
-  href?: string;
-}[] = [
-  {
-    name: "Ali's Twin Tower",
-    type: "Residential",
-    meta: "Ultra luxury apartments · 3, 4 & 5 rooms",
-    image: "/photos/apartments.jpg",
-    alt: "Apartment building with balconies",
-    pos: "50% 40%",
-    href: "/alistwintower", // CONFIRM: swap in the real render or site photo
-  },
-  { name: "Gold Crest Villa", type: "Residential", meta: "1 Kanal · 6 bedrooms · Turnkey", image: "/photos/villa-pool.jpg", alt: "Modern villa with a pool and lawn" },
-  { name: "Skyline Business Centre", type: "Commercial", meta: "9 floors · Offices & retail", image: "/photos/office-glass.jpg", alt: "Mid-rise office building with a glass facade" },
-  { name: "Cedar Court Residence", type: "Residential", meta: "1 Kanal · Grey structure + finishing", image: "/photos/house-night.jpg", alt: "Modern house lit up at night" },
-  { name: "Crescent Apartments", type: "Commercial", meta: "7 floors · 42 apartments", image: "/photos/apartments.jpg", alt: "Apartment building with balconies", pos: "50% 40%" },
-  { name: "City Heights", type: "Ongoing", meta: "14 floors · Grey structure in progress", image: "/photos/cranes-city.jpg", alt: "Tower cranes over buildings under construction at dusk" },
-  { name: "Lakeside Farmhouse", type: "Residential", meta: "4 Kanal · Farmhouse · Landscaping", image: "/photos/villa-dusk.jpg", alt: "Farmhouse with a pool and lawn" },
-];
 
 export const TOWER_PROMISES = [
   { icon: "quote", title: "Clear, written prices", text: "Every payment is in the schedule: booking, instalments, finishing and possession." },
@@ -158,6 +64,7 @@ export const TOWER_PROMISES = [
   { icon: "schedule", title: "10% off for cash", text: "A 10% discount on full cash payment at the time of booking." },
 ] as const;
 
+/** SAMPLE: how a project works. Replace with the company's real steps (section 9 of the requirements form). */
 export const PROCESS = [
   { title: "Consultation", text: "We visit the plot, listen to your plans and check the site." },
   { title: "Design & estimate", text: "Drawings, 3D views and an itemised quote for you to approve." },
@@ -170,11 +77,8 @@ export const PROJECT_TYPES = [
   "Apartment: Type A (3 bedrooms)",
   "Apartment: Type B (2 bedrooms)",
   "Apartment: Type C (1 bedroom)",
-  "New house",
-  "Commercial building",
-  "Grey structure only",
-  "Turnkey / finishing",
-  "Renovation",
+  "Commercial space or showroom",
+  "Another project",
   "Something else",
 ];
 
@@ -367,15 +271,14 @@ export const rs = (n: number) => `Rs ${n.toLocaleString("en-PK")}`;
  * Company-level content for the Ali Zeeshan Enterprises portfolio site (the project site has its own, above).
  * ---------------------------------------------------------------------------------------------- */
 
-/** CONFIRM: what the company actually offers. */
 export const KEYWORDS = [
-  "Residential Construction",
   "Commercial Buildings",
-  "Apartments & Showrooms",
-  "Turnkey Projects",
-  "Renovation",
-  "Interior Finishing",
-  "Architecture & Design",
+  "Real Estate Development",
+  "Residential Apartments",
+  "Plazas & Showrooms",
+  "ABAD Member",
+  "PEC Registered",
+  "Booking & Sales",
   "Project Management",
 ];
 
@@ -410,7 +313,7 @@ export const TOWER_OFFICE = {
   /** Embeddable map (no API key). CONFIRM the pin lands on the site; send a Google Maps link or coordinates if not. */
   mapEmbed: "https://www.google.com/maps?q=Plot+25B+Scheme+33+Deh+Songhal+Karachi&z=14&output=embed",
   email: "info@alizeeshan.pk", // CONFIRM
-  hours: "Mon–Sat, 10am–7pm", // CONFIRM
+  hours: "10:00 am – 8:00 pm", // from the client's form
 };
 
 /** WhatsApp link that opens with a ready-typed message. */

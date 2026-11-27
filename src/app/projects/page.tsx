@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Shell from "@/components/Shell";
-import { PageHero, ProjectTeaser } from "@/components/PageParts";
+import Projects from "@/components/Projects";
+import { PageHero } from "@/components/PageParts";
 import { CtaBand } from "@/components/Sections";
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Ali's Twin Tower: ultra luxury 3, 4 and 5 room apartments in Scheme-33, Karachi, by Ali Zeeshan Enterprises.",
+  description: "Ali's Twin Tower, Zeeshan Pride, Ali's Tower, Ali Complex and our upcoming projects Ali's Bridge View and Ali Skyline.",
 };
 
 export default function ProjectsPage() {
@@ -15,11 +16,11 @@ export default function ProjectsPage() {
         image="/hero/twin-tower-hero.jpg"
         imagePos="75% 50%"
         eyebrow="Projects"
-        title="Work we are proud to sign."
-        text="Our current project, Ali's Twin Tower, in Scheme-33, Karachi."
+        title="Our projects."
+        text="Finished buildings, the project open for booking now, and what is coming next."
         crumbs={[{ label: "Home", href: "/" }, { label: "Projects" }]}
       />
-      <ProjectTeaser />
+      <Projects dark={false} heading={false} />
       <CtaBand />
     </Shell>
   );

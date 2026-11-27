@@ -1,8 +1,8 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Reveal from "@/components/Reveal";
-import { ProjectTeaser } from "@/components/PageParts";
-import { About, CtaBand, Footer, Marquee, MobileBar, Services, Why } from "@/components/Sections";
+import Projects from "@/components/Projects";
+import { About, CtaBand, Footer, Leadership, Marquee, MobileBar, Services, Why } from "@/components/Sections";
 import { SITE } from "@/lib/site";
 
 const jsonLd = {
@@ -12,7 +12,8 @@ const jsonLd = {
   description: SITE.description,
   telephone: SITE.phone,
   email: SITE.email,
-  address: { "@type": "PostalAddress", streetAddress: "Plot 25B, Scheme-33, Deh Songhal", addressLocality: "Karachi", addressCountry: "PK" },
+  foundingDate: String(SITE.registered),
+  address: { "@type": "PostalAddress", streetAddress: "Plot 25-B, Scheme-33", addressLocality: "Karachi", addressCountry: "PK" },
   areaServed: SITE.area,
 };
 
@@ -23,10 +24,11 @@ export default function Home() {
       <main id="main">
         <Hero />
         <Marquee />
-        <ProjectTeaser />
+        <Projects />
         <About />
         <Services />
         <Why />
+        <Leadership />
         <CtaBand />
       </main>
       <Footer />

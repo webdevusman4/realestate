@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { APARTMENTS, SITE_ORIGIN, TT } from "@/lib/site";
+import { PROJECTS } from "@/lib/company";
 
 export const dynamic = "force-static";
 
@@ -10,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/services",
     "/projects",
     "/contact",
+    ...PROJECTS.filter((p) => !p.href).map((p) => `/projects/${p.slug}`),
     TT,
     `${TT}/apartments`,
     ...APARTMENTS.map((a) => `${TT}/apartments/${a.slug}`),

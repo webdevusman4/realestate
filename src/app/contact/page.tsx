@@ -17,8 +17,8 @@ export default function ContactPage() {
         image="/photos/office-glass.jpg"
         imagePos="50% 40%"
         eyebrow="Contact"
-        title="Let's talk about your new home."
-        text="Visit the site office, call, message us on WhatsApp or send the form."
+        title="Let's talk."
+        text="Visit the booking office, call, message us on WhatsApp or send the form."
         crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
       />
       <section className={`${s.sec} ${s.secContact}`}>

@@ -6,7 +6,7 @@ import { CtaBand, Services } from "@/components/Sections";
 
 export const metadata: Metadata = {
   title: "Services",
-  description: "Residential and commercial construction, grey structure, turnkey finishing, renovation and architecture.",
+  description: "Commercial buildings, real estate development, residential apartments and booking support from Ali Zeeshan Enterprises.",
 };
 
 export default function ServicesPage() {
@@ -16,11 +16,11 @@ export default function ServicesPage() {
         image="/photos/structure-crane.jpg"
         imagePos="50% 45%"
         eyebrow="Services"
-        title="Everything it takes to build."
-        text="One team for design, structure and finishing, so nothing falls between contractors."
+        title="Build it. Develop it. Sell it."
+        text="One company for commercial buildings and real estate development, from the plot to the keys."
         crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
       />
-      <Services />
+      <Services detail />
       <Process />
       <CtaBand />
     </Shell>
