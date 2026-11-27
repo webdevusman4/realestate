@@ -1,26 +1,22 @@
+import type { Metadata } from "next";
+import Link from "next/link";
 import CoShell from "@/components/co/Shell";
 import Register from "@/components/co/Register";
-import { Hero, Leaders, SectionHead, ServicesLedger, Spotlight, Statement, Visit } from "@/components/co/Parts";
+import { Hero, JsonLd, Leaders, SectionHead, ServicesLedger, Statement, Visit } from "@/components/co/Parts";
+import { BuyingSteps, FaqList, Featured, FinalCta, TrustRow, WhyUs } from "@/components/co/Sections";
 import s from "@/components/co/co.module.css";
 import { SITE } from "@/lib/site";
+import { FAQ } from "@/lib/company";
+import { companyLd, pageMeta } from "@/lib/seo";
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: SITE.name,
-  description: SITE.description,
-  telephone: SITE.phone,
-  email: SITE.email,
-  foundingDate: String(SITE.registered),
-  address: { "@type": "PostalAddress", streetAddress: "Plot 25-B, Scheme-33", addressLocality: "Karachi", addressCountry: "PK" },
-  areaServed: SITE.area,
-};
+export const metadata: Metadata = pageMeta({ title: SITE.name, description: SITE.description, path: "/" });
 
 export default function Home() {
   return (
     <CoShell>
       <Hero />
-      <Statement />
+      <TrustRow />
+      <Statement withFacts={false} />
       <section className={`${s.sec} ${s.onConcrete}`} aria-labelledby="reg-title">
         <div className={s.wrap}>
           <div className={s.head2}>
@@ -30,7 +26,19 @@ export default function Home() {
           <Register />
         </div>
       </section>
-      <Spotlight />
+      <Featured />
+      <WhyUs />
+      <section className={`${s.sec} ${s.onConcrete}`}>
+        <div className={s.wrap}>
+          <SectionHead label="How buying works" title="Five steps from first visit to possession." />
+          <BuyingSteps compact />
+          <p style={{ marginTop: 28 }}>
+            <Link className={s.link} href="/buying-guide">
+              Read the full buying guide
+            </Link>
+          </p>
+        </div>
+      </section>
       <section className={s.sec}>
         <div className={s.wrap}>
           <SectionHead label="What we do" title="We build the building, develop the project and sell the apartments." />
@@ -43,8 +51,20 @@ export default function Home() {
           <Leaders />
         </div>
       </section>
+      <section className={s.sec}>
+        <div className={s.wrap}>
+          <SectionHead label="Questions" title="What buyers ask first." />
+          <FaqList limit={5} />
+          <p style={{ marginTop: 28 }}>
+            <Link className={s.link} href="/faq">
+              All {FAQ.length} questions
+            </Link>
+          </p>
+        </div>
+      </section>
+      <FinalCta />
       <Visit />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={companyLd()} />
     </CoShell>
   );
 }

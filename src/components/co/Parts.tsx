@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PROJECTS, SERVICES, LEADERS, STORY } from "@/lib/company";
+import { SERVICES, LEADERS, STORY } from "@/lib/company";
 import { APARTMENTS, PROCESS, SITE, TOWER_OFFICE, TT, rs } from "@/lib/site";
+import { breadcrumbLd } from "@/lib/seo";
 import s from "./co.module.css";
 
 export function Tag({ children = "Sample details" }: { children?: React.ReactNode }) {
@@ -9,9 +10,14 @@ export function Tag({ children = "Sample details" }: { children?: React.ReactNod
 }
 
 /** Page opening for inner pages: breadcrumb, serif title and one sentence. */
-export function PageHead({ title, text, crumbs }: { title: string; text?: string; crumbs: { label: string; href?: string }[] }) {
+export function JsonLd({ data }: { data: object }) {
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
+}
+
+export function PageHead({ title, text, crumbs, path }: { title: string; text?: string; crumbs: { label: string; href?: string }[]; path?: string }) {
   return (
     <section className={s.pageHead}>
+      <JsonLd data={breadcrumbLd(crumbs, path)} />
       <div className={s.wrap}>
         <nav aria-label="Breadcrumb" className={s.crumbs}>
           {crumbs.map((c, i) => (
@@ -32,9 +38,9 @@ export function Hero() {
   return (
     <section className={s.hero}>
       <div className={s.heroText}>
-        <h1>Buildings for the way Karachi lives and works.</h1>
+        <h1>Apartments and commercial buildings in Karachi.</h1>
         <p className={s.lede}>
-          {SITE.name} is a builder and real estate developer. Our current project, Ali&apos;s Twin Tower in Scheme-33, is open for booking.
+          We build and sell our own projects. Ali&apos;s Twin Tower in Scheme-33 is open for booking. Visit the booking office and see the plans.
         </p>
         <div className={s.row}>
           <Link className={s.btn} href="/projects">
@@ -62,7 +68,7 @@ export function Facts() {
     { v: String(SITE.registered), l: "Company registered" },
     { v: "ABAD", l: "Association of Builders & Developers" },
     { v: "PEC", l: "Pakistan Engineering Council" },
-    { v: String(PROJECTS.length), l: "Projects, finished and coming" },
+    { v: "10 – 8", l: "Booking office hours, 10 am to 8 pm" },
   ];
   return (
     <dl className={s.facts}>
@@ -83,6 +89,9 @@ export function Statement({ withFacts = true }: { withFacts?: boolean }) {
         <div className={s.statement}>
           <p className={s.label}>The company</p>
           <h2>{STORY[0]}</h2>
+          <p className={s.note} style={{ gridColumn: 2 }}>
+            <Tag>Sample wording</Tag> The company story is placeholder text until the owners send their own.
+          </p>
         </div>
         {withFacts && <Facts />}
       </div>

@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import CoShell from "@/components/co/Shell";
-import { PageHead, SectionHead, Tag, Visit } from "@/components/co/Parts";
+import CoForm from "@/components/co/Form";
+import { PageHead, SectionHead, Tag } from "@/components/co/Parts";
+import { RelatedProjects } from "@/components/co/Sections";
+import { pageMeta } from "@/lib/seo";
 import s from "@/components/co/co.module.css";
-import { PROJECTS, projectBySlug, projectHref } from "@/lib/company";
+import { PROJECTS, projectBySlug } from "@/lib/company";
 import { SITE, waLink } from "@/lib/site";
 
 type Params = { slug: string };
@@ -20,18 +22,17 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const p = projectBySlug(slug);
   if (!p) return {};
-  return { title: `${p.name}: ${p.status.toLowerCase()} ${p.type.toLowerCase()} project`, description: `${p.summary} By ${SITE.name}.` };
+  return pageMeta({ title: `${p.name}: ${p.status.toLowerCase()} ${p.type.toLowerCase()} project`, description: `${p.summary} By ${SITE.name}.`, path: `/projects/${p.slug}` });
 }
 
 export default async function ProjectPage({ params }: { params: Promise<Params> }) {
   const { slug } = await params;
   const p = projectBySlug(slug);
   if (!p || p.href) notFound();
-  const others = PROJECTS.filter((o) => o.slug !== p.slug).slice(0, 4);
 
   return (
     <CoShell>
-      <PageHead title={p.name} text={p.summary} crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.name }]} />
+      <PageHead path={`/projects/${p.slug}`} title={p.name} text={p.summary} crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.name }]} />
       <div className={s.banner}>
         <Image src={p.image} alt={p.alt} fill priority sizes="100vw" style={{ objectPosition: p.pos ?? "50% 50%" }} />
       </div>
@@ -51,6 +52,7 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                 ["Location", p.location],
                 [p.status === "Upcoming" ? "Launch" : "Year", p.year],
                 ["Size", p.size],
+                ["Developer", SITE.name],
               ].map(([k, v]) => (
                 <div key={k}>
                   <dt>{k}</dt>
@@ -92,25 +94,46 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           </div>
         </section>
       )}
+      <section className={`${s.sec} ${s.onConcrete}`}>
+        <div className={`${s.wrap} ${s.cols2}`}>
+          <div>
+            <p className={s.label}>Location and payment</p>
+            <dl className={s.details}>
+              <div>
+                <dt>Location</dt>
+                <dd>
+                  {p.location}
+                  {p.sample && " (exact address to follow)"}
+                </dd>
+              </div>
+              <div>
+                <dt>Payment plan</dt>
+                <dd>{p.status === "Upcoming" ? "Announced at launch." : "Ask the booking office for current availability and terms."}</dd>
+              </div>
+              <div>
+                <dt>Office</dt>
+                <dd>
+                  {SITE.address.replace(/^Booking office:\s*/, "")}, open {SITE.hours}
+                </dd>
+              </div>
+            </dl>
+            <p>
+              New to buying?{" "}
+              <a className={s.link} href="/buying-guide">
+                Read the buying guide
+              </a>
+              .
+            </p>
+          </div>
+          <CoForm title={p.status === "Upcoming" ? `Register interest in ${p.name}` : `Ask about ${p.name}`} source={`Company site: ${p.name}`} project={p.name} visit={p.status !== "Upcoming"} />
+        </div>
+      </section>
       <section className={s.sec}>
         <div className={s.wrap}>
           <SectionHead label="More projects" title="See our other work." />
-          <ul className={s.ledger}>
-            {others.map((o) => (
-              <li key={o.slug}>
-                <h3>
-                  <Link href={projectHref(o)}>{o.name}</Link>
-                </h3>
-                <p>{o.summary}</p>
-                <p>
-                  {o.status} · {o.location}
-                </p>
-              </li>
-            ))}
-          </ul>
+          <RelatedProjects current={p} />
         </div>
       </section>
-      <Visit />
     </CoShell>
   );
 }

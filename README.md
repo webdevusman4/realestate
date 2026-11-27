@@ -109,12 +109,30 @@ It streams answers from Google Gemini through `src/app/api/assistant/route.ts`; 
 - **Limits:** 25 questions per visitor per day, 6 per minute, 450 per day overall (override with `ASSISTANT_*` variables, see `.env.example`).
 - **Models:** `GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` (defaults `gemini-3.5-flash-lite`, then `gemini-3.8-flash`).
 
-## Company site (rebuilt)
+## Company site (professional redesign)
 
-The company site (`/`, `/about`, `/services`, `/projects`, `/projects/<name>`, `/contact`) is built from `src/lib/company.ts`.
-- **Real, from the client's form:** name, "Builder & Real Estate Developer", hours 10 am to 8 pm, services (commercial buildings,
-  real estate development), ABAD and PEC, 2019 registration, project names, owner names.
-- **Dummy (marked "Sample details" on the page and `sample: true` / SAMPLE in the code):** Zeeshan Pride, Ali's Tower, Ali Complex,
-  Ali's Bridge View and Ali Skyline details and photos, the extra two services, the company story, how a project works,
-  the directors' roles and the email address. Replace them as the client sends the real information.
-- Ali's Twin Tower has real data and its own project site at `/alistwintower`.
+Pages at `/`: `/`, `/about`, `/services`, `/projects`, `/projects/<name>`, `/contact`, plus new `/buying-guide`, `/faq`, `/updates`,
+`/careers`, `/privacy`, `/terms` and a custom 404. Content lives in `src/lib/company.ts`; page parts in `src/components/co/`
+(`Parts.tsx`, `Sections.tsx`, `Register.tsx`, `Form.tsx`); SEO helpers (metadata, canonical, JSON-LD) in `src/lib/seo.ts`.
+The tower site (`/alistwintower`, `TowerParts.tsx`, assistant, `site.module.css`) is not touched.
+
+**What the redesign added:** trust row, "why buy from us" ledger, featured Twin Tower block with payment summary, five-step
+buying section, FAQ (with FAQPage JSON-LD), project register filters by status and type, project pages with facts, location and
+payment, enquiry form and related projects, contact form with validation, visit date and time, WhatsApp and click-to-call,
+Organization + RealEstateAgent + BreadcrumbList JSON-LD, sitemap and `llms.txt` for all pages, social preview image (`public/og/company.jpg`).
+
+**Real (from the client):** company name, "Builder & Real Estate Developer", registered 2019, ABAD and PEC membership, phone
++92 320 9281567, booking office Plot 25-B Scheme-33 Karachi, hours 10 am to 8 pm, services (commercial buildings, real estate
+development), project names, owner names, and all Ali's Twin Tower data (`site.ts`, `plans.ts`).
+
+**Sample (tagged "Sample details" or "Example post" on the page, `sample: true` in code):**
+- Zeeshan Pride, Ali's Tower, Ali Complex, Ali's Bridge View and Ali Skyline: sizes, years, locations, photos
+- Company story, director roles, timeline years 2020 to 2022, the two extra services
+- Documents checklist on `/buying-guide`
+- Two example progress posts on `/updates` (the "open for booking" post is real)
+- Email address `info@alizeeshan.pk`, ABAD and PEC membership numbers (not shown, to be confirmed)
+- `/privacy` and `/terms` are drafts for the company's lawyer; both are `noindex` until reviewed
+- Possession date: not published. The site tells buyers to ask the booking office.
+
+**Form:** the enquiry and visit form posts to Netlify Forms (form name `estimate`, registered in `public/__forms.html`, now with
+email, project, visit date and visit time).

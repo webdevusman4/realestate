@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { PROJECT_FILTERS, PROJECTS, projectHref } from "@/lib/company";
+import { PROJECT_FILTERS, PROJECTS, TYPE_FILTERS, projectHref } from "@/lib/company";
 import s from "./co.module.css";
 
 type Filter = (typeof PROJECT_FILTERS)[number];
@@ -14,27 +14,30 @@ type Filter = (typeof PROJECT_FILTERS)[number];
  */
 export default function Register({ filters = false }: { filters?: boolean }) {
   const [filter, setFilter] = useState<Filter>("All");
+  const [type, setType] = useState<(typeof TYPE_FILTERS)[number]>("All types");
   const [active, setActive] = useState(0);
-  const list = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.status === filter);
+  const list = PROJECTS.filter((p) => (filter === "All" || p.status === filter) && (type === "All types" || p.type === type));
   const current = list[Math.min(active, list.length - 1)];
 
   return (
     <div>
       {filters && (
-        <div className={s.filters} role="group" aria-label="Filter projects by status">
-          {PROJECT_FILTERS.map((f) => (
-            <button
-              key={f}
-              type="button"
-              aria-pressed={filter === f}
-              onClick={() => {
-                setFilter(f);
-                setActive(0);
-              }}
-            >
-              {f}
-            </button>
-          ))}
+        <div className={s.filterBar}>
+          <div className={s.filters} role="group" aria-label="Filter projects by status">
+            {PROJECT_FILTERS.map((f) => (
+              <button key={f} type="button" aria-pressed={filter === f} onClick={() => { setFilter(f); setActive(0); }}>
+                {f}
+              </button>
+            ))}
+          </div>
+          <div className={s.filters} role="group" aria-label="Filter projects by type">
+            {TYPE_FILTERS.map((f) => (
+              <button key={f} type="button" aria-pressed={type === f} onClick={() => { setType(f); setActive(0); }}>
+                {f}
+              </button>
+            ))}
+          </div>
+          <p className={s.sr} role="status">{list.length} {list.length === 1 ? "project" : "projects"} shown</p>
         </div>
       )}
       <div className={s.register}>
@@ -45,6 +48,7 @@ export default function Register({ filters = false }: { filters?: boolean }) {
             <span>Location</span>
             <span>Status</span>
           </div>
+          {list.length === 0 && <p className={s.note}>No projects match these filters. Try &quot;All&quot;.</p>}
           <ul>
             {list.map((p, i) => (
               <li key={p.slug}>

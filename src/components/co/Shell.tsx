@@ -32,7 +32,7 @@ export default function CoShell({ children }: { children: React.ReactNode }) {
           <div>
             <h3>Company</h3>
             <ul>
-              {CO_NAV.map((n) => (
+              {[...CO_NAV, { label: "FAQ", href: "/faq" }, { label: "Careers", href: "/careers" }].map((n) => (
                 <li key={n.href}>
                   <Link href={n.href}>{n.label}</Link>
                 </li>
@@ -65,7 +65,11 @@ export default function CoShell({ children }: { children: React.ReactNode }) {
           <span>
             © {year} {SITE.name}. Registered {SITE.registered}. Member of ABAD and PEC.
           </span>
-          <span>Renders and plans are for illustration.</span>
+          <span className={s.legal}>
+            <Link href="/privacy">Privacy</Link>
+            <Link href="/terms">Terms</Link>
+            <span>Renders and plans are for illustration.</span>
+          </span>
         </div>
       </footer>
       <nav className={s.mobileBar} aria-label="Quick contact">
