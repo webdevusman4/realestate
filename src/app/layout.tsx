@@ -12,6 +12,17 @@ const archivo = localFont({
   declarations: [{ prop: "font-stretch", value: "62% 125%" }],
 });
 
+// Serif for the company site's statements and headlines.
+const newsreader = localFont({
+  src: [
+    { path: "./fonts/newsreader-latin-wght-normal.woff2", style: "normal" },
+    { path: "./fonts/newsreader-latin-wght-italic.woff2", style: "italic" },
+  ],
+  variable: "--font-newsreader",
+  weight: "200 800",
+  display: "swap",
+});
+
 const inter = localFont({
   src: "./fonts/inter-latin-wght-normal.woff2",
   variable: "--font-inter",
@@ -42,7 +53,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${archivo.variable} ${inter.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${archivo.variable} ${inter.variable} ${newsreader.variable}`} suppressHydrationWarning>
       <head>
         {/* Marks JS as available before first paint, so scroll-reveal content is only hidden when it can be revealed. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

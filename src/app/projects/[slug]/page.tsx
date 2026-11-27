@@ -2,17 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Check, MapPin, Phone } from "lucide-react";
-import Shell from "@/components/Shell";
-import { PageHero } from "@/components/PageParts";
-import { SampleTag } from "@/components/Sections";
-import { WhatsAppLogo } from "@/components/icons";
+import CoShell from "@/components/co/Shell";
+import { PageHead, SectionHead, Tag, Visit } from "@/components/co/Parts";
+import s from "@/components/co/co.module.css";
 import { PROJECTS, projectBySlug, projectHref } from "@/lib/company";
 import { SITE, waLink } from "@/lib/site";
-import s from "@/components/site.module.css";
 
 type Params = { slug: string };
-
 export const dynamicParams = false;
 
 /** Projects with their own site (Ali's Twin Tower) live elsewhere; every other project gets a page here. */
@@ -31,131 +27,90 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const { slug } = await params;
   const p = projectBySlug(slug);
   if (!p || p.href) notFound();
-  const others = PROJECTS.filter((o) => o.slug !== p.slug).slice(0, 3);
-  const upcoming = p.status === "Upcoming";
+  const others = PROJECTS.filter((o) => o.slug !== p.slug).slice(0, 4);
 
   return (
-    <Shell>
-      <PageHero
-        image={p.image}
-        imagePos={p.pos}
-        eyebrow={`${p.status} · ${p.type}`}
-        title={p.name}
-        text={p.summary}
-        crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.name }]}
-      />
-
+    <CoShell>
+      <PageHead title={p.name} text={p.summary} crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.name }]} />
+      <div className={s.banner}>
+        <Image src={p.image} alt={p.alt} fill priority sizes="100vw" style={{ objectPosition: p.pos ?? "50% 50%" }} />
+      </div>
       <section className={s.sec}>
-        <div className={`${s.wrap} ${s.projGrid}`}>
-          <div data-r>
-            <p className={s.eyebrow}>Project facts</p>
-            <h2 className={s.h2}>{upcoming ? "Coming soon." : "At a glance."}</h2>
+        <div className={`${s.wrap} ${s.cols2}`}>
+          <div>
+            <p className={s.label}>Project facts</p>
             {p.sample && (
-              <p className={s.sampleNote}>
-                <SampleTag /> The details on this page are placeholders until the company sends the real ones.
+              <p className={s.note}>
+                <Tag /> The details on this page are placeholders until the company sends the real ones.
               </p>
             )}
-            <dl className={s.facts}>
-              <div>
-                <dt>Status</dt>
-                <dd>{p.status}</dd>
-              </div>
-              <div>
-                <dt>Type</dt>
-                <dd>{p.type}</dd>
-              </div>
-              <div>
-                <dt>Location</dt>
-                <dd>
-                  <MapPin size={15} aria-hidden="true" /> {p.location}
-                </dd>
-              </div>
-              <div>
-                <dt>{upcoming ? "Launch" : "Year"}</dt>
-                <dd>{p.year}</dd>
-              </div>
-              <div>
-                <dt>Size</dt>
-                <dd>{p.size}</dd>
-              </div>
+            <dl className={s.details}>
+              {[
+                ["Status", p.status],
+                ["Type", p.type],
+                ["Location", p.location],
+                [p.status === "Upcoming" ? "Launch" : "Year", p.year],
+                ["Size", p.size],
+              ].map(([k, v]) => (
+                <div key={k}>
+                  <dt>{k}</dt>
+                  <dd>{v}</dd>
+                </div>
+              ))}
             </dl>
           </div>
-          <div data-r>
-            <p className={s.eyebrow}>Highlights</p>
-            <ul className={s.checks}>
+          <div>
+            <p className={s.label}>Highlights</p>
+            <ul className={s.checks} style={{ marginTop: 18 }}>
               {p.highlights.map((h) => (
-                <li key={h}>
-                  <span className={s.checkIcon}>
-                    <Check size={16} strokeWidth={2.8} aria-hidden="true" />
-                  </span>
-                  <span>
-                    <b>{h}</b>
-                  </span>
-                </li>
+                <li key={h}>{h}</li>
               ))}
             </ul>
-            <div className={s.ctaRow}>
-              <a className={`${s.btn} ${s.btnDark}`} href={SITE.phoneHref}>
-                <Phone size={18} aria-hidden="true" />
+            <div className={s.row} style={{ marginTop: 28 }}>
+              <a className={s.btn} href={SITE.phoneHref}>
                 Call {SITE.phone}
               </a>
-              <a className={`${s.btn} ${s.btnGhostDark}`} href={waLink(SITE.whatsappHref, `Hello, I would like to know more about ${p.name}.`)} target="_blank" rel="noopener noreferrer">
-                <WhatsAppLogo size={18} />
+              <a className={`${s.btn} ${s.btnLine}`} href={waLink(SITE.whatsappHref, `Hello, I would like to know more about ${p.name}.`)} target="_blank" rel="noopener noreferrer">
                 WhatsApp
               </a>
             </div>
           </div>
         </div>
       </section>
-
       {p.gallery.length > 0 && (
-        <section className={`${s.sec} ${s.secTint}`}>
+        <section className={`${s.sec} ${s.onConcrete}`}>
           <div className={s.wrap}>
-            <div className={s.secHead} data-r>
-              <div>
-                <p className={s.eyebrow}>Gallery</p>
-                <h2 className={s.h2}>Photos.</h2>
-              </div>
-              <p className={s.body}>Representative stock photos for now. Real project photos will replace them.</p>
-            </div>
+            <SectionHead label="Gallery" title="Photos." />
             <ul className={s.gallery}>
               {p.gallery.map((g) => (
-                <li key={g.src} data-r>
-                  <Image src={g.src} alt={g.alt} fill sizes="(max-width: 700px) 100vw, 33vw" style={{ objectFit: "cover" }} />
+                <li key={g.src}>
+                  <Image src={g.src} alt={g.alt} fill sizes="(max-width: 900px) 100vw, 33vw" />
                 </li>
               ))}
             </ul>
+            <p className={s.note}>Representative photos for now. Real project photos will replace them.</p>
           </div>
         </section>
       )}
-
-      <section className={`${s.sec} ${s.secDark}`}>
+      <section className={s.sec}>
         <div className={s.wrap}>
-          <div className={s.secHead} data-r>
-            <div>
-              <p className={`${s.eyebrow} ${s.eyebrowDark}`}>More projects</p>
-              <h2 className={s.h2}>See our other work.</h2>
-            </div>
-            <Link className={s.textLink} href="/projects">
-              <ArrowLeft size={18} aria-hidden="true" />
-              All projects
-            </Link>
-          </div>
-          <ul className={s.otherTypes}>
+          <SectionHead label="More projects" title="See our other work." />
+          <ul className={s.ledger}>
             {others.map((o) => (
-              <li key={o.slug} data-r>
-                <Link href={projectHref(o)}>
-                  <span>
-                    <b>{o.name}</b>
-                    {o.status} · {o.location}
-                  </span>
-                  <ArrowRight size={20} aria-hidden="true" />
-                </Link>
+              <li key={o.slug}>
+                <h3>
+                  <Link href={projectHref(o)}>{o.name}</Link>
+                </h3>
+                <p>{o.summary}</p>
+                <p>
+                  {o.status} · {o.location}
+                </p>
               </li>
             ))}
           </ul>
         </div>
       </section>
-    </Shell>
+      <Visit />
+    </CoShell>
   );
 }

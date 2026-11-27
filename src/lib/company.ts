@@ -204,3 +204,10 @@ export const STORY = [
   "Ali Zeeshan Enterprises is a Karachi builder and real estate developer, registered in 2019. We build commercial buildings and residential projects, and we sell them ourselves, so buyers deal with one company from the first visit to the keys.",
   "Our newest project, Ali's Twin Tower in Scheme-33, brings luxury apartments to families who want more space, better finishes and a payment plan they can follow.",
 ];
+
+export const CO_NAV = [
+  { label: "Projects", href: "/projects" },
+  { label: "Services", href: "/services" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
+] as const;

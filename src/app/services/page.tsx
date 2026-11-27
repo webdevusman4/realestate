@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import Shell from "@/components/Shell";
-import Process from "@/components/Process";
-import { PageHero } from "@/components/PageParts";
-import { CtaBand, Services } from "@/components/Sections";
+import CoShell from "@/components/co/Shell";
+import { PageHead, ServicesLedger, Visit } from "@/components/co/Parts";
+import s from "@/components/co/co.module.css";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -11,18 +10,14 @@ export const metadata: Metadata = {
 
 export default function ServicesPage() {
   return (
-    <Shell>
-      <PageHero
-        image="/photos/structure-crane.jpg"
-        imagePos="50% 45%"
-        eyebrow="Services"
-        title="Build it. Develop it. Sell it."
-        text="One company for commercial buildings and real estate development, from the plot to the keys."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
-      />
-      <Services detail />
-      <Process />
-      <CtaBand />
-    </Shell>
+    <CoShell>
+      <PageHead title="What we do." text="We build the building, develop the project and sell the apartments, so you deal with one company." crumbs={[{ label: "Home", href: "/" }, { label: "Services" }]} />
+      <section className={s.sec}>
+        <div className={s.wrap}>
+          <ServicesLedger />
+        </div>
+      </section>
+      <Visit />
+    </CoShell>
   );
 }

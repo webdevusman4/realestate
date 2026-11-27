@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Shell from "@/components/Shell";
-import Projects from "@/components/Projects";
-import { PageHero } from "@/components/PageParts";
-import { CtaBand } from "@/components/Sections";
+import CoShell from "@/components/co/Shell";
+import Register from "@/components/co/Register";
+import { PageHead, Visit } from "@/components/co/Parts";
+import s from "@/components/co/co.module.css";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -11,17 +11,14 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <Shell>
-      <PageHero
-        image="/hero/twin-tower-hero.jpg"
-        imagePos="75% 50%"
-        eyebrow="Projects"
-        title="Our projects."
-        text="Finished buildings, the project open for booking now, and what is coming next."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Projects" }]}
-      />
-      <Projects dark={false} heading={false} />
-      <CtaBand />
-    </Shell>
+    <CoShell>
+      <PageHead title="Our projects." text="The project open for booking now, our finished buildings and what comes next." crumbs={[{ label: "Home", href: "/" }, { label: "Projects" }]} />
+      <section className={s.sec}>
+        <div className={s.wrap}>
+          <Register filters />
+        </div>
+      </section>
+      <Visit />
+    </CoShell>
   );
 }

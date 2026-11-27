@@ -1,41 +1,38 @@
 import type { Metadata } from "next";
-import Shell from "@/components/Shell";
-import EstimateForm from "@/components/EstimateForm";
-import { LocationCard, PageHero } from "@/components/PageParts";
-import { ContactDetails } from "@/components/Sections";
-import s from "@/components/site.module.css";
+import CoShell from "@/components/co/Shell";
+import CoForm from "@/components/co/Form";
+import { Details, PageHead } from "@/components/co/Parts";
+import s from "@/components/co/co.module.css";
+import { SITE, TOWER_OFFICE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Call, WhatsApp or request a free estimate. We reply within one working day.",
+  description: "Call, WhatsApp or send an enquiry to book a visit to the Ali Zeeshan Enterprises booking office in Scheme-33, Karachi.",
 };
 
 export default function ContactPage() {
   return (
-    <Shell>
-      <PageHero
-        image="/photos/office-glass.jpg"
-        imagePos="50% 40%"
-        eyebrow="Contact"
-        title="Let's talk."
-        text="Visit the booking office, call, message us on WhatsApp or send the form."
-        crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
-      />
-      <section className={`${s.sec} ${s.secContact}`}>
-        <div className={`${s.wrap} ${s.contactGrid}`}>
-          <div data-r>
-            <ContactDetails />
+    <CoShell>
+      <PageHead title="Book a site visit." text="Visit the booking office, call us, or send an enquiry. We reply within one working day." crumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]} />
+      <section className={s.sec}>
+        <div className={`${s.wrap} ${s.cols2}`}>
+          <div>
+            <Details />
+            <div className={s.row}>
+              <a className={s.btn} href={SITE.phoneHref}>
+                Call {SITE.phone}
+              </a>
+              <a className={`${s.btn} ${s.btnLine}`} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
+                WhatsApp
+              </a>
+            </div>
+            <div style={{ marginTop: 32 }}>
+              <iframe className={s.map} style={{ minHeight: 320 }} title="Map of the booking office in Scheme-33, Karachi" src={TOWER_OFFICE.mapEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+            </div>
           </div>
-          <div data-r>
-            <EstimateForm />
-          </div>
+          <CoForm />
         </div>
       </section>
-      <section className={s.sec} style={{ paddingTop: 0 }}>
-        <div className={s.wrap} data-r>
-          <LocationCard />
-        </div>
-      </section>
-    </Shell>
+    </CoShell>
   );
 }
