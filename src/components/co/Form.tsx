@@ -31,7 +31,6 @@ export default function CoForm({ source = "Company site", project, title = "Book
   const dateRef = useRef<HTMLInputElement>(null);
   const form = useRef<HTMLFormElement>(null);
 
-  // Set on the element after mount so the server and browser markup match.
   useEffect(() => {
     const d = new Date();
     if (dateRef.current) dateRef.current.min = new Date(d.getTime() - d.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
@@ -51,7 +50,11 @@ export default function CoForm({ source = "Company site", project, title = "Book
     data.set("form-name", "estimate");
     setStatus("sending");
     try {
-      const res = await fetch("/__forms.html", { method: "POST", headers: { "Content-Type": "application/x-www-form-urlencoded" }, body: new URLSearchParams(data as unknown as Record<string, string>).toString() });
+      const res = await fetch("/__forms.html", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data as unknown as Record<string, string>).toString(),
+      });
       if (!res.ok) throw new Error(String(res.status));
       setStatus("sent");
       el.reset();
@@ -64,7 +67,10 @@ export default function CoForm({ source = "Company site", project, title = "Book
     return (
       <div className={s.done} role="status">
         <h2>Thank you. We have your details.</h2>
-        <p>The booking office will call you within one working day to confirm your visit.</p>
+        <p>The booking office will call you within one working day to confirm your visit and share the floor plans.</p>
+        <p>
+          Need an immediate answer? Call <a className={s.link} href={SITE.phoneHref}>{SITE.phone}</a> between {SITE.hours}.
+        </p>
         <div className={s.row}>
           <button type="button" className={`${s.btn} ${s.btnLine}`} onClick={() => setStatus("idle")}>
             Send another enquiry
@@ -143,8 +149,8 @@ export default function CoForm({ source = "Company site", project, title = "Book
       <div aria-live="polite">
         {status === "error" && (
           <p className={s.err} role="alert">
-            We could not send the form. Please call <a href={SITE.phoneHref}>{SITE.phone}</a> or{" "}
-            <a href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
+            We could not send the form. Please call <a className={s.link} href={SITE.phoneHref}>{SITE.phone}</a> or{" "}
+            <a className={s.link} href={SITE.whatsappHref} target="_blank" rel="noopener noreferrer">
               message us on WhatsApp
             </a>
             .
@@ -158,10 +164,16 @@ export default function CoForm({ source = "Company site", project, title = "Book
       </div>
       <div className={s.row}>
         <button type="submit" className={s.btn} disabled={status === "sending"}>
-          {status === "sending" ? "Sending…" : visit ? "Request a visit" : "Send enquiry"}
+          {status === "sending" ? "Sending…" : visit ? "Book a site visit" : "Register interest"}
         </button>
       </div>
-      <p>We use your details only to contact you about your enquiry. See our <a className={s.link} href="/privacy">privacy page</a>.</p>
+      <p>
+        We use your details only to contact you about your enquiry. See our{" "}
+        <a className={s.link} href="/privacy">
+          privacy page
+        </a>
+        .
+      </p>
     </form>
   );
 }

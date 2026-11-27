@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SERVICES, LEADERS, STORY } from "@/lib/company";
+import { SERVICES, SERVICE_V2, LEADERS, STORY } from "@/lib/company";
 import { APARTMENTS, PROCESS, SITE, TOWER_OFFICE, TT, rs } from "@/lib/site";
 import { breadcrumbLd } from "@/lib/seo";
 import s from "./co.module.css";
@@ -9,11 +9,29 @@ export function Tag({ children = "Sample details" }: { children?: React.ReactNod
   return <span className={s.tag}>{children}</span>;
 }
 
-/** Page opening for inner pages: breadcrumb, serif title and one sentence. */
+/** Structured data script tag. */
 export function JsonLd({ data }: { data: object }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
 }
 
+/** Faint 4% stepped-tower silhouette watermark derived from mark-dark.png outline. */
+export function TowerWatermark({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 240 310" fill="none" stroke="currentColor" strokeWidth="6" aria-hidden="true">
+      <path d="M98 110 V38 C98 22 114 14 128 14 V110" />
+      <line x1="112" y1="22" x2="112" y2="105" />
+      <path d="M56 175 V76 C56 58 72 48 92 48 H128 V175" />
+      <line x1="74" y1="78" x2="74" y2="170" />
+      <line x1="92" y1="78" x2="92" y2="170" />
+      <path d="M36 286 V142 L106 88 V286" />
+      <path d="M128 286 V112 L198 164 V286" />
+      <line x1="152" y1="145" x2="152" y2="270" />
+      <line x1="176" y1="162" x2="176" y2="270" />
+    </svg>
+  );
+}
+
+/** Inner page head: ink band with breadcrumb, uppercase Archivo H1, one sentence. */
 export function PageHead({ title, text, crumbs, path }: { title: string; text?: string; crumbs: { label: string; href?: string }[]; path?: string }) {
   return (
     <section className={s.pageHead}>
@@ -34,35 +52,58 @@ export function PageHead({ title, text, crumbs, path }: { title: string; text?: 
   );
 }
 
+/** Home hero: ink band, stepped-tower watermark, uppercase Archivo H1 with gold "Karachi", Twin Tower render. */
 export function Hero() {
+  const minTotal = Math.min(...APARTMENTS.map((a) => a.total));
   return (
     <section className={s.hero}>
+      <TowerWatermark className={s.towerWatermark} />
       <div className={s.heroText}>
-        <h1>Apartments and commercial buildings in Karachi.</h1>
+        <p className={s.label}>Open for booking · Scheme-33, Karachi</p>
+        <h1>
+          Apartments and commercial buildings in{" "}
+          <span className={s.heroAccent}>Karachi.</span>
+        </h1>
         <p className={s.lede}>
-          We build and sell our own projects. Ali&apos;s Twin Tower in Scheme-33 is open for booking. Visit the booking office and see the plans.
+          We build and sell our own projects. Ali&apos;s Twin Tower is open for booking. Visit the booking office and see the plans.
         </p>
         <div className={s.row}>
-          <Link className={s.btn} href="/projects">
+          <Link className={`${s.btn} ${s.btnGold}`} href="/projects">
             See our projects
           </Link>
-          <Link className={`${s.btn} ${s.btnLine}`} href="/contact">
+          <Link className={`${s.btn} ${s.btnLineLight}`} href="/contact">
             Book a site visit
           </Link>
         </div>
       </div>
       <div className={s.heroPic}>
-        <Image src="/hero/twin-tower-hero-mobile.jpg" alt="Ali's Twin Tower at dusk (artist impression)" fill priority sizes="(max-width: 900px) 100vw, 58vw" />
+        <Image
+          src="/hero/twin-tower-hero.jpg"
+          alt="Ali's Twin Tower exterior at dusk, artist impression"
+          fill
+          priority
+          sizes="(max-width: 900px) 100vw, 58vw"
+          className={s.heroImgDesk}
+        />
+        <Image
+          src="/hero/twin-tower-hero-mobile.jpg"
+          alt="Ali's Twin Tower exterior at dusk, artist impression"
+          fill
+          priority
+          sizes="100vw"
+          className={s.heroImgMob}
+        />
         <Link className={s.plate} href={TT}>
-          <small>Now booking · Scheme-33, Karachi</small>
+          <small>Now booking · Ali&apos;s Twin Tower</small>
           <b>Ali&apos;s Twin Tower</b>
-          <span>Apartments from {rs(Math.min(...APARTMENTS.map((a) => a.total)))}</span>
+          <span>Apartments from {rs(minTotal)}</span>
         </Link>
       </div>
     </section>
   );
 }
 
+/** Four-cell facts row: registration year, ABAD, PEC, hours. */
 export function Facts() {
   const items = [
     { v: String(SITE.registered), l: "Company registered" },
@@ -82,16 +123,19 @@ export function Facts() {
   );
 }
 
+/** Newsreader editorial statement (STORY[0]) on ivory-2 band with sample tag. */
 export function Statement({ withFacts = true }: { withFacts?: boolean }) {
   return (
-    <section className={`${s.sec} ${s.secTight}`}>
+    <section className={`${s.sec} ${s.secTight} ${s.onIvory2}`}>
       <div className={s.wrap}>
         <div className={s.statement}>
           <p className={s.label}>The company</p>
-          <h2>{STORY[0]}</h2>
-          <p className={s.note} style={{ gridColumn: 2 }}>
-            <Tag>Sample wording</Tag> The company story is placeholder text until the owners send their own.
-          </p>
+          <div>
+            <h2>{STORY[0]}</h2>
+            <p className={s.note} style={{ marginTop: 16 }}>
+              <Tag>Sample wording</Tag> This story is placeholder text until the owners send their own.
+            </p>
+          </div>
         </div>
         {withFacts && <Facts />}
       </div>
@@ -99,103 +143,75 @@ export function Statement({ withFacts = true }: { withFacts?: boolean }) {
   );
 }
 
-export function SectionHead({ label, title }: { label: string; title: string }) {
+/** 3-col label + 9-col title section head. Uses Archivo uppercase if <= 6 words and short=true. */
+export function SectionHead({ label, title, short = false }: { label: string; title: string; short?: boolean }) {
   return (
     <div className={s.head2}>
       <p className={s.label}>{label}</p>
-      <h2>{title}</h2>
+      <h2 className={short ? s.shortHead : undefined}>{title}</h2>
     </div>
   );
 }
 
-/** Ali's Twin Tower: wide render with the three apartment types and their prices. */
-export function Spotlight() {
+/** Four service rows: 4:3 image with Representative image caption, title, text, chips, destination link. */
+export function ServicesLedger({ twoSentence = false }: { twoSentence?: boolean }) {
   return (
-    <section className={`${s.spot} ${s.sec}`}>
-      <Image src="/hero/twin-tower-hero.jpg" alt="" fill sizes="100vw" />
-      <div className={s.wrap}>
-        <div className={s.spotIn}>
-          <p className={s.label}>Open for booking</p>
-          <h2>Ali&apos;s Twin Tower, in Scheme-33.</h2>
-          <p>Ultra luxury 3, 4 and 5 room apartments with an American kitchen, wooden flooring and elegant false ceilings.</p>
-          <div className={s.row}>
-            <Link className={`${s.btn} ${s.btnLight}`} href={TT}>
-              Visit the project site
-            </Link>
-            <Link className={`${s.btn} ${s.btnLineLight}`} href={`${TT}/payment-plans`}>
-              Payment plans
-            </Link>
-          </div>
-        </div>
-        <div className={s.priceWrap}>
-          <table className={s.price}>
-            <caption className={s.sr}>Apartment types and total cost</caption>
-            <thead>
-              <tr>
-                <th scope="col">Apartment</th>
-                <th scope="col">Rooms</th>
-                <th scope="col">Bedrooms</th>
-                <th scope="col">Total cost</th>
-              </tr>
-            </thead>
-            <tbody>
-              {APARTMENTS.map((a) => (
-                <tr key={a.slug}>
-                  <th scope="row">
-                    <Link href={`${TT}/apartments/${a.slug}`}>{a.type}</Link>
-                  </th>
-                  <td>{a.rooms}</td>
-                  <td>{a.beds}</td>
-                  <td>{rs(a.total)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export function ServicesLedger() {
-  return (
-    <ul className={s.ledger}>
-      {SERVICES.map((sv) => (
-        <li key={sv.id}>
-          <div>
-            <h3>{sv.title}</h3>
-            {sv.sample && (
-              <small>
-                <Tag />
-              </small>
-            )}
-          </div>
-          <p>{sv.text}</p>
-          <p className={s.chips}>
-            {sv.tags.map((t) => (
-              <span key={t}>{t}</span>
-            ))}
-          </p>
-        </li>
-      ))}
+    <ul className={s.servicesList}>
+      {SERVICES.map((sv) => {
+        const media = SERVICE_V2[sv.id];
+        const src = media?.image ?? sv.image;
+        const alt = media?.alt ?? sv.alt;
+        return (
+          <li key={sv.id}>
+            <div className={s.servicePic}>
+              <Image src={src} alt={alt} fill sizes="(max-width: 900px) 100vw, 25vw" />
+              <span className={s.repCap}>Representative image</span>
+            </div>
+            <div>
+              <h3>{sv.title}</h3>
+              {sv.sample && <Tag>Sample wording</Tag>}
+            </div>
+            <div className={s.serviceBody}>
+              <p>{twoSentence ? sv.text : sv.text}</p>
+              <div className={s.chips}>
+                {sv.tags.map((t) => (
+                  <span key={t}>{t}</span>
+                ))}
+              </div>
+              {media && (
+                <Link className={s.actionLink} href={media.href}>
+                  {media.cta}
+                </Link>
+              )}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
+/** Leadership: monogram blocks (no photos), names real, roles sample-tagged. */
 export function Leaders() {
   return (
-    <ul className={s.ledger}>
+    <div className={s.leaderGrid}>
       {LEADERS.map((l) => (
-        <li key={l.name}>
-          <h3>{l.name}</h3>
-          <p>{l.role}</p>
-          <p>{l.sample && <Tag>Sample role</Tag>}</p>
-        </li>
+        <div key={l.name} className={s.leaderRow}>
+          <div className={s.monogram} aria-hidden="true">
+            {l.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+          </div>
+          <div>
+            <div className={s.leaderName}>{l.name}</div>
+            <div className={s.leaderRole}>{l.role}</div>
+            {l.sample && <Tag>Sample role</Tag>}
+          </div>
+        </div>
       ))}
-    </ul>
+    </div>
   );
 }
 
+/** Five PROCESS steps as a numbered ledger. */
 export function Steps() {
   return (
     <ol className={s.steps}>
@@ -209,6 +225,7 @@ export function Steps() {
   );
 }
 
+/** Contact detail table (office, hours, phone, email). */
 export function Details() {
   return (
     <dl className={s.details}>
@@ -236,9 +253,11 @@ export function Details() {
   );
 }
 
-export function Visit() {
+/** Visit us: detail table + map. Defaults to ivory-2; pass surface="ivory" when alternating after dark. */
+export function Visit({ surface = "ivory-2" }: { surface?: "ivory" | "ivory-2" }) {
+  const band = surface === "ivory" ? s.onIvory : s.onIvory2;
   return (
-    <section className={`${s.sec} ${s.onConcrete}`}>
+    <section className={`${s.sec} ${band}`}>
       <div className={`${s.wrap} ${s.visit}`}>
         <div>
           <p className={s.label}>Visit us</p>

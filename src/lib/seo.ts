@@ -5,9 +5,10 @@ export const OG_IMAGE = { url: "/og/company.jpg", width: 1200, height: 630, alt:
 
 /** Per-page metadata for the company site: title, description, canonical and social preview. */
 export function pageMeta({ title, description, path, noindex }: { title: string; description: string; path: string; noindex?: boolean }): Metadata {
-  const full = title === SITE.name ? title : `${title} | ${SITE.name}`;
+  const hasBrand = title === SITE.name || title.includes(SITE.name);
+  const full = hasBrand ? title : `${title} | ${SITE.name}`;
   return {
-    title,
+    title: hasBrand ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
     robots: noindex ? { index: false, follow: true } : undefined,

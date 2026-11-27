@@ -13,13 +13,13 @@ export default function CoHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const btn = useRef<HTMLButtonElement>(null);
+  const closeBtn = useRef<HTMLButtonElement>(null);
   const sheet = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
     if (!open) return;
-    const first = sheet.current?.querySelector<HTMLElement>("a");
-    const raf = requestAnimationFrame(() => first?.focus());
+    const raf = requestAnimationFrame(() => closeBtn.current?.focus());
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
@@ -27,7 +27,8 @@ export default function CoHeader() {
         return;
       }
       if (e.key !== "Tab" || !sheet.current) return;
-      const items = [btn.current, ...Array.from(sheet.current.querySelectorAll<HTMLElement>("a"))].filter((x): x is HTMLElement => !!x);
+      const items = Array.from(sheet.current.querySelectorAll<HTMLElement>("button, a"));
+      if (items.length === 0) return;
       const a = items[0];
       const z = items[items.length - 1];
       if (e.shiftKey && document.activeElement === a) {
@@ -45,7 +46,10 @@ export default function CoHeader() {
     };
   }, [open]);
 
-  const close = () => setOpen(false);
+  const close = () => {
+    setOpen(false);
+    btn.current?.focus();
+  };
 
   return (
     <>
@@ -54,7 +58,7 @@ export default function CoHeader() {
       </a>
       <div className={s.top}>
         <div className={`${s.wrap} ${s.topIn}`}>
-          <span className={s.hideSm}>{SITE.address}</span>
+          <span className={s.hideSm}>Booking office: Plot 25-B, Scheme-33, Karachi</span>
           <span>
             <span className={s.hideSm}>{SITE.hours}</span>
             <a href={SITE.phoneHref}>{SITE.phone}</a>
@@ -63,8 +67,8 @@ export default function CoHeader() {
       </div>
       <header className={s.header}>
         <div className={`${s.wrap} ${s.headerIn}`}>
-          <Link className={s.brand} href="/" onClick={close} aria-label={`${SITE.name}, home`}>
-            <Image src="/brand/mark-light.png" alt="" width={224} height={292} priority />
+          <Link className={s.brand} href="/" onClick={() => setOpen(false)} aria-label={`${SITE.name}, home`}>
+            <Image src="/brand/mark-dark.png" alt="" width={224} height={292} priority />
             <span>
               <b>Ali Zeeshan Enterprises</b>
               <small>{SITE.tagline}</small>
@@ -72,29 +76,53 @@ export default function CoHeader() {
           </Link>
           <nav className={s.nav} aria-label="Main">
             {CO_NAV.map((n) => (
-              <Link key={n.href} href={n.href} aria-current={pathname.startsWith(n.href) ? "page" : undefined}>
+              <Link
+                key={n.href}
+                href={n.href}
+                aria-current={pathname === n.href || pathname.startsWith(`${n.href}/`) ? "page" : undefined}
+              >
                 {n.label}
               </Link>
             ))}
           </nav>
-          <Link className={s.btn} href="/contact">
+          <Link className={`${s.btn} ${s.btnGold}`} href="/contact">
             Book a site visit
           </Link>
-          <button ref={btn} type="button" className={s.menuBtn} aria-expanded={open} aria-controls="co-menu" aria-label={open ? "Close menu" : "Open menu"} onClick={() => setOpen((o) => !o)}>
+          <button
+            ref={btn}
+            type="button"
+            className={s.menuBtn}
+            aria-expanded={open}
+            aria-controls="co-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((o) => !o)}
+          >
             {open ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </header>
-      <div id="co-menu" ref={sheet} className={s.sheet} hidden={!open}>
+      <div id="co-menu" ref={sheet} className={s.sheet} hidden={!open} role="dialog" aria-modal="true" aria-label="Site navigation">
+        <div className={s.sheetBar}>
+          <Link className={s.brand} href="/" onClick={() => setOpen(false)}>
+            <Image src="/brand/mark-dark.png" alt="" width={224} height={292} />
+            <span>
+              <b>Ali Zeeshan Enterprises</b>
+              <small>{SITE.tagline}</small>
+            </span>
+          </Link>
+          <button ref={closeBtn} type="button" className={s.menuBtn} aria-label="Close menu" onClick={close}>
+            <X size={22} />
+          </button>
+        </div>
         <nav aria-label="Menu">
           {CO_NAV.map((n) => (
-            <Link key={n.href} href={n.href} onClick={close}>
+            <Link key={n.href} href={n.href} onClick={() => setOpen(false)}>
               {n.label}
             </Link>
           ))}
         </nav>
         <div className={s.row}>
-          <Link className={s.btn} href="/contact" onClick={close}>
+          <Link className={`${s.btn} ${s.btnGold}`} href="/contact" onClick={() => setOpen(false)}>
             Book a site visit
           </Link>
         </div>

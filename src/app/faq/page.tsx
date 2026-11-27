@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import CoShell from "@/components/co/Shell";
 import { JsonLd, PageHead, Visit } from "@/components/co/Parts";
-import { FaqList } from "@/components/co/Sections";
+import { FaqList, FinalCta } from "@/components/co/Sections";
 import s from "@/components/co/co.module.css";
 import { FAQ } from "@/lib/company";
 import { pageMeta } from "@/lib/seo";
@@ -16,11 +16,20 @@ export default function FaqPage() {
   const ld = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQ.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    mainEntity: FAQ.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
   };
   return (
     <CoShell>
-      <PageHead path="/faq" title="Questions and answers." text="If your question is not here, call the booking office." crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]} />
+      <PageHead
+        path="/faq"
+        title="Questions and answers."
+        text="If your question is not here, call the booking office."
+        crumbs={[{ label: "Home", href: "/" }, { label: "FAQ" }]}
+      />
       <section className={s.sec}>
         <div className={s.wrap}>
           <div style={{ maxWidth: 860 }}>
@@ -28,7 +37,8 @@ export default function FaqPage() {
           </div>
         </div>
       </section>
-      <Visit />
+      <FinalCta />
+      <Visit surface="ivory" />
       <JsonLd data={ld} />
     </CoShell>
   );

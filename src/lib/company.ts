@@ -2,8 +2,11 @@
  * Company-level content for Ali Zeeshan Enterprises.
  * REAL (from the client's form): name, one-line description, hours, services, ABAD + PEC, 2019 registration,
  * project names, owner names. Everything marked `sample: true` or SAMPLE is dummy text to be replaced.
+ *
+ * NOTE: Existing exports imported by tower/legacy components (SERVICES, PROJECT_FILTERS, PROJECTS,
+ * projectHref, FACTS, LEADERS, STORY) preserve their exact values and shapes.
  */
-import { SITE, TT } from "@/lib/site";
+import { APARTMENTS, SITE, TT } from "@/lib/site";
 
 export type Service = { id: string; title: string; text: string; tags: string[]; image: string; alt: string; sample?: boolean };
 
@@ -65,6 +68,11 @@ export type Project = {
   href?: string;
   /** Dummy details to be replaced with the client's real information. */
   sample?: boolean;
+  /** Optional v2 details (sample-flagged when placeholder). */
+  facts?: { label: string; value: string; sample?: boolean }[];
+  unitsNote?: string;
+  paymentNote?: string;
+  imageCredit?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -207,7 +215,7 @@ export const STORY = [
 
 export const CO_NAV = [
   { label: "Projects", href: "/projects" },
-  { label: "Services", href: "/services" },
+  { label: "Payment plans", href: "/payment-plans" },
   { label: "Buying guide", href: "/buying-guide" },
   { label: "Updates", href: "/updates" },
   { label: "About", href: "/about" },
@@ -303,6 +311,8 @@ export const UPDATES: Update[] = [
     date: "Date to follow",
     project: "Ali's Twin Tower",
     text: "Progress posts will name the floor reached, the work done that month and what comes next, with site photos. This one shows the format only.",
+    image: "/photos/structure-concrete.jpg", // SAMPLE
+    alt: "Multi-storey reinforced concrete building frame under construction", // SAMPLE
     sample: true,
   },
   {
@@ -311,8 +321,161 @@ export const UPDATES: Update[] = [
     date: "Date to follow",
     project: "Ali's Twin Tower",
     text: "Posts about lifts, parking, the masjid and security will appear here as each part is built. This one shows the format only.",
+    image: "/photos/structure-crane.jpg", // SAMPLE
+    alt: "Tower crane beside a concrete multi-storey apartment structure", // SAMPLE
     sample: true,
   },
 ];
 
 export const LEGAL_DRAFT = "Draft for review by the company's lawyer. Not final legal text.";
+
+/* ------------------------------------------------------------------------------------------------
+ * v2 Additions (single source of truth for audited images, project notes, service media, and payment comparison)
+ * ---------------------------------------------------------------------------------------------- */
+
+export type ProjectImageEntry = {
+  banner: string;
+  bannerAlt: string;
+  bannerPos?: string;
+  card: string;
+  cardAlt: string;
+  cardPos?: string;
+  gallery: { src: string; alt: string }[];
+  isArtistImpression?: boolean;
+};
+
+/**
+ * Single source of truth for v2 project images.
+ * Every slot avoids rejected/villa photos and guarantees zero duplicate image URLs on any single page
+ * (Banner + Gallery 3 + Related 4).
+ */
+export const IMAGE_MAP: Record<string, ProjectImageEntry> = {
+  "alis-twin-tower": {
+    banner: "/hero/twin-tower-hero.jpg",
+    bannerAlt: "Ali's Twin Tower at dusk (artist impression)",
+    bannerPos: "75% 40%",
+    card: "/hero/twin-tower-hero-mobile.jpg",
+    cardAlt: "Ali's Twin Tower at dusk (artist impression)",
+    cardPos: "50% 40%",
+    gallery: [],
+    isArtistImpression: true,
+  },
+  "zeeshan-pride": {
+    banner: "/photos/residential-facade-dusk.jpg", // SAMPLE
+    bannerAlt: "Sandstone and concrete apartment building with recessed balconies at dusk", // SAMPLE
+    bannerPos: "50% 45%",
+    card: "/photos/apartments.jpg", // SAMPLE
+    cardAlt: "Modern concrete apartment facade with glass windows", // SAMPLE
+    cardPos: "50% 40%",
+    gallery: [
+      { src: "/photos/interior-lounge.jpg", alt: "Finished apartment living room with warm ceiling cove lighting and wood panelling" }, // SAMPLE
+      { src: "/photos/interior-window.jpg", alt: "Quiet residential living room with floor-to-ceiling windows" }, // SAMPLE
+      { src: "/photos/apartments.jpg", alt: "Detailed concrete and glass apartment facade" }, // SAMPLE
+    ],
+  },
+  "alis-tower": {
+    banner: "/photos/office-glass.jpg", // SAMPLE
+    bannerAlt: "Curved glass commercial office building facade at dusk", // SAMPLE
+    bannerPos: "50% 45%",
+    card: "/photos/office-glass.jpg", // SAMPLE
+    cardAlt: "Curved glass office building", // SAMPLE
+    cardPos: "50% 45%",
+    gallery: [
+      { src: "/photos/plaza-glass-sunset.jpg", alt: "Curved commercial glass facade reflecting warm sunset light" }, // SAMPLE
+      { src: "/photos/structure-concrete.jpg", alt: "Reinforced concrete building frame with steel formwork" }, // SAMPLE
+      { src: "/photos/planning-desk.jpg", alt: "Hands reviewing printed architectural floor plans with a scale ruler and pencil" }, // SAMPLE
+    ],
+  },
+  "ali-complex": {
+    banner: "/photos/commercial-facade.jpg", // SAMPLE
+    bannerAlt: "Commercial building with vertical warm timber-toned louvres", // SAMPLE
+    bannerPos: "50% 42%",
+    card: "/photos/commercial-facade.jpg", // SAMPLE
+    cardAlt: "Commercial plaza facade", // SAMPLE
+    cardPos: "50% 42%",
+    gallery: [
+      { src: "/photos/plaza-glass-sunset.jpg", alt: "Commercial glass facade reflecting golden sunset tones" }, // SAMPLE
+      { src: "/photos/structure-crane.jpg", alt: "Multi-storey reinforced concrete structure with a tower crane above" }, // SAMPLE
+      { src: "/photos/structure-concrete.jpg", alt: "Multi-storey concrete slab construction frame" }, // SAMPLE
+    ],
+  },
+  "alis-bridge-view": {
+    banner: "/photos/hero-crane-sunset.jpg", // SAMPLE
+    bannerAlt: "Tower crane silhouetted against a warm sunset sky over a rising building", // SAMPLE
+    bannerPos: "50% 45%",
+    card: "/photos/hero-crane-sunset.jpg", // SAMPLE
+    cardAlt: "Construction crane silhouetted at sunset", // SAMPLE
+    cardPos: "50% 45%",
+    gallery: [
+      { src: "/photos/cranes-golden-hour.jpg", alt: "Tower cranes over a rising multi-storey building at golden hour" }, // SAMPLE
+      { src: "/photos/structure-crane.jpg", alt: "Concrete structure frame beside a tower crane" }, // SAMPLE
+      { src: "/photos/planning-desk.jpg", alt: "Hands marking residential floor plans on an oak drafting desk" }, // SAMPLE
+    ],
+  },
+  "ali-skyline": {
+    banner: "/photos/cranes-city.jpg", // SAMPLE
+    bannerAlt: "Twin tower cranes over modern city buildings at dusk", // SAMPLE
+    bannerPos: "50% 45%",
+    card: "/photos/cranes-city.jpg", // SAMPLE
+    cardAlt: "City development skyline with cranes at dusk", // SAMPLE
+    cardPos: "50% 45%",
+    gallery: [
+      { src: "/photos/skyline-cranes-amber.jpg", alt: "Urban skyline and tower cranes against an amber sunset sky" }, // SAMPLE
+      { src: "/photos/plaza-glass-sunset.jpg", alt: "Commercial glass curtain wall reflecting dusk sunlight" }, // SAMPLE
+      { src: "/photos/planning-desk.jpg", alt: "Hands reviewing printed architectural drawings" }, // SAMPLE
+    ],
+  },
+};
+
+/** v2 service media & destination links (keeps SERVICES export untouched, avoids duplicate images on Home). */
+export const SERVICE_V2: Record<string, { image: string; alt: string; href: string; cta: string }> = {
+  commercial: {
+    image: "/photos/plaza-glass-sunset.jpg", // SAMPLE
+    alt: "Curved commercial glass building reflecting warm sunset light",
+    href: "/projects",
+    cta: "See commercial projects",
+  },
+  development: {
+    image: "/photos/skyline-cranes-amber.jpg", // SAMPLE
+    alt: "Tower cranes across a city horizon in warm amber light",
+    href: "/about",
+    cta: "How we work",
+  },
+  residential: {
+    image: "/photos/interior-lounge.jpg", // SAMPLE
+    alt: "Finished apartment living room with cove ceiling lighting",
+    href: "/projects",
+    cta: "See residential projects",
+  },
+  sales: {
+    image: "/photos/planning-desk.jpg", // SAMPLE
+    alt: "Hands with a pencil and brass scale ruler over apartment floor plans",
+    href: "/buying-guide",
+    cta: "Read the buying guide",
+  },
+};
+
+/** Payment comparison derived directly from APARTMENTS — no hand-typed numbers. */
+export type PaymentCompareRow = {
+  slug: string;
+  type: string;
+  rooms: number;
+  beds: number;
+  total: number;
+  booking: number;
+  monthly: number;
+  loan: number;
+  cashPayable: number;
+};
+
+export const PAYMENT_COMPARE: PaymentCompareRow[] = APARTMENTS.map((a) => ({
+  slug: a.slug,
+  type: a.type,
+  rooms: a.rooms,
+  beds: a.beds,
+  total: a.total,
+  booking: a.schedule.find((r) => r.label === "Booking")?.amount ?? 0,
+  monthly: a.monthly,
+  loan: a.loan,
+  cashPayable: a.cashPayable,
+}));

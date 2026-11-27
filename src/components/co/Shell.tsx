@@ -2,11 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import { PROJECTS, projectHref } from "@/lib/company";
 import { SITE, TT } from "@/lib/site";
+import TowerAssistant from "@/components/assistant/TowerAssistant";
 import CoHeader from "./Header";
-import { CO_NAV } from "@/lib/company";
 import s from "./co.module.css";
 
-/** Frame for every company page: header, main, footer and the phone bar on small screens. */
+const SHOW_ASSISTANT = process.env.NEXT_PUBLIC_ROOT_ASSISTANT === "1" || process.env.NEXT_PUBLIC_ROOT_ASSISTANT === "true";
+
+/** Frame for every company page: header, main, 5-column footer and mobile contact bar. */
 export default function CoShell({ children }: { children: React.ReactNode }) {
   const year = new Date().getFullYear();
   return (
@@ -16,7 +18,12 @@ export default function CoShell({ children }: { children: React.ReactNode }) {
       <footer className={s.footer}>
         <div className={`${s.wrap} ${s.footGrid}`}>
           <div>
-            <Image className={s.footLogo} src="/brand/logo-dark.png" alt={SITE.name} width={973} height={1079} />
+            <div className={s.footWordmark}>
+              <div className={s.goldRule} aria-hidden="true">
+                <span>Est. {SITE.registered}</span>
+              </div>
+              <Image src="/brand/wordmark-dark.png" alt="Ali Zeeshan Enterprises" width={973} height={275} />
+            </div>
             <p>{SITE.description}</p>
           </div>
           <div>
@@ -32,21 +39,27 @@ export default function CoShell({ children }: { children: React.ReactNode }) {
           <div>
             <h3>Company</h3>
             <ul>
-              {[...CO_NAV, { label: "FAQ", href: "/faq" }, { label: "Careers", href: "/careers" }].map((n) => (
-                <li key={n.href}>
-                  <Link href={n.href}>{n.label}</Link>
-                </li>
-              ))}
-              <li>
-                <Link href={TT}>Ali&apos;s Twin Tower site</Link>
-              </li>
+              <li><Link href="/about">About</Link></li>
+              <li><Link href="/services">Services</Link></li>
+              <li><Link href="/updates">Updates</Link></li>
+              <li><Link href="/careers">Careers</Link></li>
+              <li><Link href="/faq">FAQ</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3>Buy</h3>
+            <ul>
+              <li><Link href="/payment-plans">Payment plans</Link></li>
+              <li><Link href="/buying-guide">Buying guide</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
+              <li><Link href={TT}>Ali&apos;s Twin Tower site</Link></li>
             </ul>
           </div>
           <div>
             <h3>Booking office</h3>
             <ul>
-              <li>{SITE.address}</li>
-              <li>{SITE.hours}</li>
+              <li className={s.footText}>Plot 25-B, Scheme-33, Karachi</li>
+              <li className={s.footText}>{SITE.hours}</li>
               <li>
                 <a href={SITE.phoneHref}>{SITE.phone}</a>
               </li>
@@ -68,7 +81,7 @@ export default function CoShell({ children }: { children: React.ReactNode }) {
           <span className={s.legal}>
             <Link href="/privacy">Privacy</Link>
             <Link href="/terms">Terms</Link>
-            <span>Renders and plans are for illustration.</span>
+            <span className={s.footNote}>Renders and plans are for illustration.</span>
           </span>
         </div>
       </footer>
@@ -79,6 +92,7 @@ export default function CoShell({ children }: { children: React.ReactNode }) {
         </a>
         <Link href="/contact">Book a site visit</Link>
       </nav>
+      {SHOW_ASSISTANT && <TowerAssistant />}
     </div>
   );
 }

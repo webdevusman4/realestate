@@ -1,6 +1,6 @@
-# Ali Zeeshan Enterprises: sample website (Next.js)
+# Ali Zeeshan Enterprises: Company & Project Website (Next.js)
 
-Multi-page sample site for **Ali Zeeshan Enterprises** (Builders & Developers), made as a mock-up to show the client. It now also has a project section for the new **Ali's Twin Tower** apartments.
+Multi-page website for **Ali Zeeshan Enterprises** (Builders & Real Estate Developers, Karachi), paired with the separate **Ali's Twin Tower** project site (`/alistwintower`).
 
 ## Run it
 
@@ -12,38 +12,30 @@ npm run build      # production build (fully static)
 
 ## Stack
 
-- Next.js 16.3 (App Router) + React 19.2, TypeScript: same stack as the HiScale and Azuma sites
-- One CSS module (`src/components/site.module.css`) with design tokens in `src/app/globals.css`
-- Archivo (variable width, for the wide headings that echo the logo) + Inter, self-hosted via `next/font/local`
-- lucide-react icons; no other runtime dependencies
-
-## Design
-
-- **Theme "Black & Gold"**, taken from the logo: warm ink `#15120E`, ivory `#F6F2EA` (never plain white),
-  and the logo's gold gradient (`#8B6522 → #F1D58E → #7D5A1A`) as the accent.
-- **Logo**: `public/brand/` has the original plus transparent versions for light (`*-light.png`) and dark
-  (`*-dark.png`, ivory + brightened gold) backgrounds, the mark on its own, and the wordmark. The favicon is
-  generated from the mark.
-- **Signature hero**: three photo "towers" shaped like the three buildings in the logo, rising on load with a
-  gold blueprint outline, a slow zoom and pointer parallax, plus a "Live on site" card that cycles project progress.
-- **Alive**: count-up stats, a keyword marquee with the gold triangle from the logo's "A", scroll reveals,
-  a process rail that fills as you scroll, hover zooms, filterable projects. All motion respects
-  `prefers-reduced-motion`.
-- **Phones**: full-screen menu and a fixed Call / WhatsApp / Free estimate bar.
+- Next.js 16 (App Router) + React 19, TypeScript
+- Company site styles scoped to `src/components/co/co.module.css` ("Zeeshan Black & Gold": ink `#14110D`, warm ivory `#F6F2EA` / `#EFE9DD`, gold `#C99A3F` / `#7A5A1F`)
+- Twin Tower project site uses `src/components/site.module.css` + `src/app/globals.css` (unchanged)
+- Self-hosted variable fonts via `next/font/local`: Archivo (wide headings), Newsreader (statements & editorial headings), Inter (body & UI)
+- `lucide-react` icons; no extra runtime dependencies
 
 ## Two sites in one app
 
-**Ali Zeeshan Enterprises** is the company portfolio. **Ali's Twin Tower** is a separate project site with its own
-logo, navy theme, header, footer and mobile bar. Clients are expected to spend most of their time on the project site.
-Each project gets its own section like this (the next project can copy `src/app/alistwintower/`).
-
-| Company site | Content |
+| Company site (v2 Black & Gold) | Content |
 | --- | --- |
-| `/` | Hero, marquee, current-project teaser, About, Services, Why us |
-| `/about`, `/services`, `/contact` | Company pages |
-| `/projects` | Project list (links to the project site) |
+| `/` | Hero, trust strip, company statement, interactive project register, Twin Tower featured block, why buy from us, 5-step buying summary, services with 4:3 photos, 5 FAQs, Final CTA, Visit us |
+| `/projects` | Filterable project register (status & type), Twin Tower featured block, Visit us, Final CTA |
+| `/projects/[slug]` | Individual project page (facts, highlights, 3-photo gallery, text-only location, payment note, enquiry form, related projects, Final CTA) |
+| `/payment-plans` | Payment plan basics, Type A/B/C comparison table (from `APARTMENTS`), extra charges & exclusions, schedule terms verbatim, links to schedules |
+| `/buying-guide` | 5 booking steps beside interior photo, payment plan basics, document checklist, possession note, 6 FAQs, Final CTA |
+| `/about` | Story, facts, 3:2 planning/site photo strip, leadership monogram blocks, ABAD & PEC memberships, values ledger, timeline |
+| `/services` | 4 service rows with 4:3 images, tags & destination links; 5-step project process |
+| `/updates` | Booking announcement (real) + example construction/facilities post format |
+| `/contact` | Booking office details, click-to-call, WhatsApp, lazy map, validated site-visit form |
+| `/faq` | Grouped accordion (Company, Buying, Payment) + `FAQPage` JSON-LD |
+| `/careers` | Honest enquiry note + office details |
+| `/privacy`, `/terms` | Draft legal pages (`noindex`, excluded from `sitemap.xml`) |
 
-| Project site | Content |
+| Project site (`/alistwintower`, unchanged) | Content |
 | --- | --- |
 | `/alistwintower` | Hero with logo, story, highlights, apartment cards, payment snapshot, lifestyle, amenities, location |
 | `/alistwintower/apartments` | Type A/B/C cards and comparison table |
@@ -53,86 +45,40 @@ Each project gets its own section like this (the next project can copy `src/app/
 | `/alistwintower/location` | Site office, Google Maps link |
 | `/alistwintower/contact` | Book a visit form (tagged "Ali's Twin Tower site") |
 
-Old `/projects/alis-twin-tower/...` and `/alis-twin-tower/...` links redirect to the new paths.
+## Real vs dummy content
 
-**Subdomain later** (`alistwintower.<company domain>`): the project's base path is the single constant `TT` in
-`src/lib/site.ts`. Moving it to a subdomain means adding the domain in Netlify and a host-based rewrite to
-`/alistwintower`, then setting `TT` to `""` for that deployment. Project data lives in `src/lib/site.ts` (`TWIN_TOWER`, `APARTMENTS`, `TOWER_OFFICE`, `TOWER_NAV`);
-the logo files are in `public/brand/twin-tower/`.
+**Real (confirmed by the client):**
+- Company name `Ali Zeeshan Enterprises`, `"Builder & Real Estate Developer"`, registered `2019`
+- Memberships: `ABAD` and `PEC` (membership numbers/categories to confirm)
+- Phone `+92 320 9281567`, booking office `Plot 25-B, Scheme-33, Karachi`, hours `10:00 am – 8:00 pm` (days to confirm)
+- Services: `Commercial Buildings`, `Real Estate Development`
+- Project names: `Ali's Twin Tower`, `Zeeshan Pride`, `Ali's Tower`, `Ali Complex`, `Ali's Bridge View`, `Ali Skyline`
+- Owner names: `Kamran Ali Khan`, `Shariq Aziz` (roles are sample placeholders)
+- All `Ali's Twin Tower` pricing, payment schedules, floor plans, features and FAQ in `src/lib/site.ts` and `src/lib/plans.ts`
 
-## Placeholders to replace before going live
+**Dummy / placeholder (tagged `sample: true` in `src/lib/company.ts` and badged with `<Tag>` in UI):**
+- Project sizes, years, locations and summaries for all 5 non-tower projects (`Zeeshan Pride`, `Ali's Tower`, `Ali Complex`, `Ali's Bridge View`, `Ali Skyline`)
+- Company story (`STORY`), director roles, timeline years `2020`–`2022`, `Residential Apartments` and `Booking & Sales Support` wording, `PROCESS` steps
+- Document checklist on `/buying-guide`, two example progress posts on `/updates`
+- Draft email `info@alizeeshan.pk`, ABAD/PEC registration numbers, `/privacy` and `/terms` drafts (awaiting lawyer review)
 
-Everything marked `SAMPLE` or `CONFIRM` in `src/lib/site.ts`:
+## Images & how to swap in real photos
 
-- [ ] Twin Tower: status/handover date, "Standby generator" (brochure text is cut off), spelling of "Deh Songhal", WhatsApp on the same number, office hours, email, logo file (`public/brand/`), architect drawings to check the redrawn floor plans (`src/lib/plans.ts`), area in sq ft, bath counts, Type C "On finishing" (600,000 inferred)
-- [ ] Phone, WhatsApp number, email, office hours, city / office address
-- [ ] Stats (15+ years, 120+ projects, 2M+ sq ft, 98% on time) and the "15+ years" badge
-- [ ] Project names, sizes and photos (currently stock photos with made-up names)
-- [ ] The "Live on site" projects in the hero
-- [ ] Services list and promises (fixed quotes, weekly updates, etc.): confirm they offer these
-- [ ] Photos: stock photos from Unsplash (credits in `public/photos/CREDITS.md`); swap in the client's own
+All photography for non-tower projects and company sections is representative and mapped centrally via `IMAGE_MAP`, `SERVICE_V2`, and `UPDATES` in `src/lib/company.ts`. Credits and audit verdicts live in `public/photos/CREDITS.md`.
 
-## Form
+To process, crop and warm-grade replacement photos with `sharp` (banners ≤ 350 KB, cards ≤ 160 KB, max long edge ≤ 2600 px):
 
-The estimate form posts to Netlify Forms (registered in `public/__forms.html`). On another host the post fails
-gracefully and visitors are shown the phone number and WhatsApp instead.
+```bash
+node scripts/prepare-images.mjs
+```
 
-## Real content from the brochure
+To replace a stock photo with a real site photo:
+1. Drop the real high-resolution photo into `public/photos/` (matching or adding a slug entry in `IMAGE_MAP`).
+2. Run `node scripts/prepare-images.mjs` (or compress ≤ 350 KB for banners, ≤ 160 KB for cards).
+3. Update the caption/credit in `public/photos/CREDITS.md` and remove `"Representative image"` / `sample` tags once confirmed.
 
-Site office (Plot 25B, Scheme-33, Deh Songhal, Karachi, 0320-9281567), the project story, "Unmatched Lifestyle" text,
-salient features (masjid, covered parking, CCTV, 24/7 security, 8 lifts, play area, lobby, standby), and the
-Type A/B/C plans and payment schedules are all in `src/lib/site.ts`.
+## SEO, forms & optional assistant
 
-Photos: amenity cards use `public/amenities/*.jpg` and page banners use `public/heroes/` plus the renders, all stock/representative (credits in `public/amenities/CREDITS.md`). Room photos: `public/renders/{kitchen,washroom,bedroom,living,drawing}.jpg` are free Unsplash stock photos shown as
-"Representative image" on the Lifestyle section (credits in `public/renders/CREDITS.md`). Replace them with the real
-renders or site photos using the same file names; change the tag text in `Lifestyle()` (`PageParts.tsx`) to
-"Artist impression" for renders.
-
-The old sample project gallery (`Projects.tsx`, `PROJECTS` in `site.ts`) is no longer shown: those names and photos were made up.
-
-## SEO and sharing
-
-`SITE_ORIGIN` (in `src/lib/site.ts`) is the public address used for canonical links, social preview images, `/sitemap.xml`,
-`/robots.txt` and `/llms.txt`. On Netlify it is taken from the build's `URL` automatically; set `NEXT_PUBLIC_SITE_URL`
-in Netlify's environment variables once the real domain (or the `alistwintower` subdomain) is live.
-
-## Twin Tower assistant (AI chat)
-
-A floating "Ask us" chat on the project site (`/alistwintower/...`), adapted from the Fecto Cement assistant.
-It streams answers from Google Gemini through `src/app/api/assistant/route.ts`; the key stays on the server.
-
-- **Turn it on:** add `GEMINI_API_KEY` (Google AI Studio) in Netlify, Site configuration, Environment variables, then redeploy.
-  Without a key the chat shows a friendly message with the site office number.
-- **Always matches the site:** `src/lib/assistant/prompt.ts` builds the assistant's knowledge from `src/lib/site.ts` and `src/lib/plans.ts`
-  (prices, schedules, room sizes, features, address). Change the data once and the chat follows.
-- **Safety:** it must not invent handover dates, availability, loan terms or areas, and points to the site office instead.
-- **Limits:** 25 questions per visitor per day, 6 per minute, 450 per day overall (override with `ASSISTANT_*` variables, see `.env.example`).
-- **Models:** `GEMINI_MODEL` / `GEMINI_FALLBACK_MODEL` (defaults `gemini-3.5-flash-lite`, then `gemini-3.8-flash`).
-
-## Company site (professional redesign)
-
-Pages at `/`: `/`, `/about`, `/services`, `/projects`, `/projects/<name>`, `/contact`, plus new `/buying-guide`, `/faq`, `/updates`,
-`/careers`, `/privacy`, `/terms` and a custom 404. Content lives in `src/lib/company.ts`; page parts in `src/components/co/`
-(`Parts.tsx`, `Sections.tsx`, `Register.tsx`, `Form.tsx`); SEO helpers (metadata, canonical, JSON-LD) in `src/lib/seo.ts`.
-The tower site (`/alistwintower`, `TowerParts.tsx`, assistant, `site.module.css`) is not touched.
-
-**What the redesign added:** trust row, "why buy from us" ledger, featured Twin Tower block with payment summary, five-step
-buying section, FAQ (with FAQPage JSON-LD), project register filters by status and type, project pages with facts, location and
-payment, enquiry form and related projects, contact form with validation, visit date and time, WhatsApp and click-to-call,
-Organization + RealEstateAgent + BreadcrumbList JSON-LD, sitemap and `llms.txt` for all pages, social preview image (`public/og/company.jpg`).
-
-**Real (from the client):** company name, "Builder & Real Estate Developer", registered 2019, ABAD and PEC membership, phone
-+92 320 9281567, booking office Plot 25-B Scheme-33 Karachi, hours 10 am to 8 pm, services (commercial buildings, real estate
-development), project names, owner names, and all Ali's Twin Tower data (`site.ts`, `plans.ts`).
-
-**Sample (tagged "Sample details" or "Example post" on the page, `sample: true` in code):**
-- Zeeshan Pride, Ali's Tower, Ali Complex, Ali's Bridge View and Ali Skyline: sizes, years, locations, photos
-- Company story, director roles, timeline years 2020 to 2022, the two extra services
-- Documents checklist on `/buying-guide`
-- Two example progress posts on `/updates` (the "open for booking" post is real)
-- Email address `info@alizeeshan.pk`, ABAD and PEC membership numbers (not shown, to be confirmed)
-- `/privacy` and `/terms` are drafts for the company's lawyer; both are `noindex` until reviewed
-- Possession date: not published. The site tells buyers to ask the booking office.
-
-**Form:** the enquiry and visit form posts to Netlify Forms (form name `estimate`, registered in `public/__forms.html`, now with
-email, project, visit date and visit time).
+- `SITE_ORIGIN` (in `src/lib/site.ts`) uses `NEXT_PUBLIC_SITE_URL` (or Netlify `URL`) for canonical links, OpenGraph, `/sitemap.xml`, and `/llms.txt`.
+- The enquiry / visit form posts to Netlify Forms (`public/__forms.html`, form name `estimate`), with Pakistani phone validation and click-to-call / WhatsApp fallback on error.
+- Root site assistant: off by default. Set `NEXT_PUBLIC_ROOT_ASSISTANT=1` to mount the existing `TowerAssistant` on company pages without modifying any assistant code.

@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import CoShell from "@/components/co/Shell";
 import CoForm from "@/components/co/Form";
 import { PageHead, SectionHead, Tag } from "@/components/co/Parts";
-import { RelatedProjects } from "@/components/co/Sections";
+import { FinalCta, RelatedProjects } from "@/components/co/Sections";
 import { pageMeta } from "@/lib/seo";
 import s from "@/components/co/co.module.css";
-import { PROJECTS, projectBySlug } from "@/lib/company";
+import { IMAGE_MAP, PROJECTS, projectBySlug } from "@/lib/company";
 import { SITE, waLink } from "@/lib/site";
 
 type Params = { slug: string };
@@ -22,7 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const { slug } = await params;
   const p = projectBySlug(slug);
   if (!p) return {};
-  return pageMeta({ title: `${p.name}: ${p.status.toLowerCase()} ${p.type.toLowerCase()} project`, description: `${p.summary} By ${SITE.name}.`, path: `/projects/${p.slug}` });
+  return pageMeta({
+    title: `${p.name}: ${p.status.toLowerCase()} ${p.type.toLowerCase()} project`,
+    description: `${p.summary} By ${SITE.name}.`,
+    path: `/projects/${p.slug}`,
+  });
 }
 
 export default async function ProjectPage({ params }: { params: Promise<Params> }) {
@@ -30,12 +35,27 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
   const p = projectBySlug(slug);
   if (!p || p.href) notFound();
 
+  const media = IMAGE_MAP[p.slug];
+  const bannerSrc = media?.banner ?? p.image;
+  const bannerAlt = media?.bannerAlt ?? p.alt;
+  const bannerPos = media?.bannerPos ?? p.pos ?? "50% 50%";
+  const gallery = media?.gallery?.length ? media.gallery : p.gallery;
+
   return (
     <CoShell>
-      <PageHead path={`/projects/${p.slug}`} title={p.name} text={p.summary} crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.name }]} />
+      {/* 1. Page head + 21:9 banner */}
+      <PageHead
+        path={`/projects/${p.slug}`}
+        title={p.name}
+        text={p.summary}
+        crumbs={[{ label: "Home", href: "/" }, { label: "Projects", href: "/projects" }, { label: p.name }]}
+      />
       <div className={s.banner}>
-        <Image src={p.image} alt={p.alt} fill priority sizes="100vw" style={{ objectPosition: p.pos ?? "50% 50%" }} />
+        <Image src={bannerSrc} alt={bannerAlt} fill priority sizes="100vw" style={{ objectPosition: bannerPos }} />
+        <span className={s.repCap}>Representative image</span>
       </div>
+
+      {/* 2 & 3. Facts table + Highlights */}
       <section className={s.sec}>
         <div className={`${s.wrap} ${s.cols2}`}>
           <div>
@@ -72,21 +92,29 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
               <a className={s.btn} href={SITE.phoneHref}>
                 Call {SITE.phone}
               </a>
-              <a className={`${s.btn} ${s.btnLine}`} href={waLink(SITE.whatsappHref, `Hello, I would like to know more about ${p.name}.`)} target="_blank" rel="noopener noreferrer">
+              <a
+                className={`${s.btn} ${s.btnLine}`}
+                href={waLink(SITE.whatsappHref, `Hello, I would like to know more about ${p.name}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 WhatsApp
               </a>
             </div>
           </div>
         </div>
       </section>
-      {p.gallery.length > 0 && (
-        <section className={`${s.sec} ${s.onConcrete}`}>
+
+      {/* 4. Gallery: 3 images, 4:3, Representative photo caption */}
+      {gallery.length > 0 && (
+        <section className={`${s.sec} ${s.onIvory2}`}>
           <div className={s.wrap}>
-            <SectionHead label="Gallery" title="Photos." />
+            <SectionHead label="Gallery" title="Representative photos." short />
             <ul className={s.gallery}>
-              {p.gallery.map((g) => (
+              {gallery.map((g) => (
                 <li key={g.src}>
                   <Image src={g.src} alt={g.alt} fill sizes="(max-width: 900px) 100vw, 33vw" />
+                  <span className={s.repCap}>Representative photo</span>
                 </li>
               ))}
             </ul>
@@ -94,7 +122,9 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
           </div>
         </section>
       )}
-      <section className={`${s.sec} ${s.onConcrete}`}>
+
+      {/* 5, 6 & 7. Location + Payment + Enquiry form */}
+      <section className={`${s.sec} ${s.onIvory}`}>
         <div className={`${s.wrap} ${s.cols2}`}>
           <div>
             <p className={s.label}>Location and payment</p>
@@ -103,12 +133,17 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                 <dt>Location</dt>
                 <dd>
                   {p.location}
-                  {p.sample && " (exact address to follow)"}
+                  {p.sample && (
+                    <>
+                      {" (exact address to follow) "}
+                      <Tag>Sample location</Tag>
+                    </>
+                  )}
                 </dd>
               </div>
               <div>
                 <dt>Payment plan</dt>
-                <dd>{p.status === "Upcoming" ? "Announced at launch." : "Ask the booking office for current availability and terms."}</dd>
+                <dd>{p.status === "Upcoming" ? "Announced at launch." : "Payment plan: ask the booking office."}</dd>
               </div>
               <div>
                 <dt>Office</dt>
@@ -117,23 +152,34 @@ export default async function ProjectPage({ params }: { params: Promise<Params> 
                 </dd>
               </div>
             </dl>
-            <p>
-              New to buying?{" "}
-              <a className={s.link} href="/buying-guide">
+            <div className={s.row}>
+              <Link className={s.actionLink} href="/payment-plans">
+                See payment plans
+              </Link>
+              <Link className={s.actionLink} href="/buying-guide">
                 Read the buying guide
-              </a>
-              .
-            </p>
+              </Link>
+            </div>
           </div>
-          <CoForm title={p.status === "Upcoming" ? `Register interest in ${p.name}` : `Ask about ${p.name}`} source={`Company site: ${p.name}`} project={p.name} visit={p.status !== "Upcoming"} />
+          <CoForm
+            title={p.status === "Upcoming" ? `Register interest in ${p.name}` : `Ask about ${p.name}`}
+            source={`Company site: ${p.name}`}
+            project={p.name}
+            visit={p.status !== "Upcoming"}
+          />
         </div>
       </section>
-      <section className={s.sec}>
+
+      {/* 8. Related projects */}
+      <section className={`${s.sec} ${s.onIvory2}`}>
         <div className={s.wrap}>
-          <SectionHead label="More projects" title="See our other work." />
+          <SectionHead label="More projects" title="See our other work." short />
           <RelatedProjects current={p} />
         </div>
       </section>
+
+      {/* 9. Final CTA */}
+      <FinalCta />
     </CoShell>
   );
 }
