@@ -208,6 +208,111 @@ export const STORY = [
 export const CO_NAV = [
   { label: "Projects", href: "/projects" },
   { label: "Services", href: "/services" },
+  { label: "Buying guide", href: "/buying-guide" },
+  { label: "Updates", href: "/updates" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ] as const;
+
+/* ------------------------------------------------------------------------------------------------
+ * Added in the professional redesign. Items with `sample: true` are placeholders until the client confirms them.
+ * ---------------------------------------------------------------------------------------------- */
+
+export const TYPE_FILTERS = ["All types", "Residential", "Commercial"] as const;
+
+/** Reasons to buy from us. Each one can be checked on the project site or at the booking office. */
+export const WHY_US = [
+  { title: "One company from land to keys", text: "We develop, build and sell our own projects. You deal with us, not a chain of agents." },
+  { title: "Prices written down", text: "Every Twin Tower apartment type has a full payment schedule: booking, instalments, finishing and possession." },
+  { title: "A way to pay that fits", text: "60 monthly instalments, a bank loan option and 10% off for full cash payment at booking." },
+  { title: "Registered and answerable", text: `Registered in ${SITE.registered}. Member of ABAD and PEC. The booking office is open ${SITE.hours}.` },
+] as const;
+
+export const BUY_STEPS = [
+  { title: "Visit or call", text: "Come to the booking office or call us. Ask anything. Seeing the plans in person is the best first step." },
+  { title: "Choose your apartment", text: "Compare Type A, B and C by rooms, size and total cost. The project site has the floor plans." },
+  { title: "Book with the booking amount", text: "You pay the booking amount and sign the application form. The unit stays provisional until full payment is received." },
+  { title: "Follow the payment schedule", text: "Pay on allocation, confirmation and start of work, then monthly and half-yearly instalments and the slab payments. Instalments are due by the 10th of each month." },
+  { title: "Finishing and possession", text: "The last payments fall on finishing and possession. Ask the booking office for the handover timeline." },
+] as const;
+
+/** SAMPLE: confirm the real checklist with the booking office. */
+export const DOCUMENTS = [
+  "Copy of CNIC (both sides)",
+  "Passport-size photographs",
+  "Filled application form from the booking office",
+  "Booking amount by cheque or bank transfer",
+  "For overseas buyers: copy of passport and a local contact",
+];
+
+export const PAYMENT_BASICS = [
+  { k: "Booking", v: "You pay the booking amount first. The amount depends on the apartment type." },
+  { k: "Instalments", v: "60 monthly and 10 half-yearly instalments, plus 12 slab-casting payments." },
+  { k: "Bank loan", v: "Each schedule shows an expected bank loan. Ask the booking office what applies to you." },
+  { k: "Cash discount", v: "10% off for full cash payment at the time of booking." },
+  { k: "Not included", v: "Ground rent, sub-lease, documentation, registration and utility connection charges are paid separately." },
+  { k: "Extra charges", v: "Road facing, corner and west open units carry extra charges, due within 90 days of booking." },
+] as const;
+
+/** Company-level FAQ. Answers use confirmed facts; anything unknown points to the booking office. */
+export const FAQ: { q: string; a: string; group: "Buying" | "Payment" | "Company" }[] = [
+  { group: "Company", q: "Who is Ali Zeeshan Enterprises?", a: `We are a Karachi builder and real estate developer, registered in ${SITE.registered}. We are members of ABAD and PEC.` },
+  { group: "Company", q: "Which project can I book now?", a: "Ali's Twin Tower in Scheme-33, Karachi. It has 3, 4 and 5 room apartments. Floor plans and payment plans are on the project site." },
+  { group: "Company", q: "Where is the booking office?", a: `${SITE.address.replace(/^Booking office:\s*/, "")}. It is open ${SITE.hours}. Call ${SITE.phone}.` },
+  { group: "Buying", q: "Can I visit before I book?", a: "Yes. Use Book a site visit, call, or message us on WhatsApp. Tell us a day and time and the booking office will confirm." },
+  { group: "Buying", q: "What happens after I book?", a: "Your unit is allocated provisionally. It stays provisional until the company receives full and final payment, as the payment schedule states." },
+  { group: "Buying", q: "When will I get possession?", a: "Ask the booking office for the current handover timeline. We do not publish a date on this site until it is confirmed." },
+  { group: "Payment", q: "How do the instalments work?", a: "After booking, allocation, confirmation and start of work, you pay 60 monthly and 10 half-yearly instalments, plus 12 slab-casting payments, then the finishing and possession payments. Monthly instalments are due by the 10th." },
+  { group: "Payment", q: "Is a bank loan possible?", a: "Each Twin Tower payment schedule shows an expected bank loan figure. Ask the booking office for the loan steps that apply to you." },
+  { group: "Payment", q: "Is there a discount for cash?", a: "Yes. 10% off for full cash payment at the time of booking. Discounts depend on regular payment and are adjusted in the final instalments." },
+  { group: "Payment", q: "What costs are not in the apartment price?", a: "Ground rent, sub-lease execution, documentation, registration and gas, electricity, water and sewerage connection and meter deposits are paid separately." },
+];
+
+/** Values stated as things we do. Wording comes from the brochure's values; confirm with the client. */
+export const VALUES_ACTIONS = [
+  { title: "We put prices in writing", text: "Each apartment type has a payment schedule you can read before you decide." },
+  { title: "We answer by phone", text: `Call ${SITE.phone} between ${SITE.hours}. A person from the booking office picks up.` },
+  { title: "We build to be handed over", text: "The aim is on-time delivery and long-term relationships with our buyers." },
+  { title: "We say what we do not know yet", text: "If a date or detail is not confirmed, this site says so and points you to the booking office." },
+] as const;
+
+/** Timeline. Only 2019 and the Twin Tower launch are from the client; other years are SAMPLE. */
+export const TIMELINE: { when: string; title: string; text: string; sample?: boolean }[] = [
+  { when: String(SITE.registered), title: "Company registered", text: "Ali Zeeshan Enterprises starts as a Karachi builder and developer." },
+  { when: "2020", title: "Ali Complex", text: "Shops and offices on a busy road.", sample: true },
+  { when: "2021", title: "Ali's Tower", text: "A mid-rise commercial tower.", sample: true },
+  { when: "2022", title: "Zeeshan Pride", text: "A family apartment building.", sample: true },
+  { when: "Now", title: "Ali's Twin Tower", text: "Apartments in Scheme-33, open for booking." },
+];
+
+export type Update = { slug: string; title: string; date?: string; project: string; text: string; sample?: boolean; image?: string; alt?: string };
+
+/** Construction and booking updates. Only the first post is real; the others show how progress posts will look. */
+export const UPDATES: Update[] = [
+  {
+    slug: "twin-tower-open-for-booking",
+    title: "Ali's Twin Tower is open for booking",
+    project: "Ali's Twin Tower",
+    text: "Type A, B and C apartments can be booked at the booking office in Scheme-33. Payment schedules for each type are on the project site.",
+    image: "/hero/twin-tower-hero-mobile.jpg",
+    alt: "Ali's Twin Tower at dusk (artist impression)",
+  },
+  {
+    slug: "sample-progress-structure",
+    title: "Structure progress: example post",
+    date: "Date to follow",
+    project: "Ali's Twin Tower",
+    text: "Progress posts will name the floor reached, the work done that month and what comes next, with site photos. This one shows the format only.",
+    sample: true,
+  },
+  {
+    slug: "sample-progress-facilities",
+    title: "Facilities update: example post",
+    date: "Date to follow",
+    project: "Ali's Twin Tower",
+    text: "Posts about lifts, parking, the masjid and security will appear here as each part is built. This one shows the format only.",
+    sample: true,
+  },
+];
+
+export const LEGAL_DRAFT = "Draft for review by the company's lawyer. Not final legal text.";
